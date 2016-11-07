@@ -1,27 +1,31 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { selectReddit, fetchPostsIfNeeded, invalidateReddit } from '../actions'
-import Picker from '../components/Picker'
+import { selectReddit, fetchURLSearch, invalidateReddit } from '../actions'
 import Posts from '../components/Posts'
 
 class App extends Component {
   static propTypes = {
-    selectedReddit: PropTypes.string.isRequired,
-    posts: PropTypes.array.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    lastUpdated: PropTypes.number,
     dispatch: PropTypes.func.isRequired
   }
 
   componentDidMount() {
-    const { dispatch, selectedReddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedReddit))
+    const { dispatch } = this.props
+
+    chrome.tabs.query({
+      active: true,
+      currentWindow: true
+    }, function(tabs) {
+      const url = tabs[0].url.split('?')[0]
+      dispatch(fetchURLSearch(url))
+      //that.setState({tabURL: })
+    });
+    
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedReddit !== this.props.selectedReddit) {
       const { dispatch, selectedReddit } = nextProps
-      dispatch(fetchPostsIfNeeded(selectedReddit))
+      //dispatch(fetchPostsIfNeeded(selectedReddit))
     }
   }
 
@@ -38,54 +42,23 @@ class App extends Component {
   }
 
   render() {
-    const { selectedReddit, posts, isFetching, lastUpdated } = this.props
-    const isEmpty = posts.length === 0
+    const { text } = this.props
     return (
       <div>
-        <Picker value={selectedReddit}
-                onChange={this.handleChange}
-                options={[ 'reactjs', 'frontend' ]} />
-        <p>
-          {lastUpdated &&
-            <span>
-              Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
-              {' '}
-            </span>
-          }
-          {!isFetching &&
-            <a href="#"
-               onClick={this.handleRefreshClick}>
-              Refresh
-            </a>
-          }
-        </p>
-        {isEmpty
-          ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-              <Posts posts={posts} />
-            </div>
-        }
+        {text}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { selectedReddit, postsByReddit } = state
-  const {
-    isFetching,
-    lastUpdated,
-    items: posts
-  } = postsByReddit[selectedReddit] || {
-    isFetching: true,
-    items: []
-  }
+  const { posts: { text, isFetching } } = state
+
+  console.log(text, state, 'stuff')
 
   return {
-    selectedReddit,
-    posts,
-    isFetching,
-    lastUpdated
+    text,
+    isFetching
   }
 }
 

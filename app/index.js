@@ -14,10 +14,6 @@ const store = createStore(
 
 export default class Root extends Component {
 
-  static propTypes = {
-    store: PropTypes.object.isRequired
-  };
-
   render() {
     return (
       <Provider store={store}>

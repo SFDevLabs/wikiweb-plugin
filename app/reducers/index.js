@@ -15,51 +15,30 @@ const selectedReddit = (state = 'reactjs', action) => {
 
 const posts = (state = {
   isFetching: false,
-  didInvalidate: false,
-  items: []
+  text: ''
 }, action) => {
   switch (action.type) {
-    case INVALIDATE_REDDIT:
-      return {
-        ...state,
-        didInvalidate: true
-      }
     case REQUEST_POSTS:
       return {
         ...state,
-        isFetching: true,
-        didInvalidate: false
+        isFetching: true
       }
     case RECEIVE_POSTS:
+      const text = action.text;
       return {
         ...state,
         isFetching: false,
-        didInvalidate: false,
-        items: action.posts,
-        lastUpdated: action.receivedAt
+        text
       }
     default:
       return state
   }
 }
 
-const postsByReddit = (state = { }, action) => {
-  switch (action.type) {
-    case INVALIDATE_REDDIT:
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
-      return {
-        ...state,
-        [action.reddit]: posts(state[action.reddit], action)
-      }
-    default:
-      return state
-  }
-}
+
 
 const rootReducer = combineReducers({
-  postsByReddit,
-  selectedReddit
+  posts
 })
 
 export default rootReducer

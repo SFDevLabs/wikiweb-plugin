@@ -1,3 +1,5 @@
+import request from 'superagent'
+
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const SELECT_REDDIT = 'SELECT_REDDIT'
@@ -13,38 +15,60 @@ export const invalidateReddit = reddit => ({
   reddit
 })
 
-export const requestPosts = reddit => ({
+export const requestPosts = url => ({
   type: REQUEST_POSTS,
-  reddit
+  url
 })
 
-export const receivePosts = (reddit, json) => ({
+export const receivePosts = (text) => ({
   type: RECEIVE_POSTS,
-  reddit,
-  posts: json.data.children.map(child => child.data),
-  receivedAt: Date.now()
+  text
 })
 
-const fetchPosts = reddit => dispatch => {
-  dispatch(requestPosts(reddit))
-  return fetch(`https://www.reddit.com/r/${reddit}.json`)
-    .then(response => response.json())
-    .then(json => dispatch(receivePosts(reddit, json)))
+const fetchPosts = url => dispatch => {
+  dispatch(requestPosts(url))
+
+  return request
+    .get(`https://wikiweb.org/api/searchurl?q=${url}`)
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      const { body, body: { isURL } } = res
+      if (err) {
+        //@TODO Handel
+      } else if (!isURL) {
+        dispatch(receivePosts('Error in Response'))
+      } else {
+
+        const text = body.node.title;
+        chrome.browserAction.setBadgeText({ text: makeid() });
+        dispatch(receivePosts(text))
+      }
+      
+    });
+
 }
 
-const shouldFetchPosts = (state, reddit) => {
-  const posts = state.postsByReddit[reddit]
-  if (!posts) {
-    return true
-  }
-  if (posts.isFetching) {
-    return false
-  }
-  return posts.didInvalidate
+function makeid() {
+    var text = "";
+    var possible = "1234567890";
+
+    for( var i=0; i < 1; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
 
-export const fetchPostsIfNeeded = reddit => (dispatch, getState) => {
-  if (shouldFetchPosts(getState(), reddit)) {
-    return dispatch(fetchPosts(reddit))
-  }
+// const shouldFetchPosts = (state, reddit) => {
+//   const posts = state.postsByReddit[reddit]
+//   if (!posts) {
+//     return true
+//   }
+//   if (posts.isFetching) {
+//     return false
+//   }
+//   return posts.didInvalidate
+// }
+
+export const fetchURLSearch = url => (dispatch, getState) => {
+  return dispatch(fetchPosts(url))
 }
