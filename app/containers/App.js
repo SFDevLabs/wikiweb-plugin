@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { selectReddit, fetchURLSearch, invalidateReddit } from '../actions'
+import { fetchPosts } from '../actions'
 import Posts from '../components/Posts'
 
 class App extends Component {
@@ -16,9 +16,9 @@ class App extends Component {
       currentWindow: true
     }, function(tabs) {
       const url = tabs[0].url.split('?')[0]
-      //dispatch(fetchURLSearch(url))
+      dispatch(fetchPosts(url))
     });
-    
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,22 +40,20 @@ class App extends Component {
   }
 
   render() {
-    const { text } = this.props
+    const { entityCount } = this.props
     return (
-      <div style={{height:'300px', width:'300px'}}>
-        Eoin is Master!
+      <div style={{height:'200px', width:'200px'}}>
+        This page has {entityCount} connection{entityCount>1?'s':''}!
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { posts: { text, isFetching } } = state
-
+  const { posts: { entityCount } } = state
 
   return {
-    text,
-    isFetching
+    entityCount,
   }
 }
 

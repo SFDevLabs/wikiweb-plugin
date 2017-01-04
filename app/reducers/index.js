@@ -4,18 +4,10 @@ import {
   REQUEST_POSTS, RECEIVE_POSTS
 } from '../actions'
 
-const selectedReddit = (state = 'reactjs', action) => {
-  switch (action.type) {
-    case SELECT_REDDIT:
-      return action.reddit
-    default:
-      return state
-  }
-}
 
 const posts = (state = {
   isFetching: false,
-  text: ''
+  entityCount: null
 }, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
@@ -24,11 +16,10 @@ const posts = (state = {
         isFetching: true
       }
     case RECEIVE_POSTS:
-      const text = action.text;
+      const entityCount = action.entityCount;
       return {
         ...state,
-        isFetching: false,
-        text
+        entityCount,
       }
     default:
       return state

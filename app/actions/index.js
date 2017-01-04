@@ -20,55 +20,86 @@ export const requestPosts = url => ({
   url
 })
 
-export const receivePosts = (text) => ({
+export const receivePosts = (entityCount) => ({
   type: RECEIVE_POSTS,
-  text
+  entityCount,
 })
 
-const fetchPosts = url => dispatch => {
+
+const fetchProfile = url => dispatch => {
   dispatch(requestPosts(url))
 
   return request
-    .get(`https://wikiweb.org/api/searchurl?q=${url}`)
+    .get(`http://localhost:3000/api/users/profile`)
     .set('Accept', 'application/json')
     .end((err, res) => {
-      const { body, body: { isURL } } = res
       if (err) {
-        //@TODO Handel
-      } else if (!isURL) {
-        dispatch(receivePosts('Error in Response'))
-      } else {
-
-        const text = body.node.title;
-        chrome.browserAction.setBadgeText({ text: makeid() });
-        dispatch(receivePosts(text))
+        return dispatch(receivePosts('Error in Response'));
       }
-      
+
+      const { body, body: { isURL, node } } = res
+      if (!isURL || node === null) {
+      } else {
+        dispatch(fetchNode(node._id))
+      }
     });
-
 }
 
-function makeid() {
-    var text = "";
-    var possible = "1234567890";
+export const fetchPosts = url => dispatch => {
+  dispatch(requestPosts(url))
 
-    for( var i=0; i < 1; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return request
+    .get(`http://localhost:3000/api/searchurl?q=${url}`)
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      if (err) {
+        return dispatch(receivePosts('Error in Response'));
+      }
 
-    return text;
+      const { body, body: { isURL, node } } = res
+      if (!isURL) {
+        setExtensionButon(0);
+      } else {
+        if ( node === null) { setExtensionButon(0) }; // If the URL is valid but we have no node in DB
+        dispatch(fetchNode(node._id));
+      }
+    });
 }
 
-// const shouldFetchPosts = (state, reddit) => {
-//   const posts = state.postsByReddit[reddit]
-//   if (!posts) {
-//     return true
-//   }
-//   if (posts.isFetching) {
-//     return false
-//   }
-//   return posts.didInvalidate
-// }
+const fetchNode = id => dispatch => {
+  //dispatch(requestNode(id))
+  return request
+    .get(`http://localhost:3000/api/node/${id}`)
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      if (err) {
+        return dispatch(receivePosts('Error in Response'));
+      }
+      const { entityCount } = res.body;
+      setExtensionButon(entityCount);
+      dispatch(receivePosts(entityCount));
+    });
+}
 
-export const fetchURLSearch = url => (dispatch, getState) => {
-  return dispatch(fetchPosts(url))
+function setExtensionButon(entityCount){
+  //Set the badge text
+  chrome.browserAction.setBadgeText({
+    text: entityCount > 0 ? entityCount.toString() : ''
+  });
+  // Set the path for the icon
+  const path = entityCount > 0 ?
+  {
+    "16": "img/icon-16-connected.png",
+    "48": "img/icon-48-connected.png",
+    "128": "img/icon-128-connected.png",
+  }:
+  {
+    "16": "img/icon-16-not-connected.png",
+    "48": "img/icon-48-not-connected.png",
+    "128": "img/icon-128-not-connected.png",
+  };
+
+  chrome.browserAction.setIcon({
+    path
+  });
 }
