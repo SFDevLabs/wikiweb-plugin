@@ -16,8 +16,7 @@ class App extends Component {
       currentWindow: true
     }, function(tabs) {
       const url = tabs[0].url.split('?')[0]
-      dispatch(fetchURLSearch(url))
-      //that.setState({tabURL: })
+      //dispatch(fetchURLSearch(url))
     });
     
   }
@@ -25,7 +24,6 @@ class App extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedReddit !== this.props.selectedReddit) {
       const { dispatch, selectedReddit } = nextProps
-      //dispatch(fetchPostsIfNeeded(selectedReddit))
     }
   }
 
@@ -44,8 +42,8 @@ class App extends Component {
   render() {
     const { text } = this.props
     return (
-      <div>
-        {text}
+      <div style={{height:'300px', width:'300px'}}>
+        Eoin is Master!
       </div>
     )
   }
@@ -54,7 +52,6 @@ class App extends Component {
 const mapStateToProps = state => {
   const { posts: { text, isFetching } } = state
 
-  console.log(text, state, 'stuff')
 
   return {
     text,
