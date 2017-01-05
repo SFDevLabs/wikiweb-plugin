@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchPosts } from '../actions'
-import Posts from '../components/Posts'
+import Connections from '../components/Connections'
+import Add from '../components/Add'
 
 class App extends Component {
   static propTypes = {
@@ -43,6 +44,8 @@ class App extends Component {
     const { entityCount } = this.props
     return (
       <div style={{height:'200px', width:'200px'}}>
+        <Connections />
+        <Add />
         This page has {entityCount} connection{entityCount>1?'s':''}!
       </div>
     )
