@@ -1,52 +1,48 @@
 import request from 'superagent'
 
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_REDDIT = 'SELECT_REDDIT'
-export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
+export const REQUEST_SEARCH = 'REQUEST_POSTS'
+export const RECEIVE_NODE = 'RECEIVE_POSTS'
+export const RECEIVE_ERROR = 'RECEIVE_POSTS'
 
-export const selectReddit = reddit => ({
-  type: SELECT_REDDIT,
-  reddit
-})
 
-export const invalidateReddit = reddit => ({
-  type: INVALIDATE_REDDIT,
-  reddit
-})
-
-export const requestPosts = url => ({
-  type: REQUEST_POSTS,
+export const requestSearch = url => ({
+  type: REQUEST_SEARCH,
   url
 })
 
-export const receivePosts = (entityCount) => ({
-  type: RECEIVE_POSTS,
+export const receiveNode = (entityCount, title, superEdges) => ({
+  type: RECEIVE_NODE,
   entityCount,
+  title,
+  superEdges,
+})
+
+export const receiveError = (entityCount) => ({
+  type: RECEIVE_ERROR,
 })
 
 
-const fetchProfile = url => dispatch => {
-  dispatch(requestPosts(url))
+// const fetchProfile = url => dispatch => {
+//   dispatch(requestPosts(url))
+//
+//   return request
+//     .get(`http://localhost:3000/api/users/profile`)
+//     .set('Accept', 'application/json')
+//     .end((err, res) => {
+//       if (err) {
+//         return dispatch(receivePosts('Error in Response'));
+//       }
+//
+//       const { body, body: { isURL, node } } = res
+//       if (!isURL || node === null) {
+//       } else {
+//         dispatch(fetchNode(node._id))
+//       }
+//     });
+// }
 
-  return request
-    .get(`http://localhost:3000/api/users/profile`)
-    .set('Accept', 'application/json')
-    .end((err, res) => {
-      if (err) {
-        return dispatch(receivePosts('Error in Response'));
-      }
-
-      const { body, body: { isURL, node } } = res
-      if (!isURL || node === null) {
-      } else {
-        dispatch(fetchNode(node._id))
-      }
-    });
-}
-
-export const fetchPosts = url => dispatch => {
-  dispatch(requestPosts(url))
+export const fetchSearch = url => dispatch => {
+  dispatch(requestSearch(url))
 
   return request
     .get(`http://localhost:3000/api/searchurl?q=${url}`)
@@ -67,17 +63,21 @@ export const fetchPosts = url => dispatch => {
 }
 
 const fetchNode = id => dispatch => {
-  //dispatch(requestNode(id))
   return request
     .get(`http://localhost:3000/api/node/${id}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
-        return dispatch(receivePosts('Error in Response'));
-      }
-      const { entityCount } = res.body;
-      setExtensionButon(entityCount);
-      dispatch(receivePosts(entityCount));
+        return dispatch(receiveError('Error in Response'));
+      } else {
+        const { entityCount, title, superEdges } = res.body;
+        setExtensionButon(entityCount);
+        dispatch(receiveNode(
+          entityCount,
+          title,
+          superEdges,
+        ));
+      };
     });
 }
 

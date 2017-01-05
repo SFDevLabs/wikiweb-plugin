@@ -1,25 +1,33 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_REDDIT, INVALIDATE_REDDIT,
-  REQUEST_POSTS, RECEIVE_POSTS
+  REQUEST_SEARCH,
+  RECEIVE_NODE,
+  RECEIVE_ERROR,
 } from '../actions'
 
-
-const posts = (state = {
+const node = (state = {
   isFetching: false,
-  entityCount: null
+  entityCount: 0,
+  title: '',
+  superEdges:[],
 }, action) => {
   switch (action.type) {
-    case REQUEST_POSTS:
+    case REQUEST_SEARCH:
       return {
         ...state,
         isFetching: true
       }
-    case RECEIVE_POSTS:
-      const entityCount = action.entityCount;
+    case RECEIVE_NODE:
+      const {
+        entityCount,
+        title,
+        superEdges,
+      } = action;
       return {
         ...state,
         entityCount,
+        title,
+        superEdges,
       }
     default:
       return state
@@ -29,7 +37,7 @@ const posts = (state = {
 
 
 const rootReducer = combineReducers({
-  posts
+  node
 })
 
 export default rootReducer
