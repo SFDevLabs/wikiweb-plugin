@@ -32,6 +32,7 @@ class Connections extends Component {
     });
   }
 
+
   render() {
     const { entityCount, title, superEdges } = this.props
 
