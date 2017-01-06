@@ -10,6 +10,8 @@ const node = (state = {
   entityCount: 0,
   title: '',
   superEdges:[],
+  queryLink: '',
+  canonicalLink: '',
 }, action) => {
   switch (action.type) {
     case REQUEST_SEARCH:
@@ -22,12 +24,16 @@ const node = (state = {
         entityCount,
         title,
         superEdges,
+        queryLink,
+        canonicalLink,
       } = action;
       return {
         ...state,
         entityCount,
         title,
         superEdges,
+        queryLink,
+        canonicalLink,
       }
     default:
       return state

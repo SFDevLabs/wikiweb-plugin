@@ -10,11 +10,13 @@ export const requestSearch = url => ({
   url
 })
 
-export const receiveNode = (entityCount, title, superEdges) => ({
+export const receiveNode = (entityCount, title, superEdges, queryLink, canonicalLink) => ({
   type: RECEIVE_NODE,
   entityCount,
   title,
   superEdges,
+  queryLink,
+  canonicalLink, 
 })
 
 export const receiveError = (entityCount) => ({
@@ -70,12 +72,14 @@ const fetchNode = id => dispatch => {
       if (err) {
         return dispatch(receiveError('Error in Response'));
       } else {
-        const { entityCount, title, superEdges } = res.body;
+        const { entityCount, title, superEdges, queryLink, canonicalLink } = res.body;
         setExtensionButon(entityCount);
         dispatch(receiveNode(
           entityCount,
           title,
           superEdges,
+          queryLink,
+          canonicalLink,
         ));
       };
     });

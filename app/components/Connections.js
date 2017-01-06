@@ -3,13 +3,15 @@ import { connect } from 'react-redux'
 import { fetchSearch } from '../actions'
 
 const mapStateToProps = state => {
-  const { node: { entityCount, isFetching, title, superEdges  } } = state
+  const { node: { entityCount, isFetching, title, superEdges, queryLink, canonicalLink  } } = state
 
   return {
     entityCount,
     title,
     isFetching,
     superEdges,
+    queryLink,
+    canonicalLink,
   }
 }
 
@@ -19,6 +21,8 @@ class Connections extends Component {
     entityCount: PropTypes.number.isRequired,
     superEdges: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
+    queryLink: PropTypes.string.isRequired,
+    canonicalLink: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -32,13 +36,14 @@ class Connections extends Component {
     });
   }
 
-
   render() {
-    const { entityCount, title, superEdges } = this.props
+    const { entityCount, title, superEdges, queryLink, canonicalLink } = this.props;
+    const server = 'http://localhost:3000'; // REVIEW PLEASE - how should I be doing this to account for local & production servers? @mceoin
+    const windowLocation = window.location.href;
 
-    return (
+    const pluginContents = (
       <div>
-        Titel: {title}
+        Title: {title}
         This page has {entityCount} connection{entityCount>1?'s':''}!
         <hr/>
         Connections:
@@ -48,6 +53,49 @@ class Connections extends Component {
           </li>)
         )}
         <hr/>
+      </div>);
+
+    const headerJSX = (
+      <div style={{paddingLeft: 10, paddingRight: 10, height: 20, borderBottom: '1px solid', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+        <span style={{opacity: 0.66 }}>{queryLink}</span>
+      </div>
+    );
+
+    const edgeCardJSX = (
+      <div></div>
+    );
+
+
+    /* Footer */
+    const addConnectionUrl = canonicalLink ? 
+      `${server}/connect?url=${canonicalLink}`:
+      `${server}/connect?url=${windowLocation}`;
+    const goToAddConnectionPage = () => { chrome.tabs.update(null, {url:addConnectionUrl}); };
+    const goToWikiWeb = () => { chrome.tabs.update(null, {url:'https://wikiweb.org'}); };
+
+    const seeMore = entityCount < 3 ? 
+      (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
+      (<div style={{float: 'left'}}>See on <span><button onClick={goToAddConnectionPage}>Add +</button></span></div>)
+
+    const footerJSX = (
+      <div style={{borderTop: '1px solid', paddingLeft: 10, paddingRight: 10, height: 20, display: 'block'}}>
+        {entityCount > 3 ? 
+          (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
+          (<button style={{float: 'left'}} onClick={goToWikiWeb}>wikiweb.org</button>)
+        }
+        <button 
+          style={{float: 'right'}}
+          onClick={goToAddConnectionPage}>
+          Add <span style={{color: 'orange'}}><strong>+</strong></span>
+        </button>
+      </div>
+    );
+
+    return (
+      <div>
+        {headerJSX}
+        {edgeCardJSX}
+        {footerJSX}
       </div>
     )
   }
