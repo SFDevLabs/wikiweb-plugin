@@ -38,33 +38,36 @@ class Connections extends Component {
 
   render() {
     const { entityCount, title, superEdges, queryLink, canonicalLink } = this.props;
+    console.log(superEdges, 'superEdges', title, 'title');
     const server = 'http://localhost:3000'; // REVIEW PLEASE - how should I be doing this to account for local & production servers? @mceoin
     const windowLocation = window.location.href;
 
-    const pluginContents = (
-      <div>
-        Title: {title}
-        This page has {entityCount} connection{entityCount>1?'s':''}!
-        <hr/>
-        Connections:
-        {superEdges.map(obj=>
-          (<li>{obj.entity.title} - {obj.entity._id}&nbsp;
-            <a target="_blank" href={obj.entity.canonicalLink}>Link</a>
-          </li>)
-        )}
-        <hr/>
-      </div>);
-
+    /* Header */
     const headerJSX = (
-      <div style={{paddingLeft: 10, paddingRight: 10, height: 20, borderBottom: '1px solid', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+      <div style={{paddingLeft: 10, paddingRight: 10, height: 20, borderBottom: '1px solid #DCDCDC', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis'}}>
         <span style={{opacity: 0.66 }}>{queryLink}</span>
       </div>
     );
 
-    const edgeCardJSX = (
-      <div></div>
+    /* Connections */
+    const edgeCardsJSX = (
+      <div>
+        {superEdges.map(card =>
+          (<div style={{paddingLeft: 10, paddingRight: 10, display: 'block', borderBottom: '1px solid #DCDCDC'}}>
+            <div style={{display: 'block', overflow: 'hidden', textOverflow: 'ellipsis'}}>{card.entity.title}</div>
+            <div><a target="_blank" href={card.entity.canonicalLink}>{card.entity.canonicalLink}</a></div>
+            <div style={{display: 'block'}}>
+              <span style={{display: 'inline-block'}}>
+                <img style={{height: 15, width: 15}} src={card.edges[0].user.twitter.profile_image_url}/>
+              </span>
+              <span style={{display: 'inline-block', paddingLeft: 5}}>
+                <a style={{textDecoration: 'none', color: '#4d4d4d'}} href={'http://twitter.com/'+card.edges[0].user.username} >@{card.edges[0].user.username}</a>
+              </span>
+            </div>
+          </div>)
+        )}
+      </div>
     );
-
 
     /* Footer */
     const addConnectionUrl = canonicalLink ? 
@@ -78,7 +81,7 @@ class Connections extends Component {
       (<div style={{float: 'left'}}>See on <span><button onClick={goToAddConnectionPage}>Add +</button></span></div>)
 
     const footerJSX = (
-      <div style={{borderTop: '1px solid', paddingLeft: 10, paddingRight: 10, height: 20, display: 'block'}}>
+      <div style={{borderTop: '1px solid #DCDCDC', paddingLeft: 10, paddingRight: 10, height: 20, display: 'block'}}>
         {entityCount > 3 ? 
           (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
           (<button style={{float: 'left'}} onClick={goToWikiWeb}>wikiweb.org</button>)
@@ -94,7 +97,7 @@ class Connections extends Component {
     return (
       <div>
         {headerJSX}
-        {edgeCardJSX}
+        {edgeCardsJSX}
         {footerJSX}
       </div>
     )
