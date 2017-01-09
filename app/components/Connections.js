@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchSearch } from '../actions'
 
@@ -36,9 +37,6 @@ class Connections extends Component {
     });
   }
 
-  goToAddConnectionPage = () => { chrome.tabs.update(null, {url:addConnectionUrl}); };
-  goToWikiWeb = () => { chrome.tabs.update(null, {url:'https://wikiweb.org'}); };
-
   render() {
     const { entityCount, title, superEdges, queryLink, canonicalLink } = this.props;
     console.log(superEdges, 'superEdges', title, 'title');
@@ -73,25 +71,28 @@ class Connections extends Component {
     );
 
     /* Footer */
-    const addConnectionUrl = canonicalLink ? 
+    const addConnectionUrl = canonicalLink ?
       `${server}/connect?url=${canonicalLink}`:
       `${server}/connect?url=${windowLocation}`;
+    const goToAddConnectionPage = () => { chrome.tabs.update(null, {url:addConnectionUrl}); };
+    const goToWikiWeb = () => { chrome.tabs.update(null, {url:'https://wikiweb.org'}); };
 
-    const seeMore = entityCount < 3 ? 
+    const seeMore = entityCount < 3 ?
       (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
-      (<div style={{float: 'left'}}>See on <span><button onClick={this.goToAddConnectionPage}>Add +</button></span></div>)
+      (<div style={{float: 'left'}}>See on <span><Link to="add">Add +</Link></span></div>)
 
     const footerJSX = (
       <div style={{borderTop: '1px solid #DCDCDC', paddingLeft: 10, paddingRight: 10, height: 20, display: 'block'}}>
-        {entityCount > 3 ? 
+        {entityCount > 3 ?
           (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
-          (<button style={{float: 'left'}} onClick={this.goToWikiWeb}>wikiweb.org</button>)
+          (<button style={{float: 'left'}} onClick={goToWikiWeb}>wikiweb.org</button>)
         }
-        <button 
-          style={{float: 'right'}}
-          onClick={this.goToAddConnectionPage}>
-          Add <span style={{color: 'orange'}}><strong>+</strong></span>
-        </button>
+        <div style={{float: 'right'}}>
+          <Link to="add">
+            <span>Add <span style={{color: 'orange'}}></span></span>
+            <strong>+</strong>
+          </Link>
+        </div>
       </div>
     );
 
