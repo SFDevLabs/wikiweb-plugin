@@ -23,9 +23,9 @@ const setExtensionButon = (entityCount) => {
   });
 };
 
-export const REQUEST_SEARCH = 'REQUEST_POSTS';
-export const RECEIVE_NODE = 'RECEIVE_POSTS';
-export const RECEIVE_ERROR = 'RECEIVE_POSTS';
+export const REQUEST_SEARCH = 'REQUEST_SEARCH';
+export const RECEIVE_NODE = 'RECEIVE_NODE';
+export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 
 
 export const requestSearch = url => ({
@@ -97,11 +97,12 @@ export const fetchSearch = url => (dispatch) => {
       } // Stop here on err
 
       const { body: { isURL, node } } = res;
-      if (!isURL) {
+      if (isURL === false) {
         setExtensionButon(0);
-      } else if (node === null) {
+      } else if (!node || node === null) {
         setExtensionButon(0);
       } else {
+        console.log(node, 'node!!')
         const { _id } = node;
         dispatch(fetchNode(_id));
       }
