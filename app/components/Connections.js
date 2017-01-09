@@ -45,10 +45,12 @@ class Connections extends Component {
     /* Connections */
     const edgeCardsJSX = (
       <div>
-        {superEdges.map(card =>
-          (<div style={{paddingLeft: 10, paddingRight: 10, display: 'block', borderBottom: '1px solid #DCDCDC'}}>
-            <div style={{display: 'block', overflow: 'hidden', textOverflow: 'ellipsis'}}>{card.entity.title}</div>
-            <div><a target="_blank" href={card.entity.canonicalLink}>{card.entity.canonicalLink}</a></div>
+        {superEdges.map((card, index) => {
+          return (<div key={index} style={{marginLeft: 5, marginRight: 5, padding: 5, display: 'block',  borderBottom: '1px solid #DCDCDC'}}>
+            <div style={{overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 15}}>{card.entity.title}</div>
+            <div style={{marginBottom: 3}}>
+              <a target="_blank" style={{textDecoration: 'none', color: '#828282', fontSize: 12}} href={card.entity.canonicalLink}>{card.entity.canonicalLink}</a>
+            </div>
             <div style={{display: 'block'}}>
               <span style={{display: 'inline-block'}}>
                 <img style={{height: 15, width: 15}} src=""/>
@@ -58,7 +60,8 @@ class Connections extends Component {
               </span>
             </div>
           </div>)
-        )}
+          })
+        }
       </div>
     );
 
@@ -69,17 +72,21 @@ class Connections extends Component {
       (<div style={{float: 'left'}}>See on <span><Link to="add">+ Add</Link></span></div>)
 
     const footerJSX = (
-      <div style={{borderTop: '1px solid #DCDCDC', paddingLeft: 10, paddingRight: 10, paddingTop: 4, height: 20, display: 'block'}}>
+      <div style={{paddingLeft: 10, paddingRight: 10, paddingTop: 4, height: 20, display: 'block'}}>
         {entityCount > 3 ?
           (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
           (<button style={{float: 'left'}} onClick={this.goToWikiWeb}>wikiweb.org</button>)
         }
-        <Link to="add">+ Add</Link>
+        <div style={{float: 'right'}}>
+          <Link to="add" style={{textDecoration: 'none', color: '#4d4d4d'}}>
+            Add connection <strong><span style={{color: 'orange', fontSize: 16}}>+</span></strong>
+          </Link>
+        </div>
       </div>
     );
 
     return (
-      <div style={{paddingTop: 4, paddingBottom: 4}}>
+      <div style={{paddingTop: 4, paddingBottom: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C', borderBottom: '3px solid #70037C'}}>
         {edgeCardsJSX}
         {footerJSX}
       </div>
