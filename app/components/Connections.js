@@ -47,15 +47,10 @@ class Connections extends Component {
       <div>
         {superEdges.map((card, index) => {
           return (<div key={index} style={{marginLeft: 5, marginRight: 5, padding: 5, display: 'block',  borderBottom: '1px solid #DCDCDC'}}>
-            <div style={{overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 15}}>{card.entity.title}</div>
-            <div style={{marginBottom: 3}}>
-              <a target="_blank" style={{textDecoration: 'none', color: '#828282', fontSize: 12}} href={card.entity.canonicalLink}>{card.entity.canonicalLink}</a>
-            </div>
+            <div style={{overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, marginBottom: 2}}>{card.entity.title}</div>
+            <div><a target="_blank" style={{textDecoration: 'none', color: '#4d4d4d', fontSize: 12}} href={card.entity.canonicalLink}>{card.entity.canonicalLink}</a></div>
             <div style={{display: 'block'}}>
-              <span style={{display: 'inline-block'}}>
-                <img style={{height: 15, width: 15}} src=""/>
-              </span>
-              <span style={{display: 'inline-block', paddingLeft: 5}}>
+              <span style={{fontSize: 12}}>
                 <a style={{textDecoration: 'none', color: '#4d4d4d'}} href={'http://twitter.com/'+card.edges[0].user.username} >@{card.edges[0].user.username}</a>
               </span>
             </div>
@@ -66,27 +61,23 @@ class Connections extends Component {
     );
 
     /* Footer */
-
-    const seeMore = entityCount < 3 ?
-      (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
-      (<div style={{float: 'left'}}>See on <span><Link to="add">+ Add</Link></span></div>)
-
     const footerJSX = (
-      <div style={{paddingLeft: 10, paddingRight: 10, paddingTop: 4, height: 20, display: 'block'}}>
-        {entityCount > 3 ?
-          (<div style={{float: 'left'}}>See more ({entityCount})...</div>) :
-          (<button style={{float: 'left'}} onClick={this.goToWikiWeb}>wikiweb.org</button>)
-        }
-        <div style={{float: 'right'}}>
-          <Link to="add" style={{textDecoration: 'none', color: '#4d4d4d'}}>
-            Add connection <strong><span style={{color: 'orange', fontSize: 16}}>+</span></strong>
-          </Link>
-        </div>
+      <div style={{paddingLeft: 10, paddingRight: 10, paddingTop: 8, height: 25, display: 'block'}}>
+        <Link to="add" style={{textDecoration: 'none', color: '#4d4d4d', outline: 'none'}}>
+          <div style={{width: '49%', float: 'left', fontSize: 14, textAlign: 'center', outline: 'none'}}>
+            <span>WikiWeb</span>
+          </div>
+        </Link> 
+        <Link to="add" style={{textDecoration: 'none', color: '#4d4d4d'}}>
+          <div style={{borderLeft: '1px solid #DCDCDC', width: '49%', float: 'right', textAlign: 'center'}}>
+            <strong><span style={{color: 'orange', fontSize: 16}}>+</span></strong>
+          </div>
+        </Link> 
       </div>
     );
 
     return (
-      <div style={{paddingTop: 4, paddingBottom: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C', borderBottom: '3px solid #70037C'}}>
+      <div style={{paddingTop: 4, paddingBottom: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C'}}>
         {edgeCardsJSX}
         {footerJSX}
       </div>
