@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { fetchSearch } from '../actions/user';
 
 class Add extends Component {
 
@@ -26,7 +27,6 @@ class Add extends Component {
         <Link to="/" >back</Link>
         <div>Add Holder <input onKeyDown={this.onKeyDown} value={this.state.val} /></div>
       </div>
-
     );
   }
 
