@@ -45,7 +45,7 @@ class Connections extends Component {
     });
   }
 
-  edgeCardsJSX(title, canonicalLink, username, index) {
+  edgeCardJSXGenerator(title, canonicalLink, username, index) {
     return (
       <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: '1px solid #DCDCDC',}}>
         <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, marginBottom: 2, }}>
@@ -59,7 +59,8 @@ class Connections extends Component {
         <div style={{ display: 'block' }}>
           <span style={{ fontSize: 12 }} >
             <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
-              @{username}
+              <img src='./assets/img/qwokka.jpg' />
+              <span style={{paddingLeft: 5}}>@{username}</span>
             </a>
           </span>
         </div>
@@ -83,13 +84,16 @@ class Connections extends Component {
           </div>
         </Link> 
       </div>
+    )
 
     return (
       <div style={{ paddingTop: 4, paddingBottom: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C'}}>
         { superEdges.map((card, index) => {
-            const { entity: { title, canonicalLink }, edges } = card;
-            const username = edges && edges.length > 0 ? edges[0].user.username : '';
-            return this.edgeCardsJSX(title, canonicalLink, username, index);
+            if (index < 3) { /* arbitrary */
+              const { entity: { title, canonicalLink }, edges } = card;
+              const username = edges && edges.length > 0 ? edges[0].user.username : '';
+              return this.edgeCardJSXGenerator(title, canonicalLink, username, index);
+            }
           })
         }
         {footerJSX}
