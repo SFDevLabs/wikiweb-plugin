@@ -74,11 +74,11 @@ class Connections extends Component {
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
       return (
         <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: '1px solid #DCDCDC', }}>
-          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, marginBottom: 2, }}>
+          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1 }}>
             {title}
           </div>
           <div className={'hyperlink'} style={{ display: 'block', height: 20 }}>
-            <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#4d4d4d', fontSize: 11, paddingLeft: 1 }} href={canonicalLink}>
+            <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'blue', fontSize: 11, paddingLeft: 1 }} href={canonicalLink}>
               <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
