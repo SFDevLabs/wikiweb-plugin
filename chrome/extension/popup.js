@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from '../../app';
-import './todoapp.css';
+import '../assets/style/app.css';
 
 
 ReactDOM.render(

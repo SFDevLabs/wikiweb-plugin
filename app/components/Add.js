@@ -1,16 +1,23 @@
-import React, { PropTypes, Component } from 'react'
-import { Link } from 'react-router'
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class Add extends Component {
 
-  constructor(props) {
-    super()
-    this.state = {
-      val: ""
-    }
-  }
   static propTypes = {
 
+  }
+
+  constructor() {
+    super();
+    this.state = {
+      val: '',
+    };
+  }
+
+  onKeyDown = (e) => {
+    this.setState({
+      val: e.target.val
+    });
   }
 
   render() {
@@ -20,14 +27,9 @@ class Add extends Component {
         <div>Add Holder <input onKeyDown={this.onKeyDown} value={this.state.val} /></div>
       </div>
 
-    )
+    );
   }
 
-  onKeyDown  = (e) => {
-    this.setState({
-      val:e.target.val
-    });
-  }
 }
 
-export default Add
+export default Add;

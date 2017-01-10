@@ -1,25 +1,26 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import {
   REQUEST_SEARCH,
   RECEIVE_NODE,
-  RECEIVE_ERROR,
-} from '../actions'
+  //RECEIVE_ERROR,
+} from '../actions';
 
 const node = (state = {
   isFetching: false,
   entityCount: 0,
   title: '',
-  superEdges:[],
+  superEdges: [],
   queryLink: '',
   canonicalLink: '',
 }, action) => {
   switch (action.type) {
-    case REQUEST_SEARCH:
+    case REQUEST_SEARCH: {
       return {
         ...state,
         isFetching: true
-      }
-    case RECEIVE_NODE:
+      };
+    }
+    case RECEIVE_NODE: {
       const {
         entityCount,
         title,
@@ -34,16 +35,16 @@ const node = (state = {
         superEdges,
         queryLink,
         canonicalLink,
-      }
-    default:
-      return state
+      };
+    }
+    default: {
+      return state;
+    }
   }
-}
-
-
+};
 
 const rootReducer = combineReducers({
   node
-})
+});
 
-export default rootReducer
+export default rootReducer;
