@@ -76,13 +76,14 @@ class Connections extends Component {
           <div style={{width: '49%', float: 'left', fontSize: 14, textAlign: 'center', outline: 'none'}}>
             <span>WikiWeb</span>
           </div>
-        </Link> 
+        </Link>
         <Link to="add" style={{textDecoration: 'none', color: '#4d4d4d'}}>
           <div style={{borderLeft: '1px solid #DCDCDC', width: '49%', float: 'right', textAlign: 'center'}}>
             <strong><span style={{color: 'orange', fontSize: 19}}>+</span></strong>
           </div>
-        </Link> 
+        </Link>
       </div>
+    )
 
     return (
       <div style={{ paddingTop: 4, paddingBottom: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C'}}>
