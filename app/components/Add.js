@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { fetchSearch } from '../actions/user';
 
 class Add extends Component {
 
