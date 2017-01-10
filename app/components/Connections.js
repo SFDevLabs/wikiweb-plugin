@@ -70,7 +70,7 @@ class Connections extends Component {
         </Link> 
         <Link to="add" style={{textDecoration: 'none', color: '#4d4d4d'}}>
           <div style={{borderLeft: '1px solid #DCDCDC', width: '49%', float: 'right', textAlign: 'center'}}>
-            <strong><span style={{color: 'orange', fontSize: 16}}>+</span></strong>
+            <strong><span style={{color: 'orange', fontSize: 19}}>+</span></strong>
           </div>
         </Link> 
       </div>
