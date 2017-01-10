@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchSearch } from '../actions';
+import { fetchSearch } from '../actions/entity';
 
 const mapStateToProps = (state) => {
   const { entity:
