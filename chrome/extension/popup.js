@@ -5,6 +5,6 @@ import '../assets/style/app.css';
 
 
 ReactDOM.render(
-	<Root  />,
-	document.querySelector('#root')
+  <Root />,
+  document.querySelector('#root')
 );

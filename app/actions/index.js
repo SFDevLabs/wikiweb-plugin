@@ -102,7 +102,6 @@ export const fetchSearch = url => (dispatch) => {
       } else if (!node || node === null) {
         setExtensionButon(0);
       } else {
-        console.log(node, 'node!!')
         const { _id } = node;
         dispatch(fetchNode(_id));
       }
