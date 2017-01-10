@@ -70,7 +70,7 @@ class Connections extends Component {
           </Link>
         </div>);
     }
-    // Move me to a class @jeffj
+
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
       return (
         <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: '1px solid #DCDCDC', }}>
@@ -79,13 +79,14 @@ class Connections extends Component {
           </div>
           <div>
             <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#4d4d4d', fontSize: 12 }} href={canonicalLink}>
-              {canonicalLink}
+              <span style={{ display: 'inline-block' }}><img alt="" src="img/hyperlink.png" /></span>
+              <span style={{ display: 'inline-block', paddingLeft: 5 }}>{canonicalLink}</span>
             </a>
           </div>
           <div style={{ display: 'block', width: '100%', height: 12, paddingBottom: 10 }}>
             <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
-              <span style={{ float: 'left' }}><img alt="" style={{ width: 12 }} src="img/qwokka.jpg" /></span>
-              <span style={{ float: 'left', paddingLeft: 10, fontSize: 12 }}>@{username}</span>
+              <span style={{ float: 'left' }}><img alt="" style={{ width: 14, borderRadius: 4 }} src="img/qwokka.jpg" /></span>
+              <span style={{ float: 'left', paddingLeft: 5, fontSize: 12 }}>@{username}</span>
             </a>
           </div>
         </div>);
