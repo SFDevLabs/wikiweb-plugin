@@ -56,13 +56,11 @@ class Connections extends Component {
             {canonicalLink}
           </a>
         </div>
-        <div style={{ display: 'block' }}>
-          <span style={{ fontSize: 12 }} >
-            <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
-              <img src='./assets/img/qwokka.jpg' />
-              <span style={{paddingLeft: 5}}>@{username}</span>
-            </a>
-          </span>
+        <div style={{ display: 'block', width: '100%'}}>
+          <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
+            <span style={{float: 'left'}}><img style={{height: 12, width: 12}} src='img/qwokka.jpg' /></span>
+            <span style={{float: 'left', paddingLeft: 5, fontSize: 12}}>@{username}</span>
+          </a>
         </div>
       </div>);
   }
