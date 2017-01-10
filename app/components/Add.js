@@ -10,7 +10,7 @@ class Add extends Component {
   constructor() {
     super();
     this.state = {
-  val: '',
+      val: '',
     };
   }
 
