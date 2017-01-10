@@ -26,7 +26,6 @@ class Add extends Component {
         <Link to="/" >back</Link>
         <div>Add Holder <input onKeyDown={this.onKeyDown} value={this.state.val} /></div>
       </div>
-
     );
   }
 

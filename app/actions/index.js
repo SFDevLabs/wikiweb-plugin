@@ -24,17 +24,19 @@ const setExtensionButon = (entityCount) => {
 };
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
-export const RECEIVE_NODE = 'RECEIVE_NODE';
+export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 
+export const REQUEST_PROFILE = 'REQUEST_SEARCH';
+export const RECEIVE_PROFILE = 'RECEIVE_ENTITY';
 
 export const requestSearch = url => ({
   type: REQUEST_SEARCH,
   url
 });
 
-export const receiveNode = (entityCount, title, superEdges, queryLink, canonicalLink) => ({
-  type: RECEIVE_NODE,
+export const receiveEntities = (entityCount, title, superEdges, queryLink, canonicalLink) => ({
+  type: RECEIVE_ENTITY,
   entityCount,
   title,
   superEdges,
@@ -46,27 +48,36 @@ export const receiveError = () => ({
   type: RECEIVE_ERROR,
 });
 
+export const requestProfile = url => ({
+  type: REQUEST_SEARCH,
+  url
+});
 
-// const fetchProfile = url => dispatch => {
-//   dispatch(requestPosts(url))
-//
-//   return request
-//     .get(`http://localhost:3000/api/users/profile`)
-//     .set('Accept', 'application/json')
-//     .end((err, res) => {
-//       if (err) {
-//         return dispatch(receivePosts('Error in Response'));
-//       }
-//
-//       const { body, body: { isURL, node } } = res
-//       if (!isURL || node === null) {
-//       } else {
-//         dispatch(fetchNode(node._id))
-//       }
-//     });
-// }
+export const receiveProfile = user => ({
+  type: RECEIVE_USER,
+  user,
+});
 
-const fetchNode = id => dispatch =>
+export const fetchProfile = () => (dispatch) => {
+  dispatch(requestProfile());
+  return request
+    .get('http://localhost:3000/api/users/profile')
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      if (err) {
+        return dispatch(receiveError('Error in Response'));
+      }
+
+      const { body } = res;
+      if (!body) {
+        dispatch(receiveError('Error in Response'));
+      } else {
+        dispatch(receiveProfile(body.user));
+      }
+    });
+};
+
+const fetchEntity = id => dispatch =>
   request
     .get(`http://localhost:3000/api/node/${id}`)
     .set('Accept', 'application/json')
@@ -76,7 +87,7 @@ const fetchNode = id => dispatch =>
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink } = res.body;
         setExtensionButon(entityCount);
-        dispatch(receiveNode(
+        dispatch(receiveEntity(
           entityCount,
           title,
           superEdges,
@@ -103,7 +114,7 @@ export const fetchSearch = url => (dispatch) => {
         setExtensionButon(0);
       } else {
         const { _id } = node;
-        dispatch(fetchNode(_id));
+        dispatch(fetchEntity(_id));
       }
     });
 };

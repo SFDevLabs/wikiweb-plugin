@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import {
   REQUEST_SEARCH,
-  RECEIVE_NODE,
+  RECEIVE_ENTITY,
   //RECEIVE_ERROR,
 } from '../actions';
 
-const node = (state = {
+const entity = (state = {
   isFetching: false,
   entityCount: 0,
   title: '',
@@ -20,7 +20,7 @@ const node = (state = {
         isFetching: true
       };
     }
-    case RECEIVE_NODE: {
+    case RECEIVE_ENTITY: {
       const {
         entityCount,
         title,
@@ -44,7 +44,7 @@ const node = (state = {
 };
 
 const rootReducer = combineReducers({
-  node
+  entity
 });
 
 export default rootReducer;

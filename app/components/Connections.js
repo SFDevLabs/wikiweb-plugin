@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchSearch } from '../actions';
 
 const mapStateToProps = (state) => {
-  const { node:
+  const { entity:
     { entityCount,
       isFetching,
       title,
