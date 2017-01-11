@@ -47,7 +47,7 @@ input[type="checkbox"] {
     .wikiwebBox {
       border-bottom-left-radius: 2px;
       &:hover {
-        background-color: purple;
+        background-color: #70037C;
         span { color: white; }
       }
     }
@@ -79,6 +79,55 @@ input[type="checkbox"] {
     img { display: none; }
     &:hover {
       img { display: inline; }
+    }
+  }
+}
+
+.addJS {
+  input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+  }
+  .formInput {
+    margin: auto;
+    width: 255px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    border: 1px solid #C5C5C5;
+    border-color: #C5C5C5;
+    box-shadow: none;
+    padding-left: 12px;
+    padding-right: 32px;
+    border-radius: 0px;
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #C5C5C5;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: #C5C5C5;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: #C5C5C5;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: #C5C5C5;
+    }
+  }
+  .formSubmit {
+    border-radius: 0px;
+    border: 1px solid #C5C5C5;
+    color: #4D4D4D;
+    background-color: white;
+    height: 36px;
+    line-height: 32px;
+    font-size: 12px;
+    padding-left: auto;
+    padding-right: auto;
+    min-width: 70px;
+    margin-left: 230px;
+    &:hover {
+      color: white;
+      background-color: orange;
+      border-color: orange;
     }
   }
 }
