@@ -56,7 +56,7 @@ class Connections extends Component {
     // Move me to a class @jeffj
     function footerJSX() {
       return (
-        <div className={'footer'} style={{ height: 40, display: 'block' }}>
+        <div className={'footer'} style={{ position: 'absolute', bottom: 0, paddingTop: 1, borderTop: '1px solid #DCDCDC', height: 40, display: 'block' }}>
           <Link to="add" style={{ lineHeight: '40px', textDecoration: 'none', color: '#4d4d4d', outline: 'none' }}>
             <div className={'wikiwebBox'} style={{ width: '174.5px', float: 'left', fontSize: 14, textAlign: 'center', outline: 'none' }}>
               <span>WikiWeb</span>
@@ -92,16 +92,41 @@ class Connections extends Component {
         </div>);
     }
 
-    return (
-      <div className={'connectionsJS'} style={{ paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
-        {superEdges
+    function pageDefaultJSX() {
+      return (
+        <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
+          <br />
+          <div style={{ display: 'block' }} >
+            <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
+          </div>
+          <br />
+          <div><span>There are no connections for this page inside the WikiWeb. </span></div>
+          <br />
+          <div>
+            <span><em>Be the first to add one!</em></span>
+            <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
+          </div>
+        </div>
+      );
+    }
+
+    function mainContent() {
+      if (superEdges && superEdges.length) {
+        superEdges
           .slice(startIndex, endIndex) //Only take a limited number of Edges for display
           .map((card, index) => {
             const { entity: { title, canonicalLink }, edges } = card;
             const username = edges && edges.length > 0 ? edges[0].user.username : '';
             return edgeCardJSXGenerator(title, canonicalLink, username, index);
-          })
-        }
+          });
+      } else {
+        return pageDefaultJSX();
+      }
+    }
+
+    return (
+      <div className={'connectionsJS'} style={{ minHeight: 266, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
+        {mainContent()}
         {footerJSX()}
       </div>
     );

@@ -64,6 +64,17 @@ input[type="checkbox"] {
     }
   }
 
+  .rotatedArrow {
+    margin-top: -5px;
+    width: 45px;
+    position: absolute;
+    padding-left: 25px;
+    $rotation: -30deg;
+     transform: rotate($rotation);
+     -ms-transform: rotate($rotation); /* IE 9 */
+     -webkit-transform: rotate($rotation); /* Chrome, Safari, Opera */
+  }
+
   .hyperlink {
     img { display: none; }
     &:hover {

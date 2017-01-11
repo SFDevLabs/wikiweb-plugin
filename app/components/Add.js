@@ -22,8 +22,13 @@ class Add extends Component {
 
   render() {
     return (
-      <div>
+      <div className={'addJS'} style={{ minHeight: 266, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
         <Link to="/" >back</Link>
+        <form>
+          <input />
+          <input />
+          <input />
+        </form>
         <div>Add Holder <input onKeyDown={this.onKeyDown} value={this.state.val} /></div>
       </div>
     );
