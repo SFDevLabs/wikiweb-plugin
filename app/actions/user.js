@@ -5,7 +5,7 @@ export const RECEIVE_USER = 'RECEIVE_USER';
 
 export const requestUser = url => ({
   type: REQUEST_USER,
-  url
+  url,
 });
 
 export const receiveUser = user => ({

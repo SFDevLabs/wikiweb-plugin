@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
       superEdges,
       queryLink,
       canonicalLink,
-    }
+    },
   } = state;
 
   return {
@@ -41,7 +41,7 @@ class Connections extends Component {
     const { dispatch } = this.props;
     chrome.tabs.query({
       active: true,
-      currentWindow: true
+      currentWindow: true,
     }, (tabs) => {
       const url = tabs[0].url.split('?')[0];
       dispatch(fetchSearch(url));
@@ -73,7 +73,7 @@ class Connections extends Component {
 
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
       return (
-        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: '1px solid #DCDCDC', }}>
+        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: '1px solid #DCDCDC' }}>
           <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1 }}>
             {title}
           </div>

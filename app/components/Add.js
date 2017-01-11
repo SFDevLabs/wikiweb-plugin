@@ -16,7 +16,7 @@ class Add extends Component {
 
   onKeyDown = (e) => {
     this.setState({
-      val: e.target.val
+      val: e.target.val,
     });
   }
 

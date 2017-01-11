@@ -7,7 +7,7 @@ export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 
 export const requestSearch = url => ({
   type: REQUEST_SEARCH,
-  url
+  url,
 });
 
 const receiveEntity = (entityCount, title, superEdges, queryLink, canonicalLink) => ({
@@ -25,7 +25,7 @@ export const receiveError = () => ({
 
 export const requestProfile = url => ({
   type: REQUEST_SEARCH,
-  url
+  url,
 });
 
 const fetchEntity = id => dispatch =>
