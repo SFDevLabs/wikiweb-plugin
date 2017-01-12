@@ -1,6 +1,7 @@
 import {
   REQUEST_SEARCH,
   RECEIVE_ENTITY,
+  RECEIVE_EDGE,
   //RECEIVE_ERROR,
 } from '../actions/entity';
 
@@ -37,6 +38,19 @@ const entity = (state = {
         superEdges,
         queryLink,
         canonicalLink,
+      };
+    }
+    case RECEIVE_EDGE: {
+      // @TODO push in data required @jeffj
+      const {
+        superEdge,
+      } = action;
+      const superEdges = state.superEdges.push(superEdge);
+      superEdges.isNew = true;
+
+      return {
+        ...state,
+        superEdges,
       };
     }
 

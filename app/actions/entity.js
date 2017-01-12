@@ -8,6 +8,9 @@ export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
 export const REQUEST_CONNECT_SEARCH = 'REQUEST_CONNECT_SEARCH';
 export const RECEIVE_CONNECTED_SEARCH = 'RECEIVE_CONNECTED_SEARCH';
 
+export const REQUEST_EDGE = 'RECEIVE_EDGE';
+export const RECEIVE_EDGE = 'RECEIVE_EDGE';
+
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 
 
@@ -45,6 +48,11 @@ export const receiveError = () => ({
 export const requestProfile = url => ({
   type: REQUEST_SEARCH,
   url,
+});
+
+const receiveEdge = (superEdge) => ({
+  type: RECEIVE_EDGE,
+  superEdge,
 });
 
 /* This demands a more efficent API.
@@ -128,13 +136,16 @@ export const fetchPostEdge = (fromId, toId) => (dispatch) => {
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
-        //return dispatch(receiveError('Error in Response'));
+        return //dispatch(receiveError('Error in Response'));
       } // Stop here on err
 
-      // const { body: { isURL, node } } = res;
+      //http://stackoverflow.com/questions/31079081/programmatically-navigate-using-react-router
+      const { body } = res;
+      dispatch(receiveEdge( /*Edge goes here @jeffj*/));
+
       // if (node !== null) {
       //   const { _id, title } = node;
-      //   dispatch(receiveConnectSearch(isURL, _id, title));
+      //
       // } else {
       //   dispatch(receiveConnectSearch(isURL, '', ''));
       // }
