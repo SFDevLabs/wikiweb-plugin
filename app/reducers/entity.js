@@ -5,6 +5,7 @@ import {
 } from '../actions/entity';
 
 const entity = (state = {
+  id:'',
   isFetching: false,
   entityCount: 0,
   title: '',
@@ -21,6 +22,7 @@ const entity = (state = {
     }
     case RECEIVE_ENTITY: {
       const {
+        id,
         entityCount,
         title,
         superEdges,
@@ -29,6 +31,7 @@ const entity = (state = {
       } = action;
       return {
         ...state,
+        id,
         entityCount,
         title,
         superEdges,

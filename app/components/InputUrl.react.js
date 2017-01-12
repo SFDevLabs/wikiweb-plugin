@@ -1,21 +1,24 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { fetchConnectSearch } from '../actions/entity';
+import { fetchConnectSearch, fetchPostEdge } from '../actions/entity';
 
-const TYPEING_DELAY = 1110;
-const hardCodedExampleURL = 'https://newrepublic.com/article/139707/republicans-think-capitol-hills-rules-suckers';
+const TYPING_DELAY = 1110;
 
 const mapStateToProps = (state) => {
-  const { connectEntity:
-    { id,
-      title,
-      isURL,
-    },
+  const {
+    connectEntity:
+      { id,
+        title,
+        isURL,
+      },
+      entity,
   } = state;
 
+  const fromId = entity.id;
   return {
     id,
+    fromId,
     title,
     isURL,
   };
@@ -23,24 +26,31 @@ const mapStateToProps = (state) => {
 
 class InputUrl extends Component {
 
-  constructor() {
-    super();
-    this.submitWithDelay = _.debounce(this.submitWithDelay, TYPEING_DELAY);
-  }
   static propTypes = {
     isURL: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    fromId: PropTypes.string.isRequired,
+  }
+
+  constructor() {
+    super();
+    this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
+  }
+
+  onKeyDown = (e) => {
+    this.submitWithDelay(e.target.value);
+  }
+
+  onSubmit = () => {
+    const { dispatch, id, fromId } = this.props;
+    dispatch(fetchPostEdge(fromId, id));
   }
 
   submitWithDelay = (val) => {
     const { dispatch } = this.props;
     dispatch(fetchConnectSearch(val));
-  }
-
-  onKeyDown = (e) => {
-    this.submitWithDelay(e.target.value)
   }
 
   render() {
@@ -58,6 +68,7 @@ class InputUrl extends Component {
         {id} and {title} from API
         <br />
         <input onChange={this.onKeyDown} className={'formInput'} placeholder="URL..." style={{ marginBottom: 10 }} />
+        <input type="button" onClick={this.onSubmit} value="Working Submit Remove Me"/>
       </div>
     );
   }

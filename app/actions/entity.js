@@ -16,8 +16,9 @@ export const requestSearch = url => ({
   url,
 });
 
-const receiveEntity = (entityCount, title, superEdges, queryLink, canonicalLink) => ({
+const receiveEntity = (id, entityCount, title, superEdges, queryLink, canonicalLink) => ({
   type: RECEIVE_ENTITY,
+  id,
   entityCount,
   title,
   superEdges,
@@ -59,9 +60,10 @@ const fetchEntity = id => dispatch =>
       if (err) {
         dispatch(receiveError('Error in Response'));
       } else {
-        const { entityCount, title, superEdges, queryLink, canonicalLink } = res.body;
+        const { entityCount, title, superEdges, queryLink, canonicalLink, _id } = res.body;
         setExtensionButon(entityCount);
         dispatch(receiveEntity(
+          _id,
           entityCount,
           title,
           superEdges,
@@ -111,5 +113,30 @@ export const fetchConnectSearch = url => (dispatch) => {
       } else {
         dispatch(receiveConnectSearch(isURL, '', ''));
       }
+    });
+};
+
+// This demands a more efficent API.  For for cimplicty we are usign what we have.
+export const fetchPostEdge = (fromId, toId) => (dispatch) => {
+  //dispatch(requestPostEdge());
+
+
+
+  return request
+    .post('http://localhost:3000/api/connect')
+    .send({fromId, toId})
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      if (err) {
+        //return dispatch(receiveError('Error in Response'));
+      } // Stop here on err
+
+      // const { body: { isURL, node } } = res;
+      // if (node !== null) {
+      //   const { _id, title } = node;
+      //   dispatch(receiveConnectSearch(isURL, _id, title));
+      // } else {
+      //   dispatch(receiveConnectSearch(isURL, '', ''));
+      // }
     });
 };
