@@ -94,26 +94,6 @@ export const fetchSearch = url => (dispatch) => {
 };
 
 // This demands a more efficent API.  For for cimplicty we are usign what we have.
-// const fetchConnectEntity = id => dispatch =>
-//   request
-//     .get(`http://localhost:3000/api/node/${id}`)
-//     .set('Accept', 'application/json')
-//     .end((err, res) => {
-//       if (err) {
-//         dispatch(receiveError('Error in Response'));
-//       } else {
-//         const { entityCount, title, superEdges, queryLink, canonicalLink } = res.body;
-//         setExtensionButon(entityCount);
-//         dispatch(receiveConnectEntity(
-//           entityCount,
-//           title,
-//           superEdges,
-//           queryLink,
-//           canonicalLink,
-//         ));
-//       }
-//     });
-
 export const fetchConnectSearch = url => (dispatch) => {
   dispatch(requestConnectSearch());
   return request

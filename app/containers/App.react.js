@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
-import Connections from '../components/Connections';
-import Add from '../components/Add';
+import Connections from './Connections.react';
+import Add from './Add.react';
 
 class App extends Component {
 
