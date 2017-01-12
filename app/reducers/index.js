@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import entity from './entity';
+import connectEntity from './connectEntity';
 
 const rootReducer = combineReducers({
-  entity
+  entity,
+  connectEntity,
 });
 
 export default rootReducer;

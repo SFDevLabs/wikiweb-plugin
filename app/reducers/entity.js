@@ -16,7 +16,7 @@ const entity = (state = {
     case REQUEST_SEARCH: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     }
     case RECEIVE_ENTITY: {
@@ -36,6 +36,7 @@ const entity = (state = {
         canonicalLink,
       };
     }
+
     default: {
       return state;
     }
