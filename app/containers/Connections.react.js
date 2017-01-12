@@ -62,7 +62,7 @@ class Connections extends Component {
               <span>WikiWeb</span>
             </div>
           </Link>
-          <div className={'verticalDivider'} style={{ borderLeft: '1px solid #DCDCDC', height: 30, float: 'left', marginTop: 5, marginBottom: 5 }}>{' '}</div>
+          <div className={'verticalDivider'}>{' '}</div>
           <Link to="add" style={{ lineHeight: '40px', textDecoration: 'none', color: '#4d4d4d' }}>
             <div className={'addConnectionBox'} style={{ width: '174.5px', float: 'right', textAlign: 'center' }}>
               <strong><span>+</span></strong>
@@ -72,9 +72,10 @@ class Connections extends Component {
     }
 
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
+      const isBottomBorder = (index === endIndex - 1) ? null : '1px solid #DCDCDC';
       return (
-        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: '1px solid #DCDCDC' }}>
-          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1 }}>
+        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
+          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
             {title}
           </div>
           <div className={'hyperlink'} style={{ display: 'block', height: 20 }}>
@@ -93,7 +94,7 @@ class Connections extends Component {
     }
 
     function pageDefaultJSX() {
-      return (
+      if (superEdges.length === 0) return (
         <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
           <br />
           <div style={{ display: 'block' }} >
@@ -111,7 +112,7 @@ class Connections extends Component {
     }
 
     function mainContent() {
-      if (superEdges && superEdges.length) {
+      if (superEdges.length) {
         return superEdges
           .slice(startIndex, endIndex) //Only take a limited number of Edges for display
           .map((card, index) => {
@@ -119,13 +120,12 @@ class Connections extends Component {
             const username = edges && edges.length > 0 ? edges[0].user.username : '';
             return edgeCardJSXGenerator(title, canonicalLink, username, index);
           });
-      } else {
-        return pageDefaultJSX();
       }
     }
 
     return (
-      <div className={'connectionsJS'} style={{ minHeight: 266, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
+      <div className={'connectionsJS'} style={{ minHeight: 275, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
+        {pageDefaultJSX()}
         {mainContent()}
         {footerJSX()}
       </div>

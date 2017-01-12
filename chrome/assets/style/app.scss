@@ -39,27 +39,39 @@ input[type="checkbox"] {
 
 .connectionsJS {
   .footer {
-    &:hover {
-      .verticalDivider {
-        display: none;
-      }
+    background-color: white;
+    .verticalDivider {
+      border-left: 1px solid #DCDCDC;
+      height: 30px;
+      float: left;
+      margin-top: 5px;
+      margin-bottom: 5px;
     }
     .wikiwebBox {
       border-bottom-left-radius: 2px;
       &:hover {
         background-color: #70037C;
-        span { color: white; }
+        span {
+          color: white;
+        }
       }
     }
     .addConnectionBox {
       border-bottom-right-radius: 2px;
       span {
         color: orange;
-        font-size: 19;
+        font-size: 19px;
       }
       &:hover {
         background-color: orange;
-        span { color: white; }
+        span {
+          color: white;
+        }
+      }
+    }
+    &:hover {
+      .verticalDivider {
+        border-color: white;
       }
     }
   }

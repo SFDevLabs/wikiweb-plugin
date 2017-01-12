@@ -29,7 +29,7 @@ class InputUrl extends Component {
   static propTypes = {
     isURL: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
+    // title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     fromId: PropTypes.string.isRequired,
   }
@@ -37,10 +37,17 @@ class InputUrl extends Component {
   constructor() {
     super();
     this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
+    this.state = {
+      isInput: false,
+    };
   }
 
   onKeyDown = (e) => {
     this.submitWithDelay(e.target.value);
+    const isInput = e.target.value.length > 0;
+    this.setState({
+      isInput,
+    });
   }
 
   onSubmit = () => {
@@ -55,20 +62,30 @@ class InputUrl extends Component {
 
   render() {
     const {
-      id,
-      title,
+      // id,
+      // title,
       isURL,
     } = this.props;
+
+    const { isInput } = this.state;
+    const inputUrlStatusImg = isURL ? 'img/confirmation_tick.png' : 'img/error_cross.png';
+    const inputUrlStatusText = isURL ? 'URL is valid' : 'URL is invalid';
+    const inputConfirmationImg = isInput ?
+      (<span style={{ display: 'inline-block', marginLeft: -27, marginBottom: -3 }}>
+        <img alt="" src={inputUrlStatusImg} style={{ width: 15, float: 'left' }} title={inputUrlStatusText} />
+      </span>) :
+      <span>{' '}</span>;
+
     return (
       <div>
-        Data is Printing
-        <br />
-        Is this a URL? {isURL.toString()}
-        <br />
-        {id} and {title} from API
-        <br />
-        <input onChange={this.onKeyDown} className={'formInput'} placeholder="URL..." style={{ marginBottom: 10 }} />
-        <input type="button" onClick={this.onSubmit} value="Working Submit Remove Me"/>
+        {isURL.toString()}
+        <div style={{ display: 'block' }}>
+          <span style={{ display: 'inline-block' }}>
+            <input onChange={this.onKeyDown} className={'formInput'} placeholder="Paste URL..." style={{ marginBottom: 10 }} />
+          </span>
+          {inputConfirmationImg}
+        </div>
+        <input type="button" onClick={this.onSubmit} value="Working Submit Remove Me" />
       </div>
     );
   }
