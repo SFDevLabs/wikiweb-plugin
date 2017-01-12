@@ -112,7 +112,7 @@ class Connections extends Component {
 
     function mainContent() {
       if (superEdges && superEdges.length) {
-        superEdges
+        return superEdges
           .slice(startIndex, endIndex) //Only take a limited number of Edges for display
           .map((card, index) => {
             const { entity: { title, canonicalLink }, edges } = card;
