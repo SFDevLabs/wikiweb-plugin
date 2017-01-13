@@ -16,7 +16,7 @@
     "inject.html"
   ],
   "background": {
-    "page": "background.html"
+    "scripts":["/scripts/background.js"]
   },
   "permissions": [ "contextMenus", "management", "tabs", "storage", "https://github.com/*",  "http://localhost:3000/*" ],
   "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:4000 https://localhost:4000 'unsafe-eval'; connect-src http://localhost:4000 https://localhost:4000 http://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;"
