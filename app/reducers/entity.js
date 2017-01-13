@@ -45,8 +45,8 @@ const entity = (state = {
       const {
         superEdge,
       } = action;
+      superEdge.isNew = true;
       const superEdges = state.superEdges.push(superEdge);
-      superEdges.isNew = true;
 
       return {
         ...state,

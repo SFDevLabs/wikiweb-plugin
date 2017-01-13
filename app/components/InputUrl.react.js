@@ -1,95 +1,84 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
-import { connect } from 'react-redux';
-import { fetchConnectSearch, fetchPostEdge } from '../actions/entity';
+import { isUri } from 'valid-url';
 
 const TYPING_DELAY = 1110;
-
-const mapStateToProps = (state) => {
-  const {
-    connectEntity:
-      { id,
-        title,
-        isURL,
-      },
-      entity,
-  } = state;
-
-  const fromId = entity.id;
-  return {
-    id,
-    fromId,
-    title,
-    isURL,
-  };
-};
 
 class InputUrl extends Component {
 
   static propTypes = {
-    isURL: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    // title: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    fromId: PropTypes.string.isRequired,
+    isExistantURL: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    onValidURL: PropTypes.func.isRequired,
   }
 
   constructor() {
     super();
-    this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
     this.state = {
-      isInput: false,
+      val: '',
+      isValidURL: false,
     };
+    this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
   }
 
-  onKeyDown = (e) => {
-    this.submitWithDelay(e.target.value);
-    const isInput = e.target.value.length > 0;
+  onChange = (e) => {
+    const val = e.target.value;
     this.setState({
-      isInput,
+      val,
+      typeDelay: true,
     });
+    this.submitWithDelay();
   }
 
-  onSubmit = () => {
-    const { dispatch, id, fromId } = this.props;
-    dispatch(fetchPostEdge(fromId, id));
-  }
-
-  submitWithDelay = (val) => {
-    const { dispatch } = this.props;
-    dispatch(fetchConnectSearch(val));
+  submitWithDelay = () => {
+    const { val } = this.state;
+    const isValidURL = isUri(val);
+    this.setState({
+      isValidURL,
+      typeDelay: false,
+    });
+    if (isValidURL) {
+      this.props.onValidURL(val);
+    }
   }
 
   render() {
     const {
-      // id,
-      // title,
-      isURL,
+      isExistantURL,
+      isFetching,
     } = this.props;
 
-    const { isInput } = this.state;
-    const inputUrlStatusImg = isURL ? 'img/confirmation_tick.png' : 'img/error_cross.png';
-    const inputUrlStatusText = isURL ? 'URL is valid' : 'URL is invalid';
-    const inputConfirmationImg = isInput ?
+    const {
+      val,
+      isValidURL,
+      typeDelay,
+    } = this.state;
+
+    const inputUrlStatusImg = isExistantURL && isValidURL ? 'img/confirmation_tick.png' : 'img/error_cross.png';
+    const inputUrlStatusText = isExistantURL && isValidURL ? 'Page exists' : 'Page does not exist';
+    const inputConfirmationImg = typeDelay || isFetching ?
+      null :
       (<span style={{ display: 'inline-block', marginLeft: -27, marginBottom: -3 }}>
-        <img alt="" src={inputUrlStatusImg} style={{ width: 15, float: 'left' }} title={inputUrlStatusText} />
-      </span>) :
-      <span>{' '}</span>;
+        <img alt="" src={inputUrlStatusImg} style={{ width: 15 }} title={inputUrlStatusText} />
+      </span>);
+
 
     return (
       <div>
-        {isURL.toString()}
         <div style={{ display: 'block' }}>
-          <span style={{ display: 'inline-block' }}>
-            <input onChange={this.onKeyDown} className={'formInput'} placeholder="Paste URL..." style={{ marginBottom: 10 }} />
-          </span>
+          <input
+            onChange={this.onChange}
+            value={val}
+            className={'formInput'}
+            placeholder="Paste URL..."
+            style={{ marginBottom: 10 }}
+          />
           {inputConfirmationImg}
         </div>
-        <input type="button" onClick={this.onSubmit} value="Working Submit Remove Me" />
       </div>
     );
   }
 
 }
 
-export default connect(mapStateToProps)(InputUrl);
+export default InputUrl;

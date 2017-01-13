@@ -31,6 +31,7 @@ class Connections extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
+    location: PropTypes.object,
     // entityCount: PropTypes.number.isRequired,
     // title: PropTypes.string.isRequired,
     // queryLink: PropTypes.string.isRequired,
@@ -50,8 +51,12 @@ class Connections extends Component {
 
   render() {
     const { superEdges,
-      //entityCount, title, queryLink, canonicalLink,
+      location: {
+        search,
+      },
     } = this.props;
+
+    const isNew = search && search.length > 0;
 
     // Move me to a class @jeffj
     function footerJSX() {
@@ -125,6 +130,7 @@ class Connections extends Component {
 
     return (
       <div className={'connectionsJS'} style={{ minHeight: 275, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
+        {isNew ? 'IS NEW FLAG!' : null}
         {pageDefaultJSX()}
         {mainContent()}
         {footerJSX()}
