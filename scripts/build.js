@@ -4,6 +4,7 @@ tasks.replaceWebpack();
 console.log('[Copy assets]');
 console.log('-'.repeat(80));
 tasks.copyAssets('build');
+tasks.copyScripts('build');
 
 console.log('[Webpack Build]');
 console.log('-'.repeat(80));
