@@ -131,11 +131,10 @@ input[type="checkbox"] {
     background-color: white;
     height: 36px;
     line-height: 32px;
-    font-size: 12px;
+    font-size: 13px;
     padding-left: auto;
     padding-right: auto;
-    min-width: 70px;
-    margin-left: 230px;
+    min-width: 100px;
     &:hover {
       color: white;
       background-color: orange;

@@ -78,14 +78,13 @@ class InputUrl extends Component {
 
     return (
       <div>
-        {isURL.toString()}
         <div style={{ display: 'block' }}>
           <span style={{ display: 'inline-block' }}>
             <input onChange={this.onKeyDown} className={'formInput'} placeholder="Paste URL..." style={{ marginBottom: 10 }} />
           </span>
           {inputConfirmationImg}
         </div>
-        <input type="button" onClick={this.onSubmit} value="Working Submit Remove Me" />
+
       </div>
     );
   }
