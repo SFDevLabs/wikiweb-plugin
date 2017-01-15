@@ -65,7 +65,7 @@ class Add extends Component {
               isFetching={isFetching}
               isExistantURL={id.length > 0}
             />
-            <textarea className={'formInput'} placeholder="Description..." style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }} />
+          <textarea className={'formInput'} placeholder="Description (optional)..." style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }} />
             <InputTags />
             <div style={{ marginTop: 10 }}>
               <a onClick={this.onSave} className={'formSubmit'} type="submit" >Submit</a>

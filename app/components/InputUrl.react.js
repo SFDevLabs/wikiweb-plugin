@@ -58,8 +58,8 @@ class InputUrl extends Component {
     const inputUrlStatusText = isExistantURL && isValidURL ? 'Page exists' : 'Page does not exist';
     const inputConfirmationImg = val.length === 0 || typeDelay || isFetching ?
       null :
-      (<span style={{ display: 'inline-block', marginLeft: -27, marginBottom: -3 }}>
-        <img alt="" src={inputUrlStatusImg} style={{ width: 15 }} title={inputUrlStatusText} />
+      (<span style={{ display: 'inline-block', marginLeft: -27 }}>
+        <img alt="" src={inputUrlStatusImg} style={{ width: 15, marginBottom: -3 }} title={inputUrlStatusText} />
       </span>);
 
 

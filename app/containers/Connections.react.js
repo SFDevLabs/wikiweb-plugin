@@ -56,18 +56,39 @@ class Connections extends Component {
       },
     } = this.props;
 
-    const isNew = search && search.length > 0;
+    function pageDefaultJSX() {
+      if (superEdges.length === 0) {
+        return (
+          <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
+            <br />
+            <div style={{ display: 'block' }} >
+              <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
+            </div>
+            <br />
+            <div><span>There are no connections for this page inside the WikiWeb. </span></div>
+            <br />
+            <div>
+              <span><em>Be the first to add one!</em></span>
+              <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
+            </div>
+          </div>
+        );
+      }
+    }
 
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
-      const isBottomBorder = (index === endIndex - 1) ? null : '1px solid #DCDCDC';
+      const isNewEdge = search && search.length > 0 && index === 0 ? 'isNewEdge' : null;
+      const isNew = isNewEdge ? true : 'none';
+      const isBottomBorder = (index !== endIndex - 1) && !isNewEdge ? '1px solid #DCDCDC' : null;
       return (
-        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
+        <div key={index} className={isNewEdge} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
           <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
             {title}
           </div>
           <div className={'hyperlink'} style={{ display: 'block', height: 20 }}>
             <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'blue', fontSize: 11, paddingLeft: 1 }} href={canonicalLink}>
               <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
+              <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
           </div>
@@ -80,28 +101,10 @@ class Connections extends Component {
         </div>);
     }
 
-    function pageDefaultJSX() {
-      if (superEdges.length === 0) return (
-        <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
-          <br />
-          <div style={{ display: 'block' }} >
-            <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
-          </div>
-          <br />
-          <div><span>There are no connections for this page inside the WikiWeb. </span></div>
-          <br />
-          <div>
-            <span><em>Be the first to add one!</em></span>
-            <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
-          </div>
-        </div>
-      );
-    }
-
     function mainContent() {
       if (superEdges.length) {
         return superEdges
-          .slice(startIndex, endIndex) //Only take a limited number of Edges for display
+          .slice(startIndex, endIndex) // Only take a limited number of Edges for display
           .map((card, index) => {
             const { entity: { title, canonicalLink }, edges } = card;
             const username = edges && edges.length > 0 ? edges[0].user.username : '';
@@ -111,8 +114,7 @@ class Connections extends Component {
     }
 
     return (
-      <div className={'connectionsJS'} style={{ minHeight: 275, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
-        {isNew ? 'IS NEW FLAG!' : null}
+      <div className={'connectionsJS'}>
         {pageDefaultJSX()}
         {mainContent()}
         <Footer />
