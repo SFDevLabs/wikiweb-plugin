@@ -30,6 +30,7 @@ class Add extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
+    isURL: PropTypes.string.isRequired,
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
@@ -40,6 +41,7 @@ class Add extends Component {
 
     this.state = {
       isInput: false,
+      isURL: false,
     };
   }
 
@@ -53,8 +55,10 @@ class Add extends Component {
     dispatch(fetchPostEdge(fromId, id));
   }
 
+
   render() {
-    const { id, isFetching } = this.props;
+    const { id, isFetching, isURL } = this.props;
+    const validSubmit = isURL ? '' : '#C5C5C5';
     return (
       <div className={'addJS'} style={{ minHeight: 266, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
         <Link to="/" style={{ textDecoration: 'none' }} ><span style={{ paddingLeft: 6, paddingRight: 6, fontSize: 24, color: '#70037C' }} >&#8592;</span></Link>
@@ -65,10 +69,10 @@ class Add extends Component {
               isFetching={isFetching}
               isExistantURL={id.length > 0}
             />
-          <textarea className={'formInput'} placeholder="Description (optional)..." style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }} />
+            <textarea className={'formInput'} placeholder="Description (optional)..." style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }} />
             <InputTags />
             <div style={{ marginTop: 10 }}>
-              <a onClick={this.onSave} className={'formSubmit'} type="submit" >Submit</a>
+              <a onClick={this.onSave} className={'formSubmit'} style={{ color: validSubmit }} type="submit" >Submit</a>
             </div>
           </form>
         </div>
