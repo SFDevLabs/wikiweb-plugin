@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchSearch } from '../actions/entity';
+import Footer from '../components/Footer.react';
 
 const startIndex = 0;
 const endIndex = 3;
@@ -31,6 +31,7 @@ class Connections extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
+    location: PropTypes.object,
     // entityCount: PropTypes.number.isRequired,
     // title: PropTypes.string.isRequired,
     // queryLink: PropTypes.string.isRequired,
@@ -50,26 +51,12 @@ class Connections extends Component {
 
   render() {
     const { superEdges,
-      //entityCount, title, queryLink, canonicalLink,
+      location: {
+        search,
+      },
     } = this.props;
 
-    // Move me to a class @jeffj
-    function footerJSX() {
-      return (
-        <div className={'footer'} style={{ position: 'absolute', bottom: 0, paddingTop: 1, borderTop: '1px solid #DCDCDC', height: 40, display: 'block' }}>
-          <Link to="add" style={{ lineHeight: '40px', textDecoration: 'none', color: '#4d4d4d', outline: 'none' }}>
-            <div className={'wikiwebBox'} style={{ width: '174.5px', float: 'left', fontSize: 14, textAlign: 'center', outline: 'none' }}>
-              <span>WikiWeb</span>
-            </div>
-          </Link>
-          <div className={'verticalDivider'}>{' '}</div>
-          <Link to="add" style={{ lineHeight: '40px', textDecoration: 'none', color: '#4d4d4d' }}>
-            <div className={'addConnectionBox'} style={{ width: '174.5px', float: 'right', textAlign: 'center' }}>
-              <strong><span>+</span></strong>
-            </div>
-          </Link>
-        </div>);
-    }
+    const isNew = search && search.length > 0;
 
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
       const isBottomBorder = (index === endIndex - 1) ? null : '1px solid #DCDCDC';
@@ -125,9 +112,10 @@ class Connections extends Component {
 
     return (
       <div className={'connectionsJS'} style={{ minHeight: 275, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
+        {isNew ? 'IS NEW FLAG!' : null}
         {pageDefaultJSX()}
         {mainContent()}
-        {footerJSX()}
+        <Footer />
       </div>
     );
   }

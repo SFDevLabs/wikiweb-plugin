@@ -58,6 +58,7 @@ input[type="checkbox"] {
     }
     .addConnectionBox {
       border-bottom-right-radius: 2px;
+      background-color: white;
       span {
         color: orange;
         font-size: 19px;
@@ -126,6 +127,8 @@ input[type="checkbox"] {
   }
   .formSubmit {
     border-radius: 0px;
+    padding: 7px 10px;
+    text-decoration: none;
     border: 1px solid #C5C5C5;
     color: #4D4D4D;
     background-color: white;
@@ -136,6 +139,7 @@ input[type="checkbox"] {
     padding-right: auto;
     min-width: 100px;
     &:hover {
+      cursor: pointer;
       color: white;
       background-color: orange;
       border-color: orange;

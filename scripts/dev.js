@@ -10,7 +10,7 @@ console.log('-'.repeat(80));
 tasks.copyAssets('dev');
 tasks.copyScripts('dev');
 
-fs.watch('chrome/scripts', (eventType, filename) => {
+fs.watch('chrome/scripts', () => {
   tasks.copyScripts('dev');
 });
 
@@ -21,5 +21,5 @@ console.log('please allow `https://localhost:4000` connections in Google Chrome,
 console.log('and load unpacked extensions with `./dev` folder. (see https://developer.chrome.com/extensions/getstarted#unpacked)\n');
 createWebpackServer(devConfig, {
   host: 'localhost',
-  port: 4000
+  port: 4000,
 });

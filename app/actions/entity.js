@@ -1,4 +1,6 @@
 import request from 'superagent';
+import { hashHistory } from 'react-router';
+
 import { setExtensionButon } from '../lib';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
@@ -8,7 +10,7 @@ export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
 export const REQUEST_CONNECT_SEARCH = 'REQUEST_CONNECT_SEARCH';
 export const RECEIVE_CONNECTED_SEARCH = 'RECEIVE_CONNECTED_SEARCH';
 
-export const REQUEST_EDGE = 'RECEIVE_EDGE';
+export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';
 
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
@@ -50,9 +52,8 @@ export const requestProfile = url => ({
   url,
 });
 
-const receiveEdge = (superEdge) => ({
-  type: RECEIVE_EDGE,
-  superEdge,
+const requestPostEdge = () => ({
+  type: REQUEST_EDGE,
 });
 
 /* This demands a more efficent API.
@@ -126,28 +127,16 @@ export const fetchConnectSearch = url => (dispatch) => {
 
 // This demands a more efficent API.  For for cimplicty we are usign what we have.
 export const fetchPostEdge = (fromId, toId) => (dispatch) => {
-  //dispatch(requestPostEdge());
-
-
-
+  dispatch(requestPostEdge());
   return request
     .post('http://localhost:3000/api/connect')
-    .send({fromId, toId})
+    .send({ fromId, toId })
     .set('Accept', 'application/json')
-    .end((err, res) => {
+    .end((err) => {
       if (err) {
-        return //dispatch(receiveError('Error in Response'));
+        return dispatch(receiveError('Error in Response'));
       } // Stop here on err
-
-      //http://stackoverflow.com/questions/31079081/programmatically-navigate-using-react-router
-      const { body } = res;
-      dispatch(receiveEdge( /*Edge goes here @jeffj*/));
-
-      // if (node !== null) {
-      //   const { _id, title } = node;
-      //
-      // } else {
-      //   dispatch(receiveConnectSearch(isURL, '', ''));
-      // }
+      hashHistory.push('/?isNew=true'); //Navigate back Home
+      dispatch(fetchEntity(fromId));
     });
 };
