@@ -32,10 +32,6 @@ class Connections extends Component {
     dispatch: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
     location: PropTypes.object,
-    // entityCount: PropTypes.number.isRequired,
-    // title: PropTypes.string.isRequired,
-    // queryLink: PropTypes.string.isRequired,
-    // canonicalLink: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -55,27 +51,27 @@ class Connections extends Component {
         search,
       },
     } = this.props;
-
+    // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
-      if (superEdges.length === 0) {
-        return (
-          <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
-            <br />
-            <div style={{ display: 'block' }} >
-              <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
-            </div>
-            <br />
-            <div><span>There are no connections for this page inside the WikiWeb. </span></div>
-            <br />
-            <div>
-              <span><em>Be the first to add one!</em></span>
-              <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
-            </div>
+      //if (data.length === 0) {
+      return (
+        <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
+          <br />
+          <div style={{ display: 'block' }} >
+            <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
           </div>
+          <br />
+          <div><span>There are no connections for this page inside the WikiWeb. </span></div>
+          <br />
+          <div>
+            <span><em>Be the first to add one!</em></span>
+            <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
+          </div>
+        </div>
         );
-      }
+      //}
     }
-
+    // @TODO Move me outside the render
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
       const isNewEdge = search && search.length > 0 && index === 0 ? 'isNewEdge' : null;
       const isNew = isNewEdge ? true : 'none';
@@ -101,22 +97,23 @@ class Connections extends Component {
         </div>);
     }
 
-    function mainContent() {
-      if (superEdges.length) {
-        return superEdges
-          .slice(startIndex, endIndex) // Only take a limited number of Edges for display
-          .map((card, index) => {
-            const { entity: { title, canonicalLink }, edges } = card;
-            const username = edges && edges.length > 0 ? edges[0].user.username : '';
-            return edgeCardJSXGenerator(title, canonicalLink, username, index);
-          });
-      }
+    // @TODO Move me outside the render
+    function mainContent(data) {
+      //if (edges.length) {
+      return data
+        .slice(startIndex, endIndex) // Only take a limited number of Edges for display
+        .map((card, index) => {
+          const { entity: { title, canonicalLink }, edges } = card;
+          const username = edges && edges.length > 0 ? edges[0].user.username : '';
+          return edgeCardJSXGenerator(title, canonicalLink, username, index);
+        });
+      //}
     }
+    const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);
 
     return (
       <div className={'connectionsJS'}>
-        {pageDefaultJSX()}
-        {mainContent()}
+        {pageJSX}
         <Footer />
       </div>
     );
