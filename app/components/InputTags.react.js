@@ -35,14 +35,16 @@ class InputTags extends Component {
 
   render() {
     const { tags } = this.props;
-    console.log( tags );
+    console.log(tags, 'tags');
     return (
-      <ReactTags
-        tags={tags}
-        handleDelete={this.handleDelete}
-        handleAddition={this.handleAddition}
-        handleDrag={this.handleDrag}
-      />
+      <div className="reactTagsModule">
+        <ReactTags
+          tags={tags}
+          handleDelete={this.handleDelete}
+          handleAddition={this.handleAddition}
+          handleDrag={this.handleDrag}
+        />
+      </div>
     );
   }
 }
