@@ -79,11 +79,11 @@ class Add extends Component {
   render() {
     const { id, isFetching, isURL } = this.props;
     const { tags, description } = this.state;
-    const validSubmit = isURL ? '' : '#C5C5C5';
+    const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
     return (
       <div className={'addJS'} style={{ minHeight: 266, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
         <Link to="/" style={{ textDecoration: 'none' }} ><span style={{ paddingLeft: 6, paddingRight: 6, fontSize: 24, color: '#70037C' }} >&#8592;</span></Link>
-        <div style={{ paddingLeft: '7%', paddingTop: 3, width: '100%' }} >
+        <div style={{ paddingLeft: '7%', paddingTop: 3, width: '100%' }}>
           <form >
             <InputUrl
               onValidURL={this.onRecieveValidURL}
@@ -102,7 +102,7 @@ class Add extends Component {
               onTagChange={this.onTagChange}
             />
             <div style={{ marginTop: 10 }}>
-              <a onClick={this.onSave} className={'formSubmit'} style={{ color: validSubmit }} type="submit" >Submit</a>
+              <a onClick={this.onSave} className={isValidSubmit} type="submit" >Submit</a>
             </div>
           </form>
         </div>
