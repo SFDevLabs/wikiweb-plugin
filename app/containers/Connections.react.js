@@ -68,7 +68,7 @@ class Connections extends Component {
             <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
           </div>
         </div>
-        );
+      );
       //}
     }
     // @TODO Move me outside the render

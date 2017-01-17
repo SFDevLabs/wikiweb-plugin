@@ -35,7 +35,6 @@ class InputTags extends Component {
 
   render() {
     const { tags } = this.props;
-    console.log( tags );
     return (
       <ReactTags
         tags={tags}
