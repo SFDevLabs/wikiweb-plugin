@@ -30,7 +30,7 @@ class Add extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    isURL: PropTypes.string.isRequired,
+    isURL: PropTypes.bool.isRequired,
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
@@ -42,6 +42,8 @@ class Add extends Component {
     this.state = {
       isInput: false,
       isURL: false,
+      description: '',
+      tags: [],
     };
   }
 
@@ -50,14 +52,33 @@ class Add extends Component {
     dispatch(fetchConnectSearch(val));
   }
 
-  onSave = () => {
-    const { dispatch, id, fromId } = this.props;
-    dispatch(fetchPostEdge(fromId, id));
+  onTagChange = (tags) => {
+    this.setState({
+      tags,
+    });
   }
 
+  onSave = () => {
+    const { dispatch, id, fromId } = this.props;
+    const { description, tags } = this.state;
+    dispatch(fetchPostEdge(
+      fromId,
+      id,
+      description,
+      tags.map(obj => obj.text)
+    ));
+  }
+
+  onDescriptionChange = (e) => {
+    const description = e.target.value;
+    this.setState({
+      description,
+    });
+  }
 
   render() {
     const { id, isFetching, isURL } = this.props;
+    const { tags, description } = this.state;
     const validSubmit = isURL ? '' : '#C5C5C5';
     return (
       <div className={'addJS'} style={{ minHeight: 266, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
@@ -69,8 +90,17 @@ class Add extends Component {
               isFetching={isFetching}
               isExistantURL={id.length > 0}
             />
-            <textarea className={'formInput'} placeholder="Description (optional)..." style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }} />
-            <InputTags />
+            <textarea
+              value={description}
+              onChange={this.onDescriptionChange}
+              className={'formInput'}
+              placeholder="Description (optional)..."
+              style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }}
+            />
+            <InputTags
+              tags={tags}
+              onTagChange={this.onTagChange}
+            />
             <div style={{ marginTop: 10 }}>
               <a onClick={this.onSave} className={'formSubmit'} style={{ color: validSubmit }} type="submit" >Submit</a>
             </div>

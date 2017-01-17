@@ -126,11 +126,11 @@ export const fetchConnectSearch = url => (dispatch) => {
 };
 
 // This demands a more efficent API.  For for cimplicty we are usign what we have.
-export const fetchPostEdge = (fromId, toId) => (dispatch) => {
+export const fetchPostEdge = (fromId, toId, description, tags) => (dispatch) => {
   dispatch(requestPostEdge());
   return request
     .post('http://localhost:3000/api/connect')
-    .send({ fromId, toId })
+    .send({ fromId, toId, description, tags })
     .set('Accept', 'application/json')
     .end((err) => {
       if (err) {
