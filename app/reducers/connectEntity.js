@@ -13,7 +13,7 @@ const connectEntity = (state = {
   title: '',
   id: '',
   isURL: false,
-  errors: [],
+  messages: [],
 }, action) => {
   switch (action.type) {
     case REQUEST_CONNECT_SEARCH: {
@@ -38,11 +38,11 @@ const connectEntity = (state = {
     }
     case RECEIVE_ERROR: {
       const {
-        errors,
+        messages,
       } = action;
       return {
         ...state,
-        errors,
+        messages,
       };
     }
     default: {

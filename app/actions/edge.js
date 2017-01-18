@@ -61,7 +61,7 @@ export const fetchPostEdge = (fromId, toId, description, tags) => (dispatch) => 
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
-        return dispatch(receiveError(res.body.errors));
+        return dispatch(receiveError(res.body.messages));
       } // Stop here on err
       hashHistory.push('/?isNew=true'); //Navigate back Home
       dispatch(fetchEntity(fromId));  // Re request edges for the page

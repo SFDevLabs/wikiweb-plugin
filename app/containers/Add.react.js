@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
         title,
         isURL,
         isFetching,
-        errors,
+        messages,
       },
       entity,
   } = state;
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
     title,
     isURL,
     isFetching,
-    errors,
+    messages,
   };
 };
 
@@ -37,7 +37,7 @@ class Add extends Component {
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    errors: PropTypes.array.isRequired,
+    messages: PropTypes.array.isRequired,
   }
 
   constructor() {
@@ -81,7 +81,7 @@ class Add extends Component {
   }
 
   render() {
-    const { id, isFetching, isURL, errors } = this.props;
+    const { id, isFetching, isURL, messages } = this.props;
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
 
@@ -91,7 +91,7 @@ class Add extends Component {
 
     return (
       <div className={'addJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
-        <Message messages={errors} />
+        <Message messages={messages} />
         <Link to="/" style={{ textDecoration: 'none' }} ><span style={{ paddingLeft: 6, paddingRight: 6, fontSize: 24, color: '#70037C' }} >&#8592;</span></Link>
         <div style={{ paddingLeft: '7%', paddingTop: 3, width: '100%' }}>
           <form >

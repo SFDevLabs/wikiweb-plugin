@@ -5,7 +5,6 @@ import { setExtensionButon } from '../lib';
 import { receiveError } from './error';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
-export const REQUEST_CONNECTED_SEARCH = 'REQUEST_CONNECTED_SEARCH';
 
 export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
 
