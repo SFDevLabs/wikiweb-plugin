@@ -51,9 +51,9 @@ class Connections extends Component {
         search,
       },
     } = this.props;
+
     // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
-      //if (data.length === 0) {
       return (
         <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
           <br />
@@ -69,10 +69,14 @@ class Connections extends Component {
           </div>
         </div>
       );
-      //}
     }
+
+    // function tagsJSXGenerator(tags) {
+    //   tags.map((tag, index) => <span key={index} className={'tag'}>{ tag }</span>);
+    // }
+
     // @TODO Move me outside the render
-    function edgeCardJSXGenerator(title, canonicalLink, username, index) {
+    function edgeCardJSXGenerator(title, canonicalLink, tags, username, index) {
       const isNew = search && search.length > 0 && index === 0 ? true : 'none';
       const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
       return (
@@ -86,6 +90,9 @@ class Connections extends Component {
               <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
+          </div>
+          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
+            Tags: {tagsJSXGenerator(tags)}
           </div>
           <div style={{ display: 'block', height: 20, paddingBottom: 3 }}>
             <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
@@ -102,8 +109,13 @@ class Connections extends Component {
         .slice(startIndex, endIndex) // Only take a limited number of Edges for display
         .map((card, index) => {
           const { entity: { title, canonicalLink }, edges } = card;
-          const username = edges && edges.length > 0 ? edges[0].user.username : '';
-          return edgeCardJSXGenerator(title, canonicalLink, username, index);
+          let username = '';
+          let tags = [];
+          if (edges && edges.length > 0) {
+            username = edges[0].user.username;
+            tags = edges[0].tags;
+          }
+          return edgeCardJSXGenerator(title, canonicalLink, tags, username, index);
         });
     }
     const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);

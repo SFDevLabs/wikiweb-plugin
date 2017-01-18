@@ -84,7 +84,7 @@ class Add extends Component {
       <div className={'addJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
         <Link to="/" style={{ textDecoration: 'none' }} ><span style={{ paddingLeft: 6, paddingRight: 6, fontSize: 24, color: '#70037C' }} >&#8592;</span></Link>
         <div style={{ paddingLeft: '7%', paddingTop: 3, width: '100%' }}>
-          <form >
+          <form>
             <InputUrl
               onValidURL={this.onRecieveValidURL}
               isFetching={isFetching}
@@ -101,8 +101,8 @@ class Add extends Component {
               tags={tags}
               onTagChange={this.onTagChange}
             />
-            <div style={{ marginTop: 10, marginBottom: 10 }}>
-              <a onClick={this.onSave} className={isValidSubmit} type="submit" >Submit</a>
+            <div style={{ marginTop: 10, marginBottom: 12 }}>
+              <a onClick={this.onSave} className={isValidSubmit} type="submit">Submit</a>
             </div>
           </form>
         </div>

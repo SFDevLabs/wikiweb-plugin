@@ -101,6 +101,11 @@ input[type="checkbox"] {
       img { display: inline; }
     }
   }
+
+  .tag {
+    padding-left: 5px;
+    border: 1px solid rgba(255,165,0, 1);
+  }
 }
 
 .addJS {
@@ -135,13 +140,13 @@ input[type="checkbox"] {
   }
   .formSubmit {
     border-radius: 0px;
-    padding: 7px 10px;
+    padding: 9px 12px;
     text-decoration: none;
     border: 1px solid #C5C5C5;
     color: #4D4D4D;
     background-color: white;
     height: 39px;
-    line-height: 32px;
+    line-height: 36px;
     font-size: 13px;
     min-width: 100px;
     &:hover {
@@ -166,8 +171,7 @@ input[type="checkbox"] {
 
 
 .reactTagsModule {
-  /* Styles for React Tags */
-
+  /* Styles derived from React Tags */
   div.ReactTags__tags {
     position: relative;
     width: 294px;
