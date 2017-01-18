@@ -73,11 +73,10 @@ class Connections extends Component {
     }
     // @TODO Move me outside the render
     function edgeCardJSXGenerator(title, canonicalLink, username, index) {
-      const isNewEdge = search && search.length > 0 && index === 0 ? 'isNewEdge' : null;
-      const isNew = isNewEdge ? true : 'none';
-      const isBottomBorder = (index !== endIndex - 1) && !isNewEdge ? '1px solid #DCDCDC' : null;
+      const isNew = search && search.length > 0 && index === 0 ? true : 'none';
+      const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
       return (
-        <div key={index} className={isNewEdge} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
+        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
           <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
             {title}
           </div>
