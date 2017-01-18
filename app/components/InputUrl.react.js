@@ -67,6 +67,7 @@ class InputUrl extends Component {
       <div>
         <div style={{ display: 'block' }}>
           <input
+            autoFocus
             onChange={this.onChange}
             value={val}
             className={'formInput'}

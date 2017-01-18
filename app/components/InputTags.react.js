@@ -38,6 +38,7 @@ class InputTags extends Component {
     return (
       <div className="reactTagsModule">
         <ReactTags
+          autofocus={false}
           tags={tags}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
