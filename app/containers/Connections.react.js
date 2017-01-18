@@ -98,7 +98,6 @@ class Connections extends Component {
 
     // @TODO Move me outside the render
     function mainContent(data) {
-      //if (edges.length) {
       return data
         .slice(startIndex, endIndex) // Only take a limited number of Edges for display
         .map((card, index) => {
@@ -106,7 +105,6 @@ class Connections extends Component {
           const username = edges && edges.length > 0 ? edges[0].user.username : '';
           return edgeCardJSXGenerator(title, canonicalLink, username, index);
         });
-      //}
     }
     const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);
 
