@@ -1,14 +1,19 @@
 import {
   REQUEST_CONNECT_SEARCH,
   RECEIVE_CONNECTED_SEARCH,
-  //RECEIVE_ERROR,
-} from '../actions/entity';
+} from '../actions/edge';
+
+import {
+  RECEIVE_ERROR,
+} from '../actions/error';
+
 
 const connectEntity = (state = {
   isFetching: false,
   title: '',
   id: '',
   isURL: false,
+  messages: [],
 }, action) => {
   switch (action.type) {
     case REQUEST_CONNECT_SEARCH: {
@@ -29,6 +34,15 @@ const connectEntity = (state = {
         id,
         title,
         isFetching: false,
+      };
+    }
+    case RECEIVE_ERROR: {
+      const {
+        messages,
+      } = action;
+      return {
+        ...state,
+        messages,
       };
     }
     default: {

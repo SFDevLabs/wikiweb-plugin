@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import InputUrl from '../components/InputUrl.react';
 import InputTags from '../components/InputTags.react';
-import { fetchConnectSearch, fetchPostEdge } from '../actions/entity';
+import Message from '../components/Message.react';
+import { fetchConnectSearch, fetchPostEdge } from '../actions/edge';
 
 const mapStateToProps = (state) => {
   const {
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
         title,
         isURL,
         isFetching,
+        messages,
       },
       entity,
   } = state;
@@ -23,6 +25,7 @@ const mapStateToProps = (state) => {
     title,
     isURL,
     isFetching,
+    messages,
   };
 };
 
@@ -34,6 +37,7 @@ class Add extends Component {
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
+    messages: PropTypes.array.isRequired,
   }
 
   constructor() {
@@ -77,11 +81,17 @@ class Add extends Component {
   }
 
   render() {
-    const { id, isFetching, isURL } = this.props;
+    const { id, isFetching, isURL, messages } = this.props;
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
+
+    // if (errors.length>0) {
+    //   return <div>Errors</div>;
+    // };
+
     return (
       <div className={'addJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
+        <Message messages={messages} />
         <Link to="/" style={{ textDecoration: 'none' }} ><span style={{ paddingLeft: 6, paddingRight: 6, fontSize: 24, color: '#70037C' }} >&#8592;</span></Link>
         <div style={{ paddingLeft: '7%', paddingTop: 3, width: '100%' }}>
           <form>
