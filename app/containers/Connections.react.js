@@ -86,13 +86,15 @@ class Connections extends Component {
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
           </div>
-          <div style={{ display: 'block', height: 20, paddingBottom: 3 }}>
+          <div style={{ display: 'block', height: 22, paddingBottom: 3 }}>
             <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
               <span style={{ lineHeight: '20px', float: 'left' }}><img alt="" src="img/qwokka.jpg" style={{ verticalAlign: 'middle', width: 14, borderRadius: 4 }} /></span>
               <span style={{ lineHeight: '20px', float: 'left', paddingLeft: 3, paddingTop: '1px', fontSize: 12 }}>@{username}</span>
             </a>
-            <div className={'tagBox'}>
-              { tags.map((tag, subIndex) => <span key={subIndex} className={'tag'}>{tag}</span>) }
+            <div>
+              <div className={'tagBox'}>
+                { tags.map((tag, subIndex) => <span key={subIndex} className={'tag'}>{tag}</span>) }
+              </div>
             </div>
           </div>
         </div>);
