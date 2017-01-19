@@ -1,3 +1,7 @@
+/********************/
+/* UNIVERSAL STYLES */
+/********************/
+
 html, body {
   margin: 0;
   padding: 0;
@@ -36,6 +40,9 @@ input[type="checkbox"] {
   outline: none;
 }
 
+/********************/
+/* CONNECTIONS PAGE */
+/********************/
 .connectionsJS {
   min-height: 270px;
   padding-top: 4px;
@@ -113,13 +120,16 @@ input[type="checkbox"] {
     }
   }
   .userBox{
+    width: 119px;
+    float: left;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
     a {
       text-decoration: none;
       color: #4d4d4d;
     }
     span {
-      line-height: 26px;
-      float: left;
       img {
         vertical-align: middle;
         width: 14px;
@@ -142,7 +152,6 @@ input[type="checkbox"] {
     font-size: 14px;
     line-height: 16px;
     padding-left: 1px;
-    padding-top: 3px;
     padding-bottom: 3px;
   }
   .tag {
@@ -155,6 +164,9 @@ input[type="checkbox"] {
   }
 }
 
+/********************/
+/*     ADD PAGE     */
+/********************/
 .addJS {
   input:focus, select:focus, textarea:focus, button:focus {
     outline: none;
@@ -167,7 +179,6 @@ input[type="checkbox"] {
     font-size: 14px;
     border: 1px solid #C5C5C5;
     border-color: #C5C5C5;
-    // border: none;
     box-shadow: none;
     padding-left: 12px;
     padding-right: 32px;
@@ -218,7 +229,7 @@ input[type="checkbox"] {
 
 
 .reactTagsModule {
-  /* Styles derived from React Tags */
+  /* reactTagsModule Styles derived from React Tags */
   div.ReactTags__tags {
     position: relative;
     width: 294px;

@@ -86,8 +86,8 @@ class Connections extends Component {
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
           </div>
-          <div style={{ display: 'block', height: 22, paddingBottom: 3 }}>
-            <div className={'userBox'}>
+          <div style={{ display: 'block', height: 22, marginTop: 3 }}>
+            <div className={'userBox'} title={`user: @${username}`}>
               <a href={`http://twitter.com/${username}`}>
                 <span><img alt="" src="img/qwokka.jpg" /></span>
                 <span className={'username'}>@{username}</span>
