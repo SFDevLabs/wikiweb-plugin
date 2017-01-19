@@ -79,7 +79,7 @@ class Connections extends Component {
           <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
             {title}
           </div>
-          <div className={'hyperlink'} style={{ display: 'block', height: 20 }}>
+          <div className={'hyperlink'} title={canonicalLink}>
             <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
               <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
               <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
@@ -87,10 +87,12 @@ class Connections extends Component {
             </a>
           </div>
           <div style={{ display: 'block', height: 22, paddingBottom: 3 }}>
-            <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
-              <span style={{ lineHeight: '20px', float: 'left' }}><img alt="" src="img/qwokka.jpg" style={{ verticalAlign: 'middle', width: 14, borderRadius: 4 }} /></span>
-              <span style={{ lineHeight: '20px', float: 'left', paddingLeft: 3, paddingTop: '1px', fontSize: 12 }}>@{username}</span>
-            </a>
+            <div className={'userBox'}>
+              <a href={`http://twitter.com/${username}`}>
+                <span><img alt="" src="img/qwokka.jpg" /></span>
+                <span className={'username'}>@{username}</span>
+              </a>
+            </div>
             <div>
               <div className={'tagBox'}>
                 { tags.map((tag, subIndex) => <span key={subIndex} className={'tag'}>{tag}</span>) }

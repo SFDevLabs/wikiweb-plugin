@@ -96,6 +96,11 @@ input[type="checkbox"] {
   }
 
   .hyperlink {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 20px;
     img { display: none; }
     &:hover {
       img { display: inline; }
@@ -105,6 +110,26 @@ input[type="checkbox"] {
       color: black;
       font-size: 11px;
       padding-left: 1px;
+    }
+  }
+  .userBox{
+    a {
+      text-decoration: none;
+      color: #4d4d4d;
+    }
+    span {
+      line-height: 26px;
+      float: left;
+      img {
+        vertical-align: middle;
+        width: 14px;
+        border-radius: 4px;
+      }
+    }
+    .username {
+      padding-left: 3px;
+      padding-top: 1px;
+      font-size: 12px;
     }
   }
   .tagBox {
