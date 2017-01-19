@@ -70,11 +70,6 @@ class Connections extends Component {
         </div>
       );
     }
-
-    // function tagsJSXGenerator(tags) {
-    //   tags.map((tag, index) => <span key={index} className={'tag'}>{ tag }</span>);
-    // }
-
     // @TODO Move me outside the render
     function edgeCardJSXGenerator(title, canonicalLink, tags, username, index) {
       const isNew = search && search.length > 0 && index === 0 ? true : 'none';
@@ -85,20 +80,20 @@ class Connections extends Component {
             {title}
           </div>
           <div className={'hyperlink'} style={{ display: 'block', height: 20 }}>
-            <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'blue', fontSize: 11, paddingLeft: 1 }} href={canonicalLink}>
+            <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
               <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
               <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
-          </div>
-          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
-            Tags: {tagsJSXGenerator(tags)}
           </div>
           <div style={{ display: 'block', height: 20, paddingBottom: 3 }}>
             <a style={{ textDecoration: 'none', color: '#4d4d4d' }} href={`http://twitter.com/${username}`}>
               <span style={{ lineHeight: '20px', float: 'left' }}><img alt="" src="img/qwokka.jpg" style={{ verticalAlign: 'middle', width: 14, borderRadius: 4 }} /></span>
               <span style={{ lineHeight: '20px', float: 'left', paddingLeft: 3, paddingTop: '1px', fontSize: 12 }}>@{username}</span>
             </a>
+            <div className={'tagBox'}>
+              { tags.map((tag, subIndex) => <span key={subIndex} className={'tag'}>{tag}</span>) }
+            </div>
           </div>
         </div>);
     }
