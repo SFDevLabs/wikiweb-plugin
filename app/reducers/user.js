@@ -1,28 +1,36 @@
 import {
-  REQUEST_USER,
-  RECEIVE_USER,
-  //RECEIVE_ERROR,
+  REQUEST_PROFILE,
+  RECEIVE_PROFILE,
+  RECEIVE_NOT_AUTH,
 } from '../actions/user';
 
-const user = (state = {
-  isFetching: false,
-  entityCount: 0,
-  title: '',
-  superEdges: [],
-  queryLink: '',
-  canonicalLink: '',
+const userReducer = (state = {
+  profile: {},
+  isLoggedIn: false,
 }, action) => {
   switch (action.type) {
-    case REQUEST_USER: {
+    case REQUEST_PROFILE: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     }
-    case RECEIVE_USER: {
+    case RECEIVE_PROFILE: {
+      const {
+        profile,
+      } = action;
       return {
         ...state,
-        isFetching: true
+        profile,
+        isLoggedIn: true,
+        isFetching: false,
+      };
+    }
+    case RECEIVE_NOT_AUTH: {
+      return {
+        ...state,
+        isLoggedIn: false,
+        isFetching: false,
       };
     }
     default: {
@@ -31,4 +39,4 @@ const user = (state = {
   }
 };
 
-export default user;
+export default userReducer;

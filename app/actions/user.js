@@ -1,33 +1,39 @@
 import request from 'superagent';
 
-export const REQUEST_USER = 'REQUEST_USER';
-export const RECEIVE_USER = 'RECEIVE_USER';
+export const REQUEST_PROFILE = 'REQUEST_PROFILE';
+export const RECEIVE_PROFILE = 'RECEIVE_PROFILE';
+export const RECEIVE_NOT_AUTH = 'RECEIVE_NOT_AUTH';
 
-export const requestUser = url => ({
-  type: REQUEST_USER,
+export const requestProfile = url => ({
+  type: REQUEST_PROFILE,
   url,
 });
 
-export const receiveUser = user => ({
-  type: RECEIVE_USER,
+export const receiveProfile = user => ({
+  type: RECEIVE_PROFILE,
   user,
 });
 
-export const fetchUser = () => (dispatch) => {
-  dispatch(requestUser());
+export const receiveNotAuth = user => ({
+  type: RECEIVE_NOT_AUTH,
+  user,
+});
+
+export const fetchProfile = () => (dispatch) => {
+  dispatch(requestProfile());
   return request
     .get('http://localhost:3000/api/users/profile')
     .set('Accept', 'application/json')
     .end((err, res) => {
-      if (err) {
-        //return dispatch(receiveError('Error in Response'));
+      if (err && err.status === 401) {
+        return dispatch(receiveNotAuth());
       }
 
       const { body } = res;
       if (!body) {
         // dispatch(receiveError('Error in Response'));
       } else {
-        dispatch(receiveUser(body.user));
+        dispatch(receiveProfile(body.user));
       }
     });
 };
