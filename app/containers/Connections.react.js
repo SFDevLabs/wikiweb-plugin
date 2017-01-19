@@ -77,7 +77,9 @@ class Connections extends Component {
       return (
         <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
           <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
-            {title}
+            <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
+              {title}
+            </a>
           </div>
           <div className={'hyperlink'} title={canonicalLink}>
             <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
