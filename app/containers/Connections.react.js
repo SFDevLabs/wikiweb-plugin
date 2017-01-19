@@ -55,6 +55,8 @@ class Connections extends Component {
       },
     } = this.props;
 
+    console.log(superEdges, '... superEdges')
+
     // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
       return (
@@ -79,7 +81,7 @@ class Connections extends Component {
       const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
       return (
         <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
-          <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontSize: 14, lineHeight: '16px', paddingLeft: 1, paddingTop: 3 }}>
+          <div className={'titleBox'}>
             <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
               {title}
             </a>
