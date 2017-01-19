@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSearch } from '../actions/entity';
+import { fetchProfile } from '../actions/user';
+
 import Footer from '../components/Footer.react';
 
 const startIndex = 0;
@@ -42,6 +44,7 @@ class Connections extends Component {
     }, (tabs) => {
       const url = tabs[0].url.split('?')[0];
       dispatch(fetchSearch(url));
+      dispatch(fetchProfile());
     });
   }
 

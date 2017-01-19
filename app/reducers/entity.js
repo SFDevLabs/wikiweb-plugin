@@ -6,7 +6,7 @@ import {
 } from '../actions/entity';
 
 const entity = (state = {
-  id:'',
+  id: '',
   isFetching: false,
   entityCount: 0,
   title: '',
