@@ -32,7 +32,8 @@ class InputUrl extends Component {
 
   submitWithDelay = () => {
     const { val } = this.state;
-    const isValidURL = isUri(val);
+    debugger
+    const isValidURL = isUri(val) || isUri(`https://${val}`);
     this.setState({
       isValidURL,
       typeDelay: false,

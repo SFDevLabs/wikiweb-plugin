@@ -1,7 +1,6 @@
 import request from 'superagent';
 import { hashHistory } from 'react-router';
 import { fetchEntity } from './entity';
-
 import { receiveError } from './error';
 
 
