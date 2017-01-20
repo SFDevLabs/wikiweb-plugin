@@ -1,16 +1,14 @@
 import request from 'superagent';
-
 import { setExtensionButon } from '../lib';
-
 import { receiveError } from './error';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
-
 export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
-
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';
+
+const rootURL = 'http://localhost:3000';
 
 export const requestSearch = url => ({
   type: REQUEST_SEARCH,
@@ -40,7 +38,7 @@ export const requestProfile = url => ({
 
 export const fetchEntity = id => dispatch =>
   request
-    .get(`http://localhost:3000/api/node/${id}`)
+    .get(`${rootURL}/api/node/${id}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
@@ -62,7 +60,7 @@ export const fetchEntity = id => dispatch =>
 export const fetchSearch = url => (dispatch) => {
   dispatch(requestSearch(url));
   return request
-    .get(`http://localhost:3000/api/searchurl?q=${url}`)
+    .get(`${rootURL}/api/searchurl?q=${url}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {

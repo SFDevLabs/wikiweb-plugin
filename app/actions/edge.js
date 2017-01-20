@@ -3,6 +3,7 @@ import { hashHistory } from 'react-router';
 import { fetchEntity } from './entity';
 import { receiveError } from './error';
 
+const rootURL = 'http://localhost:3000';
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';
@@ -34,7 +35,7 @@ const receiveConnectSearch = (isURL, id, title) => ({
 export const fetchConnectSearch = url => (dispatch) => {
   dispatch(requestConnectSearch());
   return request
-    .get(`http://localhost:3000/api/searchurl?q=${url}`)
+    .get(`${rootURL}/api/searchurl?q=${url}`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
@@ -55,7 +56,7 @@ export const fetchConnectSearch = url => (dispatch) => {
 export const fetchPostEdge = (fromId, toId, description, tags) => (dispatch) => {
   dispatch(requestPostEdge());
   return request
-    .post('http://localhost:3000/api/connect')
+    .post(`${rootURL}/api/connect`)
     .send({ fromId, toId, description, tags })
     .set('Accept', 'application/json')
     .end((err, res) => {

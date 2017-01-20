@@ -4,6 +4,8 @@ export const REQUEST_PROFILE = 'REQUEST_PROFILE';
 export const RECEIVE_PROFILE = 'RECEIVE_PROFILE';
 export const RECEIVE_NOT_AUTH = 'RECEIVE_NOT_AUTH';
 
+const rootURL = 'http://localhost:3000';
+
 export const requestProfile = url => ({
   type: REQUEST_PROFILE,
   url,
@@ -22,7 +24,7 @@ export const receiveNotAuth = user => ({
 export const fetchProfile = () => (dispatch) => {
   dispatch(requestProfile());
   return request
-    .get('http://localhost:3000/api/users/profile')
+    .get(`${rootURL}/api/users/profile`)
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err && err.status === 401) {
