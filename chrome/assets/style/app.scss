@@ -47,7 +47,7 @@ input[type="checkbox"] {
   min-height: 270px;
   padding-top: 4px;
   font-family: 'Verdana', 'Geneva', 'sans-serif';
-  color: #000000;
+  color: #4d4d4d;
   border-top: 3px solid #70037C;
   .isNewEdge {
     border: 1px solid purple;
@@ -186,8 +186,55 @@ input[type="checkbox"] {
 /*     LOGIN PAGE   */
 /********************/
 .loginJS {
+  min-height: 270px;
+  padding-top: 4px;
+  border-top: 3px solid #70037C;
   input:focus, select:focus, textarea:focus, button:focus {
     outline: none;
+  }
+  .twitterButton {
+    $twitterBlue: #55ACEE;
+    $twitterDarkBlue: #006DAA;
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    text-align: left;
+    padding-left: 15px;
+    color: white;
+    background-color: $twitterBlue;
+    &:hover {
+      background-color: $twitterDarkBlue;
+    }
+    img {
+      height: 40px;
+      float: left;
+    }
+    span {
+      font-size: 14px;
+      line-height: 40px;
+      float: left;
+      padding-left: 11px;
+    }
+  }
+  .disclaimerFooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 1px;
+    height: 40px;
+    display: block;
+    border-top: 1px solid rgb(220, 220, 220);
+    span {
+      width: 100%;
+      margin-left: 5%;
+      margin-right: 5%;
+      font-size: 11px;
+      line-height: 40px;
+    }
   }
 }
 
