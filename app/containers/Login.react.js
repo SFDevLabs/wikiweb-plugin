@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 class Login extends Component {
+
+  // goToAddConnectionPage = () => { chrome.tabs.update(null, { url: 'http://localhost:3000/login' }); };
   render() {
     return (
       <div className={'loginJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
@@ -14,10 +16,8 @@ class Login extends Component {
           <br />
           <div>You must be logged in to make a connection.</div>
           <br />
-          <div style={{ display: 'block', width: '100%' }}>
-            <a alt="" href="http://localhost:3000/login">
-              <img alt="" src="img/sign-in-with-twitter-gray.png" style={{ marginTop: 15, marginLeft: 35 }} />
-            </a>
+          <div onClick={/*this.goToAddConnectionPage()*/} style={{ display: 'block', width: '100%' }}>
+            <img alt="" src="img/sign-in-with-twitter-gray.png" style={{ marginTop: 15, marginLeft: 35 }} />
           </div>
           <br />
         </div>
