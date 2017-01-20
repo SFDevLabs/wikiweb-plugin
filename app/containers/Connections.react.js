@@ -76,7 +76,7 @@ class Connections extends Component {
       );
     }
     // @TODO Move me outside the render
-    function edgeCardJSXGenerator(title, canonicalLink, tags, username, index) {
+    function edgeCardJSXGenerator(title, canonicalLink, tags, username, profileUrl, index) {
       const isNew = search && search.length > 0 && index === 0 ? true : 'none';
       const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
       return (
@@ -96,7 +96,7 @@ class Connections extends Component {
           <div style={{ display: 'block', height: 22, marginTop: 3 }}>
             <div className={'userBox'} title={`user: @${username}`}>
               <a href={`http://twitter.com/${username}`}>
-                <span><img alt="" src="img/qwokka.jpg" /></span>
+                <span><img alt="" src={profileUrl} /></span>
                 <span className={'username'}>@{username}</span>
               </a>
             </div>
@@ -116,12 +116,14 @@ class Connections extends Component {
         .map((card, index) => {
           const { entity: { title, canonicalLink }, edges } = card;
           let username = '';
-          let tags = [];
+          const tags = [];
+          let profileUrl = '';
           if (edges && edges.length > 0) {
             username = edges[0].user.username;
-            tags = edges[0].tags;
+            username = edges[0].user.username;
+            profileUrl = edges[0].user.profile_image;
           }
-          return edgeCardJSXGenerator(title, canonicalLink, tags, username, index);
+          return edgeCardJSXGenerator(title, canonicalLink, tags, username, profileUrl, index);
         });
     }
     const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);
