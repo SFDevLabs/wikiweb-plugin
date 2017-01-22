@@ -52,32 +52,24 @@ input[type="checkbox"] {
   .isNewEdge {
     border: 1px solid purple;
   }
-
+  .edgeCardBox {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px 2px;
+    display: block;
+  }
   .titleBox {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 14px;
     line-height: 16px;
-    padding-left: 1px;
     padding-top: 3px;
     a {
       text-decoration: none;
       color: inherit;
     }
   }
-
-  .rotatedArrow {
-    margin-top: -5px;
-    width: 45px;
-    position: absolute;
-    padding-left: 25px;
-    $rotation: -30deg;
-     transform: rotate($rotation);
-     -ms-transform: rotate($rotation); /* IE 9 */
-     -webkit-transform: rotate($rotation); /* Chrome, Safari, Opera */
-  }
-
   .hyperlink {
     display: block;
     text-overflow: ellipsis;
@@ -92,8 +84,13 @@ input[type="checkbox"] {
       text-decoration: none;
       color: black;
       font-size: 11px;
-      padding-left: 1px;
     }
+  }
+  .description {
+    font-size: 11px;
+    line-height: 2.5ex;
+    max-height: 5ex; // equivalent to lineHeight x lines
+    overflow: hidden;
   }
   .userBox{
     width: 119px;
@@ -119,7 +116,6 @@ input[type="checkbox"] {
     }
   }
   .tagBox {
-    margin-right: -5px;
     max-width: 210px;
     width: 210px;
     max-height: 22px;
@@ -179,7 +175,16 @@ input[type="checkbox"] {
       }
     }
   }
-
+  .rotatedArrow {
+    margin-top: -5px;
+    width: 45px;
+    position: absolute;
+    padding-left: 25px;
+    $rotation: -30deg;
+     transform: rotate($rotation);
+     -ms-transform: rotate($rotation); /* IE 9 */
+     -webkit-transform: rotate($rotation); /* Chrome, Safari, Opera */
+  }
 }
 
 /********************/
@@ -245,9 +250,24 @@ input[type="checkbox"] {
   input:focus, select:focus, textarea:focus, button:focus {
     outline: none;
   }
+  .backButton {
+    text-decoration: none;
+    span {
+      padding-left: 6px;
+      padding-right: 6px;
+      font-size: 24px;
+      color: #70037C;
+    }
+  }
+  .errorMessages {
+    color: red;
+    margin-bottom: 3px;
+    font-size: 13px;
+  }
   .formInput {
     margin: auto;
     width: 255px;
+    max-width: 255px !important;
     height: 39px;
     line-height: 39px;
     font-size: 14px;

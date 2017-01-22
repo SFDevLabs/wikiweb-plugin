@@ -55,8 +55,6 @@ class Connections extends Component {
       },
     } = this.props;
 
-    console.log(superEdges, '... superEdges')
-
     // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
       return (
@@ -76,11 +74,12 @@ class Connections extends Component {
       );
     }
     // @TODO Move me outside the render
-    function edgeCardJSXGenerator(title, canonicalLink, tags, username, profileUrl, index) {
+    function edgeCardJSXGenerator(title, canonicalLink, tags, description, username, profileUrl, index) {
       const isNew = search && search.length > 0 && index === 0 ? true : 'none';
       const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
+      const buffBottom = (index === endIndex - 1) ? 40 : 0;
       return (
-        <div key={index} style={{ marginLeft: 5, marginRight: 5, padding: 5, display: 'block', borderBottom: isBottomBorder }}>
+        <div key={index} className={'edgeCardBox'} style={{ borderBottom: isBottomBorder, marginBottom: buffBottom }}>
           <div className={'titleBox'}>
             <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
               {title}
@@ -92,6 +91,9 @@ class Connections extends Component {
               <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
             </a>
+          </div>
+          <div className={'description'} title={description}>
+            {description}
           </div>
           <div style={{ display: 'block', height: 22, marginTop: 3 }}>
             <div className={'userBox'} title={`user: @${username}`}>
@@ -115,15 +117,16 @@ class Connections extends Component {
         .slice(startIndex, endIndex) // Only take a limited number of Edges for display
         .map((card, index) => {
           const { entity: { title, canonicalLink }, edges } = card;
+          const description = edges[0].description;
+          const tags = edges[0].tags;
           let username = '';
-          const tags = [];
           let profileUrl = '';
           if (edges && edges.length > 0) {
             username = edges[0].user.username;
             username = edges[0].user.username;
             profileUrl = edges[0].user.profile_image;
           }
-          return edgeCardJSXGenerator(title, canonicalLink, tags, username, profileUrl, index);
+          return edgeCardJSXGenerator(title, canonicalLink, tags, description, username, profileUrl, index);
         });
     }
     const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);

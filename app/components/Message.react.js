@@ -13,9 +13,10 @@ class Message extends Component {
   render() {
     const { messages } = this.props;
     return (
-      <div className={'message'} style={{ display: 'block' }}>
-        {messages.map((message, i) => <p key={i}>Type: {message.type} Text: {message.text}</p>)}
-      </div>);
+      <div className={'errorMessages'}>
+        { messages.map((message, i) => <span key={i}>Error: {message}</span>)}
+      </div>
+    );
   }
 }
 
