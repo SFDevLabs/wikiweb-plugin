@@ -10,7 +10,8 @@ const endIndex = 3;
 
 const mapStateToProps = (state) => {
   const { entity:
-    { entityCount,
+    { id,
+      entityCount,
       isFetching,
       title,
       superEdges,
@@ -20,6 +21,7 @@ const mapStateToProps = (state) => {
   } = state;
 
   return {
+    id,
     entityCount,
     title,
     isFetching,
@@ -35,6 +37,7 @@ class Connections extends Component {
     superEdges: PropTypes.array.isRequired,
     location: PropTypes.object,
     entityCount: PropTypes.number.isRequired,
+    id: PropTypes.number,
   }
 
   componentDidMount() {
@@ -53,6 +56,7 @@ class Connections extends Component {
     const {
       superEdges,
       entityCount,
+      id,
       location: {
         search,
       },
@@ -137,7 +141,7 @@ class Connections extends Component {
     return (
       <div className={'connectionsJS'}>
         {pageJSX}
-        <Footer entityCount={entityCount} />
+        <Footer entityCount={entityCount} id={id} />
       </div>
     );
   }

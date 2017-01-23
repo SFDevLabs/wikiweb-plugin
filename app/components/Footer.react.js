@@ -18,25 +18,24 @@ class Footer extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     entityCount: PropTypes.number.isRequired,
+    id: PropTypes.number,
   }
 
   render() {
-    const { isLoggedIn, entityCount } = this.props;
+    const { isLoggedIn, entityCount, id } = this.props;
 
     const WikiWebBox = entityCount < 4 ?
-      (<span className={'footerButton'} >
-        <div className={'wikiWebBox'} onClick={function () { chrome.tabs.create({ url: 'https://wikiweb.org' }); }}>
-          <span>WikiWeb</span>
-        </div>
-      </span>) :
-      (<span className={'footerButton'} >
-        <div className={'wikiWebBox'} onClick={function () { chrome.tabs.create({ url: `https://wikiweb.org/node/${entityId}` }); }}>
-          <span>See more...</span>
-        </div>
-      </span>);
+      (<div className={'wikiWebBox'} onClick={function () { chrome.tabs.update(null, { url: 'https://wikiweb.org' }); }}>
+        <span>WikiWeb</span>
+      </div>) :
+      (<div className={'wikiWebBox'} onClick={function () { chrome.tabs.update(null, { url: `https://wikiweb.org/node/${id}` }); }}>
+        <span>See more...</span>
+      </div>);
     return (
       <div className={'footer'}>
-        <WikiWebBox />
+        <span className={'footerButton'}>
+          {WikiWebBox}
+        </span>
         <div className={'verticalDivider'}>{' '}</div>
         <Link to={isLoggedIn ? 'add' : 'login'} className={'footerButton'}>
           <div className={'addConnectionBox'}>
