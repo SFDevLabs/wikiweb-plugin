@@ -18,7 +18,7 @@ class Footer extends Component {
   static propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     entityCount: PropTypes.number.isRequired,
-    id: PropTypes.number,
+    id: PropTypes.string,
   }
 
   render() {

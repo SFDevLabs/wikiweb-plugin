@@ -37,7 +37,7 @@ class Connections extends Component {
     superEdges: PropTypes.array.isRequired,
     location: PropTypes.object,
     entityCount: PropTypes.number.isRequired,
-    id: PropTypes.number,
+    id: PropTypes.string,
   }
 
   componentDidMount() {
