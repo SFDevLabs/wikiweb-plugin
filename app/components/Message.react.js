@@ -24,11 +24,3 @@ class Message extends Component {
 }
 
 export default Message;
-// render() {
-//   const { messages } = this.props;
-//   return (
-//     <div className={'errorMessages'}>
-//       { messages.map((message, i) => <span key={i}>Error: {message}</span>)}
-//     </div>
-//   );
-// }
