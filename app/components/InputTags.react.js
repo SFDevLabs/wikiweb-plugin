@@ -43,6 +43,7 @@ class InputTags extends Component {
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}
+          handleInputBlur={this.handleAddition}
         />
       </div>
     );

@@ -14,7 +14,7 @@ class Message extends Component {
     const { messages } = this.props;
     return (
       <div className={'errorMessages'}>
-        { messages.map((message, i) => <span key={i}>Error: {message}</span>)}
+        { messages.map((message, i) => <span key={i}>{message.type}: {message.text}</span>)}
       </div>
     );
   }
