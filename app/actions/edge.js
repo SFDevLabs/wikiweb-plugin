@@ -2,8 +2,10 @@ import request from 'superagent';
 import { hashHistory } from 'react-router';
 import { fetchEntity } from './entity';
 import { receiveError } from './error';
+import config from '../config';
 
-const rootURL = 'http://localhost:3000';
+const env = process.env.NODE_ENV || 'development';
+const { rootURL } = config[env];
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';
