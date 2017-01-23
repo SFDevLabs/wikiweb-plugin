@@ -1,10 +1,12 @@
 import request from 'superagent';
+import config from '../config';
+
+const env = process.env.NODE_ENV || 'development';
+const { rootURL } = config[env];
 
 export const REQUEST_PROFILE = 'REQUEST_PROFILE';
 export const RECEIVE_PROFILE = 'RECEIVE_PROFILE';
 export const RECEIVE_NOT_AUTH = 'RECEIVE_NOT_AUTH';
-
-const rootURL = 'http://localhost:3000';
 
 export const requestProfile = url => ({
   type: REQUEST_PROFILE,

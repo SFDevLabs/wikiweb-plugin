@@ -1,6 +1,10 @@
 import request from 'superagent';
 import { setExtensionButon } from '../lib';
 import { receiveError } from './error';
+import config from '../config';
+
+const env = process.env.NODE_ENV || 'development';
+const { rootURL } = config[env];
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
@@ -8,7 +12,6 @@ export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';
 
-const rootURL = 'http://localhost:3000';
 
 export const requestSearch = url => ({
   type: REQUEST_SEARCH,
