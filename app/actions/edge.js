@@ -6,7 +6,7 @@ import config from '../config';
 
 const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
-debugger
+
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';
 
