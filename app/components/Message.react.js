@@ -13,13 +13,17 @@ class Message extends Component {
 
   render() {
     const { messages } = this.props;
-    return (
+    const ResponseJSX = messages ? (
       <div className={'errorMessages'} style={{ display: 'block' }}>
         {messages.map((message, i) => <span key={i}>
           <span className={'type'}>{message.type}: </span>
           <span className={'text'}>{message.text}</span>
         </span>)}
-      </div>);
+      </div>) : null;
+
+    return (
+      <div>{ ResponseJSX }</div>
+    );
   }
 }
 
