@@ -18,6 +18,6 @@
   "background": {
     "scripts":["/scripts/background.js"]
   },
-  "permissions": [ "contextMenus", "tabs", "storage", "https://github.com/*" ],
-  "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;"
+  "permissions": [ "contextMenus", "tabs", "storage", "https://wikiweb.org/*" ],
+  "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; connect-src 'self' https://wikiweb.org; img-src 'self' http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data;"
 }
