@@ -47,7 +47,6 @@ export const fetchConnectSearch = url => (dispatch) => {
         const { _id, title } = node;
         dispatch(receiveConnectSearch(isURL, _id, title));
       } else {
-        debugger
         dispatch(receiveError(messages));
       }
     });

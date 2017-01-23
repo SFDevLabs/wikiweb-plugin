@@ -34,6 +34,7 @@ class Connections extends Component {
     dispatch: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
     location: PropTypes.object,
+    entityCount: PropTypes.number.isRequired,
   }
 
   componentDidMount() {
@@ -49,7 +50,9 @@ class Connections extends Component {
   }
 
   render() {
-    const { superEdges,
+    const {
+      superEdges,
+      entityCount,
       location: {
         search,
       },
@@ -134,7 +137,7 @@ class Connections extends Component {
     return (
       <div className={'connectionsJS'}>
         {pageJSX}
-        <Footer />
+        <Footer entityCount={entityCount} />
       </div>
     );
   }

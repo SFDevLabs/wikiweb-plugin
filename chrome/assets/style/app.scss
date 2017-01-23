@@ -144,6 +144,18 @@ input[type="checkbox"] {
 
   .footer {
     background-color: white;
+    position: absolute;
+    bottom: 0;
+    padding-top: 1px;
+    border-top: 1px solid #DCDCDC;
+    height: 40px;
+    display: block;
+     .footerButton {
+      line-height: 40px;
+      text-decoration: none;
+      color: #4d4d4d;
+      outline: none;
+    }
     .verticalDivider {
       border-left: 1px solid #DCDCDC;
       height: 30px;
@@ -151,8 +163,14 @@ input[type="checkbox"] {
       margin-top: 5px;
       margin-bottom: 5px;
     }
-    .wikiwebBox {
+    .wikiWebBox {
       border-bottom-left-radius: 2px;
+      width: 174.5px;
+      float: left;
+      font-size: 14px;
+      text-align: center;
+      outline: none;
+      cursor: pointer;
       &:hover {
         background-color: #70037C;
         span {
@@ -163,6 +181,9 @@ input[type="checkbox"] {
     .addConnectionBox {
       border-bottom-right-radius: 2px;
       background-color: white;
+      width: 174.5px;
+      float: right;
+      text-align: center;
       span {
         color: orange;
         font-size: 19px;

@@ -104,7 +104,7 @@ class Add extends Component {
               value={description}
               onChange={this.onDescriptionChange}
               className={'formInput textArea'}
-              placeholder="Description: why is your connection relevant or interesting? (optional)"
+              placeholder="Description: why is this connection relevant or interesting? (optional)"
               style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }}
             />
             <InputTags
