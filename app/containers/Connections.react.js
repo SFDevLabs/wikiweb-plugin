@@ -58,7 +58,7 @@ class Connections extends Component {
     // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
       return (
-        <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
+        <div style={{ paddingLeft: '15%', paddingRight: '15%', marginBottom: 6 }}>
           <br />
           <div style={{ display: 'block' }} >
             <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
@@ -77,7 +77,7 @@ class Connections extends Component {
     function edgeCardJSXGenerator(title, canonicalLink, tags, description, username, profileUrl, index) {
       const isNew = search && search.length > 0 && index === 0 ? true : 'none';
       const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
-      const buffBottom = (index === endIndex - 1) ? 40 : 0;
+      const buffBottom = (index === endIndex - 1) ? 40 : 0; // floating footer height;
       return (
         <div key={index} className={'edgeCardBox'} style={{ borderBottom: isBottomBorder, marginBottom: buffBottom }}>
           <div className={'titleBox'}>
@@ -89,13 +89,13 @@ class Connections extends Component {
             <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
               <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
               <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
-              <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} style={{ verticalAlign: 'middle', width: 14, height: 14 }} /></span>
+              <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} /></span>
             </a>
           </div>
           <div className={'description'} title={description}>
-            {description}
+            &ldquo;{description}&rdquo;
           </div>
-          <div style={{ display: 'block', height: 22, marginTop: 3 }}>
+          <div style={{ display: 'block', height: 22 }}>
             <div className={'userBox'} title={`user: @${username}`}>
               <a href={`http://twitter.com/${username}`}>
                 <span><img alt="" src={profileUrl} /></span>

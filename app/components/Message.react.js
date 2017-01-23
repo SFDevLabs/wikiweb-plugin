@@ -12,12 +12,23 @@ class Message extends Component {
 
   render() {
     const { messages } = this.props;
+    console.log(this.props, 'this.props from message');
     return (
-      <div className={'errorMessages'}>
-        { messages.map((message, i) => <span key={i}>Error: {message}</span>)}
-      </div>
-    );
+      <div className={'errorMessages'} style={{ display: 'block' }}>
+        {messages.map((message, i) => <span key={i}>
+          <span className={'type'}>{message.type}: </span>
+          <span className={'text'}>{message.text}</span>
+        </span>)}
+      </div>);
   }
 }
 
 export default Message;
+// render() {
+//   const { messages } = this.props;
+//   return (
+//     <div className={'errorMessages'}>
+//       { messages.map((message, i) => <span key={i}>Error: {message}</span>)}
+//     </div>
+//   );
+// }

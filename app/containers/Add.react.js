@@ -92,8 +92,8 @@ class Add extends Component {
     return (
       <div className={'addJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
         <Link to="/" className={'backButton'}><span>&#8592;</span></Link>
-        <div style={{ paddingLeft: '7%', paddingTop: 3, width: '100%' }}>
-          <form>
+        <div style={{ paddingLeft: '7%', paddingTop: 3 }}>
+          <form style={{width: 301}}>
             <Message messages={messages} />
             <InputUrl
               onValidURL={this.onRecieveValidURL}
@@ -103,8 +103,8 @@ class Add extends Component {
             <textarea
               value={description}
               onChange={this.onDescriptionChange}
-              className={'formInput'}
-              placeholder="Description (optional)..."
+              className={'formInput textArea'}
+              placeholder="Description: why is your connection relevant or interesting? (optional)"
               style={{ marginBottom: 7, height: 70, lineHeight: '20px', paddingTop: 8 }}
             />
             <InputTags
