@@ -42,12 +42,13 @@ export const fetchConnectSearch = url => (dispatch) => {
         return dispatch(receiveError(['Error in Response']));
       } // Stop here on err
 
-      const { body: { isURL, node } } = res;
-      if (node !== null) {
+      const { body: { isURL, node, messages } } = res;
+      if (isURL) {
         const { _id, title } = node;
         dispatch(receiveConnectSearch(isURL, _id, title));
       } else {
-        dispatch(receiveConnectSearch(isURL, '', ''));
+        debugger
+        dispatch(receiveError(messages));
       }
     });
 };
