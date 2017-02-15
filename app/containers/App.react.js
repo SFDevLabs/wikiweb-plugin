@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
+import { connect } from 'react-redux';
 import Connections from './Connections.react';
 import Login from './Login.react';
 import Add from './Add.react';
 import { fetchSearch } from '../actions/entity';
 import { fetchProfile } from '../actions/user';
-import { connect } from 'react-redux';
 
 
 class App extends Component {
@@ -21,7 +21,7 @@ class App extends Component {
       currentWindow: true,
     }, (tabs) => {
       const url = tabs[0].url.split('?')[0];
-      const tabId = tabs[0].tabId;
+      const tabId = tabs[0].id;
       dispatch(fetchSearch(url, tabId));
       dispatch(fetchProfile());
     });

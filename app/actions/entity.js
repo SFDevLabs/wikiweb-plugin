@@ -43,7 +43,6 @@ export const fetchEntity = (id, tabId) => dispatch =>
         dispatch(receiveError(['Error in Response']));
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink, _id } = res.body;
-        debugger
         setExtensionButon(entityCount, tabId);
         dispatch(receiveEntity(
           _id,

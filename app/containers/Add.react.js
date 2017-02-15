@@ -36,6 +36,7 @@ class Add extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
+    tabId: PropTypes.number.isRequired,
     isURL: PropTypes.bool.isRequired,
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -67,6 +68,7 @@ class Add extends Component {
 
   onSave = () => {
     const { dispatch, id, fromId, tabId } = this.props;
+
     const { description, tags } = this.state;
     dispatch(fetchPostEdge(
       fromId,
@@ -97,7 +99,7 @@ class Add extends Component {
       <div className={'addJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
         <Link to="/" className={'backButton'}><span>&#8592;</span></Link>
         <div style={{ paddingLeft: '7%', paddingTop: 3 }}>
-          <form style={{width: 301}}>
+          <form style={{ width: 301 }}>
             <Message messages={messages} />
             <InputUrl
               onValidURL={this.onRecieveValidURL}
