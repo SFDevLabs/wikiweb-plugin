@@ -25,10 +25,10 @@ class Footer extends Component {
     const { isLoggedIn, entityCount, id } = this.props;
 
     const WikiWebBox = entityCount < 4 ?
-      (<div className={'wikiWebBox'} onClick={function () { chrome.tabs.update(null, { url: 'https://wikiweb.org' }); }}>
+      (<div className={'wikiWebBox'} onClick={() => { chrome.tabs.update(null, { url: 'https://wikiweb.org' }); }}>
         <span>WikiWeb</span>
       </div>) :
-      (<div className={'wikiWebBox'} onClick={function () { chrome.tabs.update(null, { url: `https://wikiweb.org/node/${id}` }); }}>
+      (<div className={'wikiWebBox'} onClick={() => { chrome.tabs.update(null, { url: `https://wikiweb.org/node/${id}` }); }}>
         <span>See more...</span>
       </div>);
     return (

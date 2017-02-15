@@ -1,25 +1,8 @@
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo){
-  var url = changeInfo.url;
-  if (changeInfo.status='loading' && url){
-    getPageSearch(url);
-  }
-});
-
-chrome.tabs.onActivated.addListener(function(tabId, changeInfo){
-  chrome.tabs.query({
-    active: true,
-    currentWindow: true,
-  }, (tabs) => {
-    const url = tabs[0].url.split('?')[0];
-    getPageSearch(url);
-  });
-});
-
 /*
   getPageSearch
 */
-function getPageSearch(url){
+function getPageSearch(url, tabId){
   var request = new XMLHttpRequest();
   request.open(
     'GET',
@@ -30,9 +13,9 @@ function getPageSearch(url){
     if (request.status >= 200 && request.status < 400) {
       var data = JSON.parse(request.responseText);
       if (data.isURL){ // Feed in the ID to our entity API
-        getPageEntity(data.node._id);
+        getPageEntity(data.node._id, tabId);
       } else { // No Result
-        setExtensionButon(0)
+        setExtensionButon(0, tabId)
       }
 
     } else {
@@ -51,7 +34,7 @@ function getPageSearch(url){
 /*
   getPageEntity
 */
-function getPageEntity(id){
+function getPageEntity(id, tabId){
   var request = new XMLHttpRequest();
   request.open(
     'GET',
@@ -61,7 +44,7 @@ function getPageEntity(id){
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
       var data = JSON.parse(request.responseText);
-      setExtensionButon(data.entityCount);
+      setExtensionButon(data.entityCount, tabId);
     } else {
       // We reached our target server, but it returned an error
     }
@@ -79,9 +62,10 @@ function getPageEntity(id){
 /*
   setExtensionButon
 */
-function setExtensionButon(entityCount){
+function setExtensionButon(entityCount, tabId) {
   //Set the badge text
   chrome.browserAction.setBadgeText({
+    tabId,
     text: entityCount > 0 ? entityCount.toString() : ''
   });
   // Set the path for the icon
@@ -98,6 +82,26 @@ function setExtensionButon(entityCount){
   };
 
   chrome.browserAction.setIcon({
+    tabId,
     path: path
   });
 };
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo){
+  var url = changeInfo.url;
+  if (changeInfo.status='loading' && url){
+    setExtensionButon(0, tabId);
+    getPageSearch(url, tabId);
+  }
+});
+
+chrome.tabs.onActivated.addListener(function(idObject, changeInfo){
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true,
+  }, (tabs) => {
+    const url = tabs[0].url.split('?')[0];
+    getPageSearch(url, idObject.tabId);
+  });
+});

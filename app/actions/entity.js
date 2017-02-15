@@ -10,12 +10,12 @@ export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
-export const RECEIVE_EDGE = 'RECEIVE_EDGE';
 
 
-export const requestSearch = url => ({
+export const requestSearch = (url, tabId) => ({
   type: REQUEST_SEARCH,
   url,
+  tabId,
 });
 
 const receiveEntity = (id, entityCount, title, superEdges, queryLink, canonicalLink) => ({
@@ -29,17 +29,12 @@ const receiveEntity = (id, entityCount, title, superEdges, queryLink, canonicalL
 });
 
 
-export const requestProfile = url => ({
-  type: REQUEST_SEARCH,
-  url,
-});
-
 /* This demands a more efficent API.
    We have almost two identical functions fetchEntity fetchConnectEntity.
    @TODO Consolidate functions around a single efficent API Call @jeffj
 */
 
-export const fetchEntity = id => dispatch =>
+export const fetchEntity = (id, tabId) => dispatch =>
   request
     .get(`${rootURL}/api/node/${id}`)
     .set('Accept', 'application/json')
@@ -48,7 +43,8 @@ export const fetchEntity = id => dispatch =>
         dispatch(receiveError(['Error in Response']));
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink, _id } = res.body;
-        setExtensionButon(entityCount);
+        debugger
+        setExtensionButon(entityCount, tabId);
         dispatch(receiveEntity(
           _id,
           entityCount,
@@ -60,8 +56,8 @@ export const fetchEntity = id => dispatch =>
       }
     });
 
-export const fetchSearch = url => (dispatch) => {
-  dispatch(requestSearch(url));
+export const fetchSearch = (url, tabId) => (dispatch) => {
+  dispatch(requestSearch(url, tabId));
   return request
     .get(`${rootURL}/api/searchurl?q=${url}`)
     .set('Accept', 'application/json')
@@ -72,12 +68,12 @@ export const fetchSearch = url => (dispatch) => {
 
       const { body: { isURL, node } } = res;
       if (isURL === false) {
-        setExtensionButon(0);
+        setExtensionButon(0, tabId);
       } else if (!node || node === null) {
-        setExtensionButon(0);
+        setExtensionButon(0, tabId);
       } else {
         const { _id } = node;
-        dispatch(fetchEntity(_id));
+        dispatch(fetchEntity(_id, tabId));
       }
     });
 };

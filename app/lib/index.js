@@ -1,4 +1,5 @@
-export const setExtensionButon = (entityCount) => {
+
+export const setExtensionButon = (entityCount, tabId) => {
   //Set the badge text
   chrome.browserAction.setBadgeText({
     text: entityCount > 0 ? entityCount.toString() : ''
@@ -17,6 +18,7 @@ export const setExtensionButon = (entityCount) => {
   };
 
   chrome.browserAction.setIcon({
-    path
+    tabId,
+    path,
   });
 };

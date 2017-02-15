@@ -19,6 +19,8 @@ const mapStateToProps = (state) => {
   } = state;
 
   const fromId = entity.id;
+  const tabId = entity.tabId;
+
   return {
     id,
     fromId,
@@ -26,6 +28,7 @@ const mapStateToProps = (state) => {
     isURL,
     isFetching,
     messages,
+    tabId,
   };
 };
 
@@ -63,13 +66,14 @@ class Add extends Component {
   }
 
   onSave = () => {
-    const { dispatch, id, fromId } = this.props;
+    const { dispatch, id, fromId, tabId } = this.props;
     const { description, tags } = this.state;
     dispatch(fetchPostEdge(
       fromId,
       id,
       description,
-      tags.map(obj => obj.text)
+      tags.map(obj => obj.text),
+      tabId,
     ));
   }
 

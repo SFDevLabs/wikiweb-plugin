@@ -8,7 +8,6 @@ const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
-export const RECEIVE_EDGE = 'RECEIVE_EDGE';
 
 export const REQUEST_CONNECTED_SEARCH = 'REQUEST_CONNECTED_SEARCH';
 export const RECEIVE_CONNECTED_SEARCH = 'RECEIVE_CONNECTED_SEARCH';
@@ -55,7 +54,7 @@ export const fetchConnectSearch = url => (dispatch) => {
 };
 
 // This demands a more efficent API.  For for cimplicty we are usign what we have.
-export const fetchPostEdge = (fromId, toId, description, tags) => (dispatch) => {
+export const fetchPostEdge = (fromId, toId, description, tags, tabId) => (dispatch) => {
   dispatch(requestPostEdge());
   return request
     .post(`${rootURL}/api/connect`)
@@ -66,6 +65,6 @@ export const fetchPostEdge = (fromId, toId, description, tags) => (dispatch) => 
         return dispatch(receiveError(res.body.messages));
       } // Stop here on err
       hashHistory.push('/?isNew=true'); //Navigate back Home
-      dispatch(fetchEntity(fromId));  // Re request edges for the page
+      dispatch(fetchEntity(fromId, tabId));  // Re request edges for the page
     });
 };

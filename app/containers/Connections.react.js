@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSearch } from '../actions/entity';
-import { fetchProfile } from '../actions/user';
+// import { fetchSearch } from '../actions/entity';
+// import { fetchProfile } from '../actions/user';
 
 import Footer from '../components/Footer.react';
 
@@ -41,15 +41,15 @@ class Connections extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true,
-    }, (tabs) => {
-      const url = tabs[0].url.split('?')[0];
-      dispatch(fetchSearch(url));
-      dispatch(fetchProfile());
-    });
+    // const { dispatch } = this.props;
+    // chrome.tabs.query({
+    //   active: true,
+    //   currentWindow: true,
+    // }, (tabs) => {
+    //   const url = tabs[0].url.split('?')[0];
+    //   dispatch(fetchSearch(url));
+    //   dispatch(fetchProfile());
+    // });
   }
 
   render() {
@@ -57,10 +57,12 @@ class Connections extends Component {
       superEdges,
       entityCount,
       id,
+      isFetching,
       location: {
         search,
       },
     } = this.props;
+
 
     // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
@@ -140,7 +142,12 @@ class Connections extends Component {
 
     return (
       <div className={'connectionsJS'}>
-        {pageJSX}
+        {isFetching ?
+          (
+            <div>Loading</div>
+          ) :
+          pageJSX
+        }
         <Footer entityCount={entityCount} id={id} />
       </div>
     );

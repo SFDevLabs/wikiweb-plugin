@@ -1,8 +1,6 @@
 import {
   REQUEST_SEARCH,
   RECEIVE_ENTITY,
-  RECEIVE_EDGE,
-  //RECEIVE_ERROR,
 } from '../actions/entity';
 
 const entity = (state = {
@@ -13,12 +11,17 @@ const entity = (state = {
   superEdges: [],
   queryLink: '',
   canonicalLink: '',
+  tabId: 0,
 }, action) => {
   switch (action.type) {
     case REQUEST_SEARCH: {
+      const {
+        tabId,
+      } = action;
       return {
         ...state,
         isFetching: true,
+        tabId,
       };
     }
     case RECEIVE_ENTITY: {
@@ -38,19 +41,7 @@ const entity = (state = {
         superEdges,
         queryLink,
         canonicalLink,
-      };
-    }
-    case RECEIVE_EDGE: {
-      // @TODO push in data required @jeffj
-      const {
-        superEdge,
-      } = action;
-      superEdge.isNew = true;
-      const superEdges = state.superEdges.push(superEdge);
-
-      return {
-        ...state,
-        superEdges,
+        isFetching: false,
       };
     }
 
