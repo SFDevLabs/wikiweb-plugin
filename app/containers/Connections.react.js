@@ -37,7 +37,7 @@ class Connections extends Component {
     superEdges: PropTypes.array.isRequired,
     location: PropTypes.object,
     entityCount: PropTypes.number.isRequired,
-    id: PropTypes.number,
+    id: PropTypes.string,
   }
 
   componentDidMount() {
@@ -90,26 +90,26 @@ class Connections extends Component {
       return (
         <div key={index} className={'edgeCardBox'} style={{ borderBottom: isBottomBorder, marginBottom: buffBottom }}>
           <div className={'titleBox'}>
-            <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
+            <div style={{ cursor: 'pointer' }} onClick={function () { chrome.tabs.update(null, { url: canonicalLink }); }}>
               {title}
-            </a>
+            </div>
           </div>
           <div className={'hyperlink'} title={canonicalLink}>
-            <a target="_blank" rel="noopener noreferrer" href={canonicalLink}>
+            <div style={{ cursor: 'pointer' }} onClick={function () { chrome.tabs.update(null, { url: canonicalLink }); }}>
               <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
               <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
               <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} /></span>
-            </a>
+            </div>
           </div>
           <div className={'description'} title={description}>
             &ldquo;{description}&rdquo;
           </div>
           <div style={{ display: 'block', height: 22 }}>
             <div className={'userBox'} title={`user: @${username}`}>
-              <a href={`http://twitter.com/${username}`}>
+              <div style={{ cursor: 'pointer' }} onClick={function () { chrome.tabs.update(null, { url: `http://twitter.com/${username}` }); }}>
                 <span><img alt="" src={profileUrl} /></span>
                 <span className={'username'}>@{username}</span>
-              </a>
+              </div>
             </div>
             <div>
               <div className={'tagBox'}>

@@ -41,7 +41,7 @@ class Add extends Component {
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    messages: PropTypes.array.isRequired,
+    messages: PropTypes.array,
   }
 
   constructor() {
@@ -90,14 +90,11 @@ class Add extends Component {
     const { id, isFetching, isURL, messages } = this.props;
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
-
-    // if (errors.length>0) {
-    //   return <div>Errors</div>;
-    // };
-
     return (
-      <div className={'addJS'} style={{ minHeight: 260, paddingTop: 4, fontFamily: 'Verdana, Geneva, sans-serif', color: '#000000', borderTop: '3px solid #70037C' }}>
-        <Link to="/" className={'backButton'}><span>&#8592;</span></Link>
+      <div className={'addJS'}>
+        <Link to="/" className={'backButton'}>
+          <span>&#8592;</span>
+        </Link>
         <div style={{ paddingLeft: '7%', paddingTop: 3 }}>
           <form style={{ width: 301 }}>
             <Message messages={messages} />
