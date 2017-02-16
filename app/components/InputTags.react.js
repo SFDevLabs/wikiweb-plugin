@@ -14,12 +14,14 @@ class InputTags extends Component {
   }
 
   handleAddition = (tag) => {
-    const tags = this.props.tags;
-    tags.push({
-      id: tags.length + 1,
-      text: tag,
-    });
-    this.props.onTagChange(tags);
+    if (tag.length > 0) {
+      const tags = this.props.tags;
+      tags.push({
+        id: tags.length + 1,
+        text: tag,
+      });
+      this.props.onTagChange(tags);
+    }
   }
 
   handleDrag = (tag, currPos, newPos) => {
