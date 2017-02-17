@@ -140,11 +140,14 @@ class Connections extends Component {
     }
     const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);
 
+    // isFetching True has been left empty intentionally. @mceoin
     return (
       <div className={'connectionsJS'}>
         {isFetching ?
           (
-            <div>Loading</div>
+            <div style={{ textAlign: 'center' }} >
+              <img src='/img/loading.gif' style={{ height: 203.7, width: 308.7 }} />
+            </div>
           ) :
           pageJSX
         }
