@@ -18,6 +18,13 @@
   "background": {
     "scripts":["/scripts/background.js"]
   },
-  "permissions": [ "contextMenus", "management", "tabs", "storage",  "http://localhost:3000/*" ],
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*"],
+      "js": ["scripts/inject.js"],
+      "css": ["scripts/app.css"]
+    }
+  ],
+  "permissions": [ "contextMenus", "management", "tabs", "storage",  "http://localhost:3000/*", "http://*/*", "https://*/*" ],
   "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com http://localhost:4000 https://localhost:4000 'unsafe-eval'; connect-src self http://www.google-analytics.com http://localhost:4000 https://localhost:4000 http://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://www.google-analytics.com https://www.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
 }

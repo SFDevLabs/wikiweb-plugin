@@ -4,15 +4,16 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 import App from './containers/App.react';
+import ReactDOM from 'react-dom';
+
 
 const middleware = [thunk];
-
 const store = createStore(
   reducer,
   applyMiddleware(...middleware)
 );
 
-export default class Root extends Component {
+class Root extends Component {
 
   render() {
     return (
@@ -22,3 +23,9 @@ export default class Root extends Component {
     );
   }
 }
+
+
+ReactDOM.render(
+  <Root />,
+  document.querySelector('#root')
+);

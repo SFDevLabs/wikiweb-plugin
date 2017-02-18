@@ -142,7 +142,7 @@ class Connections extends Component {
 
     // isFetching True has been left empty intentionally. @mceoin
     return (
-      <div className={'connectionsJS'}>
+      <div className={'connectionsJS'} style={{ backgroundColor: 'pink' }} >
         {isFetching ?
           (
             <div style={{ textAlign: 'center' }} >
