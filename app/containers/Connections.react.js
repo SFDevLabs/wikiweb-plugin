@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 // import { fetchSearch } from '../actions/entity';
 // import { fetchProfile } from '../actions/user';
 
-import Footer from '../components/Footer.react';
-
 const startIndex = 0;
 const endIndex = 3;
 
@@ -67,18 +65,8 @@ class Connections extends Component {
     // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
     function pageDefaultJSX() {
       return (
-        <div style={{ paddingLeft: '15%', paddingRight: '15%', marginBottom: 6 }}>
-          <br />
-          <div style={{ display: 'block' }} >
-            <img alt="" src="img/logo.png" style={{ height: 50, width: 50, margin: 'auto' }} />
-          </div>
-          <br />
-          <div><span>There are no connections for this page inside the WikiWeb. </span></div>
-          <br />
-          <div>
-            <span><em>Be the first to add one!</em></span>
-            <span><img alt="" src="img/arrow_orange.svg" className={'rotatedArrow'} /></span>
-          </div>
+        <div style={{ backgroundColor: 'white' }}>
+          <span>pageDefaultJSX</span>
         </div>
       );
     }
@@ -140,18 +128,17 @@ class Connections extends Component {
     }
     const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);
 
-    // isFetching True has been left empty intentionally. @mceoin
+    // <img src='/img/loading.gif' style={{ height: 203.7, width: 308.7 }} />
     return (
       <div className={'connectionsJS'} style={{ backgroundColor: 'pink'}} >
         {isFetching ?
           (
             <div style={{ textAlign: 'center' }} >
-              <img src='/img/loading.gif' style={{ height: 203.7, width: 308.7 }} />
+              <span>Fetching, yo.</span>
             </div>
           ) :
           pageJSX
         }
-        <Footer entityCount={entityCount} id={id} />
       </div>
     );
   }

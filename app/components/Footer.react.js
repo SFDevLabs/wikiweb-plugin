@@ -1,3 +1,6 @@
+/* FOOTER NO LONGER USED */
+
+/* 
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -47,3 +50,5 @@ class Footer extends Component {
 }
 
 export default connect(mapStateToProps)(Footer);
+
+*/
