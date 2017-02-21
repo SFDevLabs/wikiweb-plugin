@@ -27,5 +27,5 @@ class Root extends Component {
 
 ReactDOM.render(
   <Root />,
-  document.querySelector('#root')
+  document.querySelector('#wikiwebRoot')
 );

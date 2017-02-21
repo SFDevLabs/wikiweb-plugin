@@ -1,3 +1,9 @@
-body{
-  background-color: red !important;
+body {
+  
+}
+
+#wikiwebRoot {
+	position: absolute;
+	bottom: 0;
+	border-top: 20px solid blue;
 }
