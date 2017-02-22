@@ -18,6 +18,14 @@
   "background": {
     "scripts":["/scripts/background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*"],
+      "exclude": [],
+      "js": ["/js/popup.bundle.js"],
+      "css": ["scripts/app.css"]
+    }
+  ],
   "permissions": [ "contextMenus", "tabs", "storage", "https://wikiweb.org/*" ],
   "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; connect-src 'self' https://www.google-analytics.com https://wikiweb.org; img-src 'self' http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data;"
 }

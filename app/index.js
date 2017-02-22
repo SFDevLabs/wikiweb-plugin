@@ -6,6 +6,9 @@ import reducer from './reducers';
 import App from './containers/App.react';
 import ReactDOM from 'react-dom';
 
+const root = document.createElement('div');
+root.id = "wikiwebRoot";
+document.body.prepend(root);
 
 const middleware = [thunk];
 const store = createStore(
