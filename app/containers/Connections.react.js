@@ -81,12 +81,38 @@ class Connections extends Component {
         display: 'flex',
         width: '100%',
         justifyContent: 'space-between',
-        rightBox: {
-          marginRight: 200,
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        },
+      },
+      leftBox: {
+
+      },
+      rightBox: {
+        marginRight: 200,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+      },
+      readNext: {
+        marginTop: '-3px',
+        display: 'flex', 
+        color: 'purple', 
+        fontSize: 12, 
+        lineHeight: '1.4em', 
+        fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important',
+        letterSpacing: '0em',
+        fontWeight: 700,
+        fontStyle: 'normal',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+      nextRead: { 
+        display: 'flex',
+        fontSize: 13,
+        lineHeight: '1.2em',
+        fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important',
+        letterSpacing: '-.02em',
+        fontWeight: 700,
+        fontStyle: 'normal',
       },
     }
 
@@ -94,38 +120,16 @@ class Connections extends Component {
     function noEdgesJSX() {
       return (
         <div style={ styles.noEdges }>
-          <div style={{ backgroundColor: 'green' }}>
-            Page has no connections
-            <div style={{ backgroundColor: 'yellow' }} >Interior div</div>
+          <div style={ styles.leftBox }>
+            <div><i className={'fa fa-camera-retro'}></i> </div>
           </div>
           
-          <div style={ styles.noEdges.rightBox }>
+          <div style={ styles.rightBox }>
             <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
-              <div style={{
-                display: 'flex', 
-                color: '#1C9963', 
-                fontSize: 12, 
-                lineHeight: '1.4em', 
-                fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important',
-                letterSpacing: '0em',
-                fontWeight: 700,
-                fontStyle: 'normal',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}>
-                <span style={ styles.noOverflow }>Read Next</span>
+              <div style={ styles.readNext }>
+                <span style={ styles.noOverflow }>Read next</span>
               </div>
-              <div style={{ 
-                display: 'flex',
-                marginTop: '-3px',
-                fontSize: 14,
-                lineHeight: '1.2em',
-                fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important',
-                letterSpacing: '-.02em',
-                fontWeight: 700,
-                fontStyle: 'normal',
-              }}>
+              <div style={ styles.nextRead }>
                 <span style={ styles.noOverflow }>The Tech Resistance Awakens from Darth Maul&apos;s Lair</span>
               </div>
             </div>
