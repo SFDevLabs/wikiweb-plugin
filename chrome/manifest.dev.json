@@ -15,9 +15,6 @@
   "web_accessible_resources": [
     "inject.html"
   ],
-  "background": {
-    "scripts":["/scripts/background.js"]
-  },
   "content_scripts": [
     {
       "matches": [ "http://*/*", "https://*/*"],
