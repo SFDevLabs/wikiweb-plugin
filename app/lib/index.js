@@ -27,3 +27,16 @@ export const setExtensionButon = (entityCount, tabId) => {
     path,
   });
 };
+
+/**
+ * Set Up the DOM for the WW footer
+*/
+export const footerDOMSetUp = () => {
+  const root = document.createElement('div');
+  root.id = 'wikiwebRoot';
+  document.body.prepend(root);
+
+  const paddingFooterDiv = document.createElement('div');
+  paddingFooterDiv.style.height = 45;
+  document.body.append(paddingFooterDiv);
+};
