@@ -23,15 +23,15 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true,
-    }, (tabs) => {
-      const url = tabs[0].url.split('?')[0];
-      const tabId = tabs[0].id;
-      dispatch(fetchSearch(url, tabId));
-      dispatch(fetchProfile());
-    });
+    // chrome.tabs.query({
+    //   active: true,
+    //   currentWindow: true,
+    // }, (tabs) => {
+    //   const url = tabs[0].url.split('?')[0];
+    //   const tabId = tabs[0].id;
+    //   dispatch(fetchSearch(url, tabId));
+    //   dispatch(fetchProfile());
+    // });
   }
 
   render() {

@@ -39,15 +39,7 @@ class Connections extends Component {
   }
 
   componentDidMount() {
-    // const { dispatch } = this.props;
-    // chrome.tabs.query({
-    //   active: true,
-    //   currentWindow: true,
-    // }, (tabs) => {
-    //   const url = tabs[0].url.split('?')[0];
-    //   dispatch(fetchSearch(url));
-    //   dispatch(fetchProfile());
-    // });
+
   }
 
   render() {
@@ -61,80 +53,60 @@ class Connections extends Component {
       },
     } = this.props;
 
+    const styles = {
+      main: {
+        height: 45, 
+        backgroundColor: 'white',
+        display: 'flex',
+        fontFamily: '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif !important',
+        color: 'rgba(0,0,0,.8)',
+        fontSize: '16px',
+      },
+      edgeBox: {
+        /* Left Blank until data */
+      },
+      noEdges: {
+        color: 'rgba(0,0,0,.8)',
+        flexDirection: 'row',
+        listStyle: 'none',
+        display: '-webkit-box',
+        display: '-moz-box',
+        display: '-ms-flexbox',
+        display: '-webkit-flex',
+        display: 'flex',
+        '-webkit-flex-flow': 'row wrap',
+      },
+    }
 
-    // @TODO This should be outside the function and combined with line 101 as the else. @jeffj
-    function pageDefaultJSX() {
+    // @TODO This should be outside the function
+    function noEdgesJSX() {
       return (
-        <div style={{ backgroundColor: 'white' }}>
-          <span>pageDefaultJSX</span>
+        <div style={ styles.noEdges }>
+          <div>Page has no connections</div>
+          <div>Page has no connections</div>
+          <div>Page has no connections</div>
         </div>
       );
     }
-    // @TODO Move me outside the render
-    function edgeCardJSXGenerator(title, canonicalLink, tags, description, username, profileUrl, index) {
-      const isNew = search && search.length > 0 && index === 0 ? true : 'none';
-      const isBottomBorder = (index !== endIndex - 1) ? '1px solid #DCDCDC' : null;
-      const buffBottom = (index === endIndex - 1) ? 40 : 0; // floating footer height;
+
+    function edgeBoxJSX(data){
       return (
-        <div key={index} className={'edgeCardBox'} style={{ borderBottom: isBottomBorder, marginBottom: buffBottom }}>
-          <div className={'titleBox'}>
-            <div style={{ cursor: 'pointer' }} onClick={function () { chrome.tabs.update(null, { url: canonicalLink }); }}>
-              {title}
-            </div>
-          </div>
-          <div className={'hyperlink'} title={canonicalLink}>
-            <div style={{ cursor: 'pointer' }} onClick={function () { chrome.tabs.update(null, { url: canonicalLink }); }}>
-              <span className={'linkIcon'} style={{ lineHeight: '20px', display: 'inline-block' }}>{canonicalLink}</span>
-              <span style={{ paddingLeft: 3, color: 'purple', display: isNew }}>(new)</span>
-              <span style={{ lineHeight: '20px', display: 'inline-block', paddingLeft: 2 }}><img alt="" src="img/hyperlink.png" className={'hyperlink'} /></span>
-            </div>
-          </div>
-          <div className={'description'} title={description}>
-            &ldquo;{description}&rdquo;
-          </div>
-          <div style={{ display: 'block', height: 22 }}>
-            <div className={'userBox'} title={`user: @${username}`}>
-              <div style={{ cursor: 'pointer' }} onClick={function () { chrome.tabs.update(null, { url: `http://twitter.com/${username}` }); }}>
-                <span><img alt="" src={profileUrl} /></span>
-                <span className={'username'}>@{username}</span>
-              </div>
-            </div>
-            <div>
-              <div className={'tagBox'}>
-                { tags.map((tag, subIndex) => <span key={subIndex} className={'tag'}>{tag}</span>) }
-              </div>
-            </div>
-          </div>
-        </div>);
+        <div style={ styles.edgeBox }>
+          <div>Page Has Connections</div>
+          <div>Page Has Connections</div>
+          <div>Page Has Connections</div>
+        </div>
+      );
     }
 
-    // @TODO Move me outside the render
-    function mainContent(data) {
-      return data
-        .slice(startIndex, endIndex) // Only take a limited number of Edges for display
-        .map((card, index) => {
-          const { entity: { title, canonicalLink }, edges } = card;
-          const description = edges[0].description;
-          const tags = edges[0].tags;
-          let username = '';
-          let profileUrl = '';
-          if (edges && edges.length > 0) {
-            username = edges[0].user.username;
-            username = edges[0].user.username;
-            profileUrl = edges[0].user.profile_image;
-          }
-          return edgeCardJSXGenerator(title, canonicalLink, tags, description, username, profileUrl, index);
-        });
-    }
-    const pageJSX = superEdges.length > 0 ? mainContent(superEdges) : pageDefaultJSX(superEdges);
+    const pageJSX = superEdges.length > 0 ? edgeBoxJSX(superEdges) : noEdgesJSX(superEdges);
 
-    // <img src='/img/loading.gif' style={{ height: 203.7, width: 308.7 }} />
     return (
-      <div className={'connectionsJS'} style={{ backgroundColor: 'pink'}} >
+      <div className={'wikiwebFooter'} style={ styles.main } >
         {isFetching ?
           (
-            <div style={{ textAlign: 'center' }} >
-              <span>Fetching, yo.</span>
+            <div style={{ height: 45 }} >
+              <span>FETCHING, yo</span>
             </div>
           ) :
           pageJSX
