@@ -140,7 +140,7 @@ class Connections extends Component {
     }
 
     function enterConnectionBox(e) {
-      document.getElementById('addConnectionIcon').style.color='rgba(0,0,0,.6)'
+      document.getElementById('addConnectionIcon').style.color='rgba(128,0,128,.6)'
       e.preventDefault();
     }
 
