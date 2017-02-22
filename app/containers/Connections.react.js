@@ -75,6 +75,14 @@ class Connections extends Component {
         display: '-webkit-flex',
         display: 'flex',
         '-webkit-flex-flow': 'row wrap',
+        backgroundColor: 'blue',
+        width: '100%',
+        rightBox: {
+          width: '40%',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          backgroundColor: 'red',
+        }
       },
     }
 
@@ -84,7 +92,7 @@ class Connections extends Component {
         <div style={ styles.noEdges }>
           <div>Page has no connections</div>
           <div>Page has no connections</div>
-          <div>Page has no connections</div>
+          <div style={ styles.noEdges.rightBox }>Page has no connections</div>
         </div>
       );
     }
