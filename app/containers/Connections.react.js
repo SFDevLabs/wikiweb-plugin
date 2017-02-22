@@ -54,6 +54,11 @@ class Connections extends Component {
     } = this.props;
 
     const styles = {
+      noOverflow: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
       main: {
         height: 45, 
         backgroundColor: 'white',
@@ -74,15 +79,14 @@ class Connections extends Component {
         display: '-ms-flexbox',
         display: '-webkit-flex',
         display: 'flex',
-        '-webkit-flex-flow': 'row wrap',
-        backgroundColor: 'blue',
         width: '100%',
+        justifyContent: 'space-between',
         rightBox: {
-          width: '40%',
+          marginRight: 200,
           display: 'flex',
           justifyContent: 'flex-end',
-          backgroundColor: 'red',
-        }
+          alignItems: 'center',
+        },
       },
     }
 
@@ -90,9 +94,42 @@ class Connections extends Component {
     function noEdgesJSX() {
       return (
         <div style={ styles.noEdges }>
-          <div>Page has no connections</div>
-          <div>Page has no connections</div>
-          <div style={ styles.noEdges.rightBox }>Page has no connections</div>
+          <div style={{ backgroundColor: 'green' }}>
+            Page has no connections
+            <div style={{ backgroundColor: 'yellow' }} >Interior div</div>
+          </div>
+          
+          <div style={ styles.noEdges.rightBox }>
+            <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
+              <div style={{
+                display: 'flex', 
+                color: '#1C9963', 
+                fontSize: 12, 
+                lineHeight: '1.4em', 
+                fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important',
+                letterSpacing: '0em',
+                fontWeight: 700,
+                fontStyle: 'normal',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}>
+                <span style={ styles.noOverflow }>Read Next</span>
+              </div>
+              <div style={{ 
+                display: 'flex',
+                marginTop: '-3px',
+                fontSize: 14,
+                lineHeight: '1.2em',
+                fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important',
+                letterSpacing: '-.02em',
+                fontWeight: 700,
+                fontStyle: 'normal',
+              }}>
+                <span style={ styles.noOverflow }>The Tech Resistance Awakens from Darth Maul&apos;s Lair</span>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
