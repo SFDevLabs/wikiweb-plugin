@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import ReactDOM from 'react-dom';
 import reducer from './reducers';
 import App from './containers/App.react';
-import ReactDOM from 'react-dom';
+import { footerDOMSetUp } from './lib';
 
-const root = document.createElement('div');
-root.id = "wikiwebRoot";
-document.body.prepend(root);
+footerDOMSetUp();
 
 const middleware = [thunk];
 const store = createStore(

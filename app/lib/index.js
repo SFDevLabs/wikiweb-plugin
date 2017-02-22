@@ -1,4 +1,9 @@
 
+/**
+ * setThe extensionButtonWith the correctParams
+ * @param {[type]} entityCount [description]
+ * @param {[type]} tabId       [description]
+ */
 export const setExtensionButon = (entityCount, tabId) => {
   //Set the badge text
   chrome.browserAction.setBadgeText({
