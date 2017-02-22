@@ -83,10 +83,13 @@ class Connections extends Component {
         justifyContent: 'space-between',
       },
       leftBox: {
-
+        marginLeft: '20%',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
       },
       rightBox: {
-        marginRight: 200,
+        marginRight: '15%',
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
@@ -116,12 +119,58 @@ class Connections extends Component {
       },
     }
 
+    function enterHeartIcon(e) {
+      document.getElementById('heartIcon').style.color='purple'
+      e.preventDefault();
+    }
+
+    function leaveHeartIcon(e) {
+      document.getElementById('heartIcon').style.color='rgba(128,0,128, 0.6)'
+      e.preventDefault();
+    }
+
+    function enterHeartText(e) {
+      document.getElementById('heartText').style.color='rgba(0,0,0,.6)'
+      e.preventDefault();
+    }
+
+    function leaveHeartText(e) {
+      document.getElementById('heartText').style.color='rgba(0,0,0,.44)'
+      e.preventDefault();
+    }
+
+    function enterConnectionBox(e) {
+      document.getElementById('addConnectionIcon').style.color='rgba(0,0,0,.6)'
+      e.preventDefault();
+    }
+
+    function leaveConnectionBox(e) {
+      document.getElementById('addConnectionIcon').style.color='rgba(0,0,0,.33)'
+      e.preventDefault();
+    }
+
+
+
     // @TODO This should be outside the function
     function noEdgesJSX() {
       return (
         <div style={ styles.noEdges }>
           <div style={ styles.leftBox }>
-            <div><i className={'fa fa-camera-retro'}></i> </div>
+            <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+                <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
+                  <i id='heartIcon' className={'fa fa-heart-o'} style={{ color: 'rgba(128,0,128, 0.6)', fontSize: 22, paddingRight: 4 }} />
+                </div>
+                <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
+                  <span id='heartText' style={{ color: 'rgba(0,0,0,.44)', fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
+                </div>
+              </div>
+              <div className={'addConnectionBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
+                <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
+                  <i id='addConnectionIcon' className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 28, marginTop: 2 }} />
+                </div>
+              </div>
+            </div>
           </div>
           
           <div style={ styles.rightBox }>
