@@ -163,11 +163,24 @@ class Connections extends Component {
       e.preventDefault();
     }
 
+    function activateUrlSubmitForm(e) {
+      var el = document.getElementById('urlSubmitForm');
+      if (el.classList.contains('activeUrlSubmitForm')) {
+        el.classList.remove('activeUrlSubmitForm');
+        el.classList += ' inactiveUrlSubmitForm';  
+      } else {
+        el.classList.remove('inactiveUrlSubmitForm');
+        el.classList += ' activeUrlSubmitForm';  
+      }
+      e.preventDefault();
+    }
+
 
     // @TODO This should be outside the function
     function noEdgesJSX() {
       return (
         <div style={ styles.noEdges }>
+          
           <div style={ styles.leftBox }>
             <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
@@ -178,14 +191,20 @@ class Connections extends Component {
                   <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
                 </div>
               </div>
-              <div className={'addConnectionBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
+              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
                 <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-                  <i id='addConnectionIcon' className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
+                  <i id='addConnectionIcon' onClick={activateUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
+                </div>
+                <div className={'inputBox'}>
+                  <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
+                    <input type="text" name="inputBox goes here" className={'inputUrl'} />
+                    <input type="submit" value="Submit" className={'inputSubmit'} />
+                  </form>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <div style={ styles.rightBox }>
             <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
               <div style={ styles.readNext }>

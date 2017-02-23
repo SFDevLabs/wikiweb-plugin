@@ -112,6 +112,37 @@ input[type="checkbox"] {
       -o-transition:color 350ms ease;
       -webkit-transition:color 350ms ease;
   }
+
+  .inputBox {
+    margin-left: 14px;
+    .inactiveUrlSubmitForm {
+      .inputUrl, .inputSubmit {
+        width: 0px;
+        border: 0px;
+        padding: 0px;
+        margin: 0px;
+        -webkit-transition: width 350ms;
+        transition: width 350ms;
+      }  
+    }
+    .activeUrlSubmitForm {
+      width: 500px;
+      -webkit-transition: width 350ms;
+      transition: width 350ms;
+      .inputUrl {
+        width: 300px;
+        -webkit-transition: width 350ms;
+        transition: width 350ms;
+      }
+      .inputSubmit {
+        margin-left: 8px;
+        width: 100px;
+        border: 1px solid black;
+        -webkit-transition: width 350ms;
+        transition: width 350ms; 
+      }
+    }
+  }
 /********************/
 /* CONNECTIONS PAGE */
 /********************/
