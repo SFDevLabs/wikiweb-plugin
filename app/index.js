@@ -7,7 +7,7 @@ import reducer from './reducers';
 import App from './containers/App.react';
 import { footerDOMSetUp } from './lib';
 // Adding Styles to page
-import style from './style.scss';
+import styles from './index.scss';
 
 
 footerDOMSetUp();
