@@ -22,8 +22,7 @@
     {
       "matches": [ "http://*/*", "https://*/*"],
       "exclude": [],
-      "js": ["/js/popup.bundle.js"],
-      "css": ["scripts/app.css"]
+      "js": ["/js/popup.bundle.js"]
     }
   ],
   "permissions": [ "contextMenus", "tabs", "storage", "https://wikiweb.org/*" ],
