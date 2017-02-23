@@ -21,8 +21,7 @@
     {
       "matches": [ "http://*/*", "https://*/*"],
       "exclude": [],
-      "js": ["scripts/inject.js"],
-      "css": ["scripts/app.css"]
+      "js": ["scripts/inject.js"]
     }
   ],
   "permissions": [ "contextMenus", "management", "tabs", "storage",  "http://localhost:3000/*", "http://*/*", "https://*/*" ],
