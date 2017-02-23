@@ -120,41 +120,48 @@ class Connections extends Component {
     }
 
     function enterHeartIcon(e) {
-      document.getElementById('heartIcon').style.color='purple'
+      var el = document.getElementById('heartIcon');
+      el.classList.remove('leaveHeartIcon');
+      el.className += ' enterHeartIcon';
       e.preventDefault();
     }
 
     function leaveHeartIcon(e) {
-      document.getElementById('heartIcon').style.color='rgba(128,0,128, 0.6)'
+      var el = document.getElementById('heartIcon');
+      el.classList.remove('enterHeartIcon');
+      el.className += ' leaveHeartIcon';
       e.preventDefault();
     }
 
     function enterHeartText(e) {
-      document.getElementById('heartText').style.color='rgba(0,0,0,.6)'
+      var el = document.getElementById('heartText');
+      el.classList.remove('leaveHeartText');
+      el.className += ' enterHeartText';
       e.preventDefault();
     }
 
     function leaveHeartText(e) {
-      document.getElementById('heartText').style.color='rgba(0,0,0,.44)'
+      var el = document.getElementById('heartText');
+      el.classList.remove('enterHeartText');
+      el.className += ' leaveHeartText';
       e.preventDefault();
     }
 
     function enterConnectionBox(e) {
-      document.getElementById('addConnectionIcon').style.color='rgba(128,0,128,.6)'
+      var el = document.getElementById('addConnectionIcon');
+      el.style.color='rgba(128,0,128,.6)';
+      el.classList.remove('rotateOut');
+      el.className += ' rotateIn';
       e.preventDefault();
     }
 
     function leaveConnectionBox(e) {
-      document.getElementById('addConnectionIcon').style.color='rgba(0,0,0,.33)'
+      var el = document.getElementById('addConnectionIcon');
+      el.style.color='rgba(0,0,0,.33)';
+      el.classList.remove('rotateIn');
+      el.classList += ' rotateOut';
       e.preventDefault();
     }
-
-
-    // -webkit-transform: rotate(90deg);
-    // -moz-transform: rotate(90deg);
-    // -o-transform: rotate(90deg);
-    // -ms-transform: rotate(90deg);
-    // transform: rotate(90deg);
 
 
     // @TODO This should be outside the function
@@ -165,15 +172,15 @@ class Connections extends Component {
             <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
                 <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
-                  <i id='heartIcon' className={'fa fa-heart-o'} style={{ color: 'rgba(128,0,128, 0.6)', fontSize: 22, paddingRight: 4 }} />
+                  <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
                 </div>
                 <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
-                  <span id='heartText' style={{ color: 'rgba(0,0,0,.44)', fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
+                  <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
                 </div>
               </div>
               <div className={'addConnectionBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
                 <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-                  <i id='addConnectionIcon' className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 28, marginTop: 2 }} />
+                  <i id='addConnectionIcon' className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
                 </div>
               </div>
             </div>

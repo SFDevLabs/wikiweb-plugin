@@ -43,8 +43,75 @@ input[type="checkbox"] {
 /********************/
 /** WIKIWEB FOOTER **/
 /********************/
+  .rotateIn {
+    transform:             rotate( 90deg );            
+      -moz-transform:    rotate( 90deg );            
+      -ms-transform:     rotate( 90deg );            
+      -o-transform:      rotate( 90deg );            
+      -webkit-transform: rotate( 90deg );            
+    transition:             transform 350ms ease;
+      -moz-transition:    -moz-transform 350ms ease;
+      -ms-transition:     -ms-transform 350ms ease;
+      -o-transition:      -o-transform 350ms ease;
+      -webkit-transition: -webkit-transform 350ms ease;
+  }
 
+  .rotateOut {
+    transform:             rotate( 0deg );            
+      -moz-transform:    rotate( 0deg );            
+      -ms-transform:     rotate( 0deg );            
+      -o-transform:      rotate( 0deg );            
+      -webkit-transform: rotate( 0deg );            
+    transition:             transform 350ms ease;
+      -moz-transition:    -moz-transform 350ms ease;
+      -ms-transition:     -ms-transform 350ms ease;
+      -o-transition:      -o-transform 350ms ease;
+      -webkit-transition: -webkit-transform 350ms ease;
+  }
 
+  .heartIcon {
+    color: rgba(128,0,128, 0.6);
+  }
+
+  .heartText {
+    color: rgba(0,0,0,.44);
+  }
+
+  .enterHeartIcon {
+    color: purple;
+    transition:color 350ms ease;
+      -moz-transition:color 350ms ease;
+      -ms-transition:color 350ms ease;
+      -o-transition:color 350ms ease;
+      -webkit-transition:color 350ms ease;
+  }
+
+  .leaveHeartIcon {
+    color: rgba(128,0,128, 0.6);
+    transition:color 350ms ease;
+      -moz-transition:color 350ms ease;
+      -ms-transition:color 350ms ease;
+      -o-transition:color 350ms ease;
+      -webkit-transition:color 350ms ease;
+  }
+
+  .enterHeartText {
+    color: rgba(0,0,0,.6);
+    transition:color 350ms ease;
+      -moz-transition:color 350ms ease;
+      -ms-transition:color 350ms ease;
+      -o-transition:color 350ms ease;
+      -webkit-transition:color 350ms ease;
+  }
+
+  .leaveHeartText {
+    color: rgba(0,0,0,.44);
+    transition:color 350ms ease;
+      -moz-transition:color 350ms ease;
+      -ms-transition:color 350ms ease;
+      -o-transition:color 350ms ease;
+      -webkit-transition:color 350ms ease;
+  }
 /********************/
 /* CONNECTIONS PAGE */
 /********************/
