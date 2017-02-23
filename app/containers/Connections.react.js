@@ -150,6 +150,12 @@ class Connections extends Component {
     }
 
 
+    // -webkit-transform: rotate(90deg);
+    // -moz-transform: rotate(90deg);
+    // -o-transform: rotate(90deg);
+    // -ms-transform: rotate(90deg);
+    // transform: rotate(90deg);
+
 
     // @TODO This should be outside the function
     function noEdgesJSX() {
