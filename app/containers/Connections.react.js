@@ -157,21 +157,35 @@ class Connections extends Component {
 
     function leaveConnectionBox(e) {
       var el = document.getElementById('addConnectionIcon');
-      el.style.color='rgba(0,0,0,.33)';
-      el.classList.remove('rotateIn');
-      el.classList += ' rotateOut';
+      var otherEl = document.getElementById('urlSubmitForm');
+      if (otherEl.classList.contains('activeUrlSubmitForm')){
+        // do nothing.
+      } else {
+        el.style.color='rgba(0,0,0,.33)';
+        el.classList.remove('rotateIn');
+        el.classList += ' rotateOut';
+      }
       e.preventDefault();
     }
 
-    function activateUrlSubmitForm(e) {
+    function toggleUrlSubmitForm(e) {
       var el = document.getElementById('urlSubmitForm');
+      var otherEl = document.getElementById('addConnectionIcon');
       if (el.classList.contains('activeUrlSubmitForm')) {
         el.classList.remove('activeUrlSubmitForm');
-        el.classList += ' inactiveUrlSubmitForm';  
+        el.classList += ' inactiveUrlSubmitForm'; 
+        otherEl.style.color='rgba(0,0,0,.33)';
+        otherEl.classList.remove('rotateIn');
+        otherEl.classList += ' rotateOut';
       } else {
         el.classList.remove('inactiveUrlSubmitForm');
         el.classList += ' activeUrlSubmitForm';  
         document.getElementById('urlInput').focus();
+        if (otherEl.classList.contains('rotateOut')){
+          otherEl.style.color='rgba(128,0,128,.6)';
+          otherEl.classList.remove('rotateOut');
+          otherEl.className += ' rotateIn';
+        }
       }
       e.preventDefault();
     }
@@ -187,9 +201,13 @@ class Connections extends Component {
     window.onkeyup = function(e) {
       if (e.keyCode == 27) { // escape key maps to keycode `27`
         var el = document.getElementById('urlSubmitForm');
+        var otherEl = document.getElementById('addConnectionIcon');
         if (el.classList.contains('activeUrlSubmitForm')) {
           el.classList.remove('activeUrlSubmitForm');
           el.classList += ' inactiveUrlSubmitForm';  
+          otherEl.style.color='rgba(0,0,0,.33)';
+          otherEl.classList.remove('rotateIn');
+          otherEl.classList += ' rotateOut';
         }
       }
     }
@@ -211,7 +229,7 @@ class Connections extends Component {
               </div>
               <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
                 <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-                  <i id='addConnectionIcon' onClick={activateUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
+                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
                 </div>
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
