@@ -49,18 +49,45 @@ class Connections extends Component {
     } = this.props;
 
 
-    const pageJSX = superEdges.length > 0 ? edgeBoxJSX(superEdges) : noEdgesJSX(superEdges);
-
     return (
       <div className={'wikiwebFooter'} style={ styles.main } >
-        {!isFetching ?
-          (
-            <div style={{ height: 45 }} >
-              <span>FETCHING, yo</span>
+
+        <div style={ styles.noEdges }>
+          <div style={ styles.leftBox }>
+            <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+                <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
+                  <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
+                </div>
+                <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
+                  <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
+                </div>
+              </div>
+              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
+                <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
+                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
+                </div>
+                <div className={'inputBox'}>
+                  <Add />
+                </div>
+              </div>
             </div>
-          ) :
-          pageJSX
-        }
+          </div>
+
+          <div style={ styles.rightBox }>
+            <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
+              <div style={ styles.readNext }>
+                <span style={ styles.noOverflow }>Read next</span>
+              </div>
+              <div style={ styles.nextRead }>
+                <span style={styles.noOverflow} >
+                  The Tech Resistance Awakens from Darth Maul&apos;s Lair
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
@@ -206,14 +233,6 @@ function toggleUrlSubmitForm(e) {
   e.preventDefault();
 }
 
-function submitUrlConnection(e) {
-  var urlSubmitForm = document.getElementById('urlSubmitForm');
-    if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
-      urlSubmitForm.classList.remove('activeUrlSubmitForm');
-      urlSubmitForm.classList += ' inactiveUrlSubmitForm';
-    }
-}
-
 window.onkeyup = function(e) {
   if (e.keyCode == 27) { // escape key maps to keycode `27`
     var urlSubmitForm = document.getElementById('urlSubmitForm');
@@ -226,50 +245,6 @@ window.onkeyup = function(e) {
       addConnectionIcon.classList += ' rotateOut';
     }
   }
-}
-
-// @TODO This should be outside the function. But it works though, right?
-function noEdgesJSX() {
-  return (
-    <div style={ styles.noEdges }>
-      
-      <div style={ styles.leftBox }>
-        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-          <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-            <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
-              <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
-            </div>
-            <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
-              <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
-            </div>
-          </div>
-          
-          <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
-            <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-              <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
-            </div>
-            <div className={'inputBox'} style={{ display: 'flex', alignItems: 'center' }} >
-              <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', marginBottom: '0px !important' }}>
-                <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
-                <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} style={{ fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important' }}/>
-              </form>
-            </div>
-          </div>
-        </div>  
-      </div>  
-
-      <div style={ styles.rightBox }>
-        <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
-          <div style={ styles.readNext }>
-            <span style={ styles.noOverflow }>Read next</span>
-          </div>
-          <div style={ styles.nextRead }>
-            <span style={ styles.noOverflow }>The Tech Resistance Awakens from Darth Maul&apos;s Lair</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 function edgeBoxJSX(data){

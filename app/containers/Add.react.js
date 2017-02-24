@@ -66,6 +66,7 @@ class Add extends Component {
   }
 
   onSave = () => {
+    submitUrlConnection(); // TODO needs a refactor based on conditionals.
     const { dispatch, id, fromId, tabId } = this.props;
 
     const { description, tags } = this.state;
@@ -90,7 +91,7 @@ class Add extends Component {
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
     return (
-      <form style={{ marginBottom: 80 }}>
+      <form id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }} >
         <div style={{ display: 'inline-block' }}>
           <Message messages={messages} />
           <InputUrl
@@ -99,15 +100,7 @@ class Add extends Component {
             isExistantURL={id.length > 0}
           />
         </div>
-        <div style={{ display: 'inline-block' }}>
-          <InputTags
-            tags={tags}
-            onTagChange={this.onTagChange}
-          />
-        </div>
-        <div style={{ marginTop: 10, marginBottom: 12 }}>
-          <a onClick={this.onSave} className={isValidSubmit} type="submit">Submit</a>
-        </div>
+        <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.onSave} />
       </form>
     );
   }
@@ -115,3 +108,11 @@ class Add extends Component {
 }
 
 export default connect(mapStateToProps)(Add);
+
+function submitUrlConnection(e) {
+  var urlSubmitForm = document.getElementById('urlSubmitForm');
+    if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
+      urlSubmitForm.classList.remove('activeUrlSubmitForm');
+      urlSubmitForm.classList += ' inactiveUrlSubmitForm';
+    }
+}

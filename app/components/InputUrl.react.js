@@ -65,17 +65,18 @@ class InputUrl extends Component {
 
     return (
       <div>
-        <div style={{ display: 'inline' }}>
-          <input
-            autoFocus
-            onChange={this.onChange}
-            value={val}
-            className={'formInput'}
-            placeholder="Paste URL..."
-            style={{ marginBottom: 10 }}
-          />
-          {inputConfirmationImg}
-        </div>
+        <input
+          type="text" 
+          id='urlInput' 
+          name="inputBox goes here" 
+          placeholder="Add Connection" 
+          className={'inputUrl'} 
+          style={{ paddingLeft: 8 }}
+          autoFocus
+          onChange={this.onChange}
+          value={val}
+        />
+        {inputConfirmationImg}
       </div>
     );
   }
