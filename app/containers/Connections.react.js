@@ -221,9 +221,9 @@ class Connections extends Component {
                   <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
                 </div>
               </div>
-              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
+              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
                 <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
+                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
                 </div>
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
