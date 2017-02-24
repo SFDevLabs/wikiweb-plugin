@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 //import ReactGA from 'react-ga';
 import Connections from './Connections.react';
 import Login from './Login.react';
-import Add from './Add.react';
 import { fetchSearch } from '../actions/entity';
 import { fetchProfile } from '../actions/user';
 

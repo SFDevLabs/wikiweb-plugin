@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import Add from './Add.react';
 
 const startIndex = 0;
 const endIndex = 3;
@@ -167,13 +168,13 @@ class Connections extends Component {
       var addConnectionIcon = document.getElementById('addConnectionIcon');
       if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
         urlSubmitForm.classList.remove('activeUrlSubmitForm');
-        urlSubmitForm.classList += ' inactiveUrlSubmitForm'; 
+        urlSubmitForm.classList += ' inactiveUrlSubmitForm';
         addConnectionIcon.style.color='rgba(0,0,0,.33)';
         addConnectionIcon.classList.remove('rotateIn');
         addConnectionIcon.classList += ' rotateOut';
       } else {
         urlSubmitForm.classList.remove('inactiveUrlSubmitForm');
-        urlSubmitForm.classList += ' activeUrlSubmitForm';  
+        urlSubmitForm.classList += ' activeUrlSubmitForm';
         document.getElementById('urlInput').focus();
         if (addConnectionIcon.classList.contains('rotateOut')){
           addConnectionIcon.style.color='rgba(128,0,128,.6)';
@@ -188,7 +189,7 @@ class Connections extends Component {
       var urlSubmitForm = document.getElementById('urlSubmitForm');
         if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
           urlSubmitForm.classList.remove('activeUrlSubmitForm');
-          urlSubmitForm.classList += ' inactiveUrlSubmitForm';  
+          urlSubmitForm.classList += ' inactiveUrlSubmitForm';
         }
     }
 
@@ -198,19 +199,21 @@ class Connections extends Component {
         var addConnectionIcon = document.getElementById('addConnectionIcon');
         if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
           urlSubmitForm.classList.remove('activeUrlSubmitForm');
-          urlSubmitForm.classList += ' inactiveUrlSubmitForm';  
+          urlSubmitForm.classList += ' inactiveUrlSubmitForm';
           addConnectionIcon.style.color='rgba(0,0,0,.33)';
           addConnectionIcon.classList.remove('rotateIn');
           addConnectionIcon.classList += ' rotateOut';
         }
       }
     }
+    // <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
+    // <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} />
 
     // @TODO This should be outside the function
     function noEdgesJSX() {
       return (
         <div style={ styles.noEdges }>
-          
+
           <div style={ styles.leftBox }>
             <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
@@ -227,8 +230,7 @@ class Connections extends Component {
                 </div>
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
-                    <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
-                    <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} />
+                      <Add />
                   </form>
                 </div>
               </div>
