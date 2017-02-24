@@ -53,7 +53,7 @@ class Connections extends Component {
 
     return (
       <div className={'wikiwebFooter'} style={ styles.main } >
-        {isFetching ?
+        {!isFetching ?
           (
             <div style={{ height: 45 }} >
               <span>FETCHING, yo</span>
@@ -227,10 +227,8 @@ window.onkeyup = function(e) {
     }
   }
 }
-// <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
-// <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} />
 
-// @TODO This should be outside the function
+// @TODO This should be outside the function. But it works though, right?
 function noEdgesJSX() {
   return (
     <div style={ styles.noEdges }>
@@ -250,8 +248,8 @@ function noEdgesJSX() {
             <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
               <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
             </div>
-            <div className={'inputBox'}>
-              <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className={'inputBox'} style={{ display: 'flex', alignItems: 'center' }} >
+              <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', marginBottom: '0px !important' }}>
                 <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
                 <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} style={{ fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important' }}/>
               </form>
