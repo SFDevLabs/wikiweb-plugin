@@ -228,7 +228,7 @@ class Connections extends Component {
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
                     <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
-                    <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} />
+                    <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} style={{ fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important' }}/>
                   </form>
                 </div>
               </div>
