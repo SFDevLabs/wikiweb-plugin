@@ -1,5 +1,4 @@
 import request from 'superagent';
-import { setExtensionButon } from '../lib';
 import { receiveError } from './error';
 import config from '../config';
 
@@ -43,7 +42,6 @@ export const fetchEntity = (id, tabId) => dispatch =>
         dispatch(receiveError(['Error in Response']));
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink, _id } = res.body;
-        setExtensionButon(entityCount, tabId);
         dispatch(receiveEntity(
           _id,
           entityCount,
@@ -67,9 +65,9 @@ export const fetchSearch = (url, tabId) => (dispatch) => {
 
       const { body: { isURL, node } } = res;
       if (isURL === false) {
-        setExtensionButon(0, tabId);
+        // No Opp
       } else if (!node || node === null) {
-        setExtensionButon(0, tabId);
+          // No Opp
       } else {
         const { _id } = node;
         dispatch(fetchEntity(_id, tabId));

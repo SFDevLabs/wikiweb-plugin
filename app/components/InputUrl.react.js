@@ -59,13 +59,13 @@ class InputUrl extends Component {
     const inputConfirmationImg = val.length === 0 || typeDelay || isFetching ?
       null :
       (<span style={{ display: 'inline-block', marginLeft: -27 }}>
-        <img alt="" src={inputUrlStatusImg} style={{ width: 15, marginBottom: -3 }} title={inputUrlStatusText} />
+        {inputUrlStatusText}
       </span>);
 
 
     return (
       <div>
-        <div style={{ display: 'block' }}>
+        <div style={{ display: 'inline' }}>
           <input
             autoFocus
             onChange={this.onChange}
