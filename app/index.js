@@ -5,12 +5,9 @@ import thunk from 'redux-thunk';
 import ReactDOM from 'react-dom';
 import reducer from './reducers';
 import App from './containers/App.react';
-import { footerDOMSetUp } from './lib';
 // Adding Styles to page
 import styles from './index.scss';
 
-
-footerDOMSetUp();
 
 const middleware = [thunk];
 const store = createStore(

@@ -36,11 +36,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router history={hashHistory} onUpdate={logPageView}>
-        <Route path="/" component={Connections} />
-        <Route path="add" component={Add} />
-        <Route path="login" component={Login} />
-      </Router>
+      <Connections />
     );
   }
 }
