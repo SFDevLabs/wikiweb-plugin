@@ -20,8 +20,9 @@
   "content_scripts": [
     {
       "matches": [ "http://*/*", "https://*/*"],
-      "exclude": [],
-      "js": ["scripts/inject.js"]
+      "exclude_matches": [ "https://gmail.com/*" ],
+      "js": ["scripts/inject.js"],
+      "run_at": "document_idle"
     }
   ],
   "permissions": [ "contextMenus", "management", "tabs", "storage",  "http://localhost:3000/*", "http://*/*", "https://*/*" ],

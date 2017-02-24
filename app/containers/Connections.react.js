@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-// import { fetchSearch } from '../actions/entity';
-// import { fetchProfile } from '../actions/user';
 
 const startIndex = 0;
 const endIndex = 3;
@@ -33,7 +31,6 @@ class Connections extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
-    location: PropTypes.object,
     entityCount: PropTypes.number.isRequired,
     id: PropTypes.string,
   }
@@ -47,10 +44,7 @@ class Connections extends Component {
       superEdges,
       entityCount,
       id,
-      isFetching,
-      location: {
-        search,
-      },
+      isFetching
     } = this.props;
 
     const styles = {
@@ -60,7 +54,7 @@ class Connections extends Component {
         textOverflow: 'ellipsis',
       },
       main: {
-        height: 45, 
+        height: 45,
         backgroundColor: 'white',
         display: 'flex',
         fontFamily: '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif !important',
@@ -96,10 +90,10 @@ class Connections extends Component {
       },
       readNext: {
         marginTop: '-3px',
-        display: 'flex', 
-        color: 'purple', 
-        fontSize: 12, 
-        lineHeight: '1.4em', 
+        display: 'flex',
+        color: 'purple',
+        fontSize: 12,
+        lineHeight: '1.4em',
         fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important',
         letterSpacing: '0em',
         fontWeight: 700,
@@ -108,7 +102,7 @@ class Connections extends Component {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       },
-      nextRead: { 
+      nextRead: {
         display: 'flex',
         fontSize: 13,
         lineHeight: '1.2em',
