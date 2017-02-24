@@ -163,45 +163,45 @@ class Connections extends Component {
     }
 
     function toggleUrlSubmitForm(e) {
-      var el = document.getElementById('urlSubmitForm');
-      var otherEl = document.getElementById('addConnectionIcon');
-      if (el.classList.contains('activeUrlSubmitForm')) {
-        el.classList.remove('activeUrlSubmitForm');
-        el.classList += ' inactiveUrlSubmitForm'; 
-        otherEl.style.color='rgba(0,0,0,.33)';
-        otherEl.classList.remove('rotateIn');
-        otherEl.classList += ' rotateOut';
+      var urlSubmitForm = document.getElementById('urlSubmitForm');
+      var addConnectionIcon = document.getElementById('addConnectionIcon');
+      if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
+        urlSubmitForm.classList.remove('activeUrlSubmitForm');
+        urlSubmitForm.classList += ' inactiveUrlSubmitForm'; 
+        addConnectionIcon.style.color='rgba(0,0,0,.33)';
+        addConnectionIcon.classList.remove('rotateIn');
+        addConnectionIcon.classList += ' rotateOut';
       } else {
-        el.classList.remove('inactiveUrlSubmitForm');
-        el.classList += ' activeUrlSubmitForm';  
+        urlSubmitForm.classList.remove('inactiveUrlSubmitForm');
+        urlSubmitForm.classList += ' activeUrlSubmitForm';  
         document.getElementById('urlInput').focus();
-        if (otherEl.classList.contains('rotateOut')){
-          otherEl.style.color='rgba(128,0,128,.6)';
-          otherEl.classList.remove('rotateOut');
-          otherEl.className += ' rotateIn';
+        if (addConnectionIcon.classList.contains('rotateOut')){
+          addConnectionIcon.style.color='rgba(128,0,128,.6)';
+          addConnectionIcon.classList.remove('rotateOut');
+          addConnectionIcon.className += ' rotateIn';
         }
       }
       e.preventDefault();
     }
 
     function submitUrlConnection(e) {
-      var el = document.getElementById('urlSubmitForm');
-        if (el.classList.contains('activeUrlSubmitForm')) {
-          el.classList.remove('activeUrlSubmitForm');
-          el.classList += ' inactiveUrlSubmitForm';  
+      var urlSubmitForm = document.getElementById('urlSubmitForm');
+        if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
+          urlSubmitForm.classList.remove('activeUrlSubmitForm');
+          urlSubmitForm.classList += ' inactiveUrlSubmitForm';  
         }
     }
 
     window.onkeyup = function(e) {
       if (e.keyCode == 27) { // escape key maps to keycode `27`
-        var el = document.getElementById('urlSubmitForm');
-        var otherEl = document.getElementById('addConnectionIcon');
-        if (el.classList.contains('activeUrlSubmitForm')) {
-          el.classList.remove('activeUrlSubmitForm');
-          el.classList += ' inactiveUrlSubmitForm';  
-          otherEl.style.color='rgba(0,0,0,.33)';
-          otherEl.classList.remove('rotateIn');
-          otherEl.classList += ' rotateOut';
+        var urlSubmitForm = document.getElementById('urlSubmitForm');
+        var addConnectionIcon = document.getElementById('addConnectionIcon');
+        if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
+          urlSubmitForm.classList.remove('activeUrlSubmitForm');
+          urlSubmitForm.classList += ' inactiveUrlSubmitForm';  
+          addConnectionIcon.style.color='rgba(0,0,0,.33)';
+          addConnectionIcon.classList.remove('rotateIn');
+          addConnectionIcon.classList += ' rotateOut';
         }
       }
     }
@@ -221,9 +221,9 @@ class Connections extends Component {
                   <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
                 </div>
               </div>
-              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 12 }}>
+              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
                 <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, marginTop: 2 }} />
+                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
                 </div>
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
