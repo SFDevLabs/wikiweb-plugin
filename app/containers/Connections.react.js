@@ -175,6 +175,19 @@ class Connections extends Component {
       e.preventDefault();
     }
 
+    function submitUrlConnection(e) {
+
+    }
+
+    window.onkeyup = function(e) {
+      if (e.keyCode == 27) { // escape key maps to keycode `27`
+        var el = document.getElementById('urlSubmitForm');
+        if (el.classList.contains('activeUrlSubmitForm')) {
+          el.classList.remove('activeUrlSubmitForm');
+          el.classList += ' inactiveUrlSubmitForm';  
+        }
+      }
+    }
 
     // @TODO This should be outside the function
     function noEdgesJSX() {
@@ -197,7 +210,7 @@ class Connections extends Component {
                 </div>
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
-                    <input type="text" name="inputBox goes here" className={'inputUrl'} />
+                    <input type="text" name="inputBox goes here" placeholder="Add URL" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
                     <input type="submit" value="Submit" className={'inputSubmit'} />
                   </form>
                 </div>
