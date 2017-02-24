@@ -171,12 +171,17 @@ class Connections extends Component {
       } else {
         el.classList.remove('inactiveUrlSubmitForm');
         el.classList += ' activeUrlSubmitForm';  
+        document.getElementById('urlInput').focus();
       }
       e.preventDefault();
     }
 
     function submitUrlConnection(e) {
-
+      var el = document.getElementById('urlSubmitForm');
+        if (el.classList.contains('activeUrlSubmitForm')) {
+          el.classList.remove('activeUrlSubmitForm');
+          el.classList += ' inactiveUrlSubmitForm';  
+        }
     }
 
     window.onkeyup = function(e) {
@@ -210,8 +215,8 @@ class Connections extends Component {
                 </div>
                 <div className={'inputBox'}>
                   <form action="" id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }}>
-                    <input type="text" name="inputBox goes here" placeholder="Add URL" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
-                    <input type="submit" value="Submit" className={'inputSubmit'} />
+                    <input type="text" id='urlInput' name="inputBox goes here" placeholder="Add Connection" className={'inputUrl'} style={{ paddingLeft: 8 }}/>
+                    <input type="submit" value="Submit" className={'inputSubmit'} onClick={submitUrlConnection} />
                   </form>
                 </div>
               </div>

@@ -114,31 +114,67 @@ input[type="checkbox"] {
   }
 
   .inputBox {
-    margin-left: 14px;
+    margin-left: 30px;
+    font-size: 14px;
+    input:focus{
+      outline: none;
+    }
+    .inputUrl {
+      font-size: 15px;
+    }
+    .inputSubmit {
+      font-size: 14px;
+    }
     .inactiveUrlSubmitForm {
-      .inputUrl, .inputSubmit {
-        width: 0px;
-        border: 0px;
-        padding: 0px;
-        margin: 0px;
+      .inputUrl {
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid white;
         -webkit-transition: width 350ms;
         transition: width 350ms;
+      }
+      .inputSubmit {
+        border: none;
+        -webkit-transition: width 150ms;
+        transition: width 150ms;
+      }
+      .inputUrl, .inputSubmit {
+        width: 0px;
+        padding: 0px;
+        margin: 0px;
       }  
     }
     .activeUrlSubmitForm {
       -webkit-transition: width 350ms;
       transition: width 350ms;
       .inputUrl {
-        width: 300px;
+        color: rgba(0,0,0,.44);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        width: 270px;
         -webkit-transition: width 350ms;
         transition: width 350ms;
       }
       .inputSubmit {
         margin-left: 8px;
-        width: 100px;
-        border: 1px solid black;
+        width: 78px;
+        border: 1px solid rgba(34,139,34, 0.9);
+        background-color: rgba(34,139,34, 0.9);
+        color: white;
         -webkit-transition: width 350ms;
-        transition: width 350ms; 
+        transition: width 350ms;
+        &:hover {
+          border: 1px solid rgba(34,139,34, 1);
+          background-color: rgba(34,139,34, 1);
+          transition:background-color 200ms ease;
+            -moz-transition:background-color 200ms ease;
+            -ms-transition:background-color 200ms ease;
+            -o-transition:background-color 200ms ease;
+            -webkit-transition:background-color 200ms ease;
+        } 
       }
     }
   }
