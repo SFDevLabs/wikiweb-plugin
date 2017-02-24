@@ -99,12 +99,6 @@ class Add extends Component {
             isExistantURL={id.length > 0}
           />
         </div>
-        <div style={{ display: 'inline-block' }}>
-          <InputTags
-            tags={tags}
-            onTagChange={this.onTagChange}
-          />
-        </div>
         <div style={{ marginTop: 10, marginBottom: 12 }}>
           <a onClick={this.onSave} className={isValidSubmit} type="submit">Submit</a>
         </div>
