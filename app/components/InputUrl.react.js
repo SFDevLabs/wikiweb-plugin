@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
-import { isUri } from 'valid-url';
+import { isWebUri } from 'valid-url';
 
 const TYPING_DELAY = 1110;
 
@@ -32,7 +32,8 @@ class InputUrl extends Component {
 
   submitWithDelay = () => {
     const { val } = this.state;
-    const isValidURL = isUri(val) || isUri(`https://${val}`);
+
+    const isValidURL = isWebUri(val) || isWebUri(`https://${val}`);
     this.setState({
       isValidURL,
       typeDelay: false,
@@ -62,14 +63,15 @@ class InputUrl extends Component {
     //     {inputUrlStatusText}
     //   </span>);
 
+
     return (
       <div>
         <input
-          type="text" 
-          id='inputUrl' 
-          name="inputBox goes here" 
-          placeholder="Add Connection" 
-          className={'inputUrl'} 
+          type="text"
+          id="inputUrl"
+          name="inputBox goes here"
+          placeholder="Add Connection"
+          className={'inputUrl'}
           autoFocus
           onChange={this.onChange}
           value={val}
