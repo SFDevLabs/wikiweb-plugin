@@ -74,6 +74,7 @@ class InputUrl extends Component {
           autoFocus
           onChange={this.onChange}
           value={val}
+          style={{ height: 26 }}
         />
         {inputConfirmationImg}
       </div>

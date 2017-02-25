@@ -94,12 +94,13 @@ class Add extends Component {
     return (
       <form id='urlSubmitForm' className={'inactiveUrlSubmitForm urlSubmitForm'} style={{ display: 'flex', flexDirection: 'row', marginBottom: 0 }} >
         <Message messages={messages} />
-        <InputUrl
-          onValidURL={this.onRecieveValidURL}
-          isFetching={isFetching}
-          isExistantURL={id.length > 0}
-        />
-        <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.onSave} />
+          <InputUrl
+            onValidURL={this.onRecieveValidURL}
+            isFetching={isFetching}
+            isExistantURL={id.length > 0}
+            style={{ position: 'absolute', bottom: 0 }}
+          />
+          <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.onSave} style={{ height: 26 }} />
       </form>
     );
   }
