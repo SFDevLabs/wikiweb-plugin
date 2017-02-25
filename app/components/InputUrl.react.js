@@ -67,11 +67,10 @@ class InputUrl extends Component {
       <div>
         <input
           type="text" 
-          id='urlInput' 
+          id='inputUrl' 
           name="inputBox goes here" 
           placeholder="Add Connection" 
           className={'inputUrl'} 
-          style={{ paddingLeft: 8 }}
           autoFocus
           onChange={this.onChange}
           value={val}

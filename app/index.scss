@@ -23,141 +23,187 @@
 /********************/
 /** WIKIWEB FOOTER **/
 /********************/
-  .rotateIn {
-    transform:             rotate( 90deg );
-      -moz-transform:    rotate( 90deg );
-      -ms-transform:     rotate( 90deg );
-      -o-transform:      rotate( 90deg );
-      -webkit-transform: rotate( 90deg );
-    transition:             transform 350ms ease;
-      -moz-transition:    -moz-transform 350ms ease;
-      -ms-transition:     -ms-transform 350ms ease;
-      -o-transition:      -o-transform 350ms ease;
-      -webkit-transition: -webkit-transform 350ms ease;
-  }
+.noOverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  .rotateOut {
-    transform:             rotate( 0deg );
-      -moz-transform:    rotate( 0deg );
-      -ms-transform:     rotate( 0deg );
-      -o-transform:      rotate( 0deg );
-      -webkit-transform: rotate( 0deg );
-    transition:             transform 350ms ease;
-      -moz-transition:    -moz-transform 350ms ease;
-      -ms-transition:     -ms-transform 350ms ease;
-      -o-transition:      -o-transform 350ms ease;
-      -webkit-transition: -webkit-transform 350ms ease;
-  }
+.rotateIn {
+  transform:             rotate( 90deg );
+    -moz-transform:    rotate( 90deg );
+    -ms-transform:     rotate( 90deg );
+    -o-transform:      rotate( 90deg );
+    -webkit-transform: rotate( 90deg );
+  transition:             transform 350ms ease;
+    -moz-transition:    -moz-transform 350ms ease;
+    -ms-transition:     -ms-transform 350ms ease;
+    -o-transition:      -o-transform 350ms ease;
+    -webkit-transition: -webkit-transform 350ms ease;
+}
 
-  .heartIcon {
-    color: rgba(128,0,128, 0.6);
-  }
+.rotateOut {
+  transform:             rotate( 0deg );
+    -moz-transform:    rotate( 0deg );
+    -ms-transform:     rotate( 0deg );
+    -o-transform:      rotate( 0deg );
+    -webkit-transform: rotate( 0deg );
+  transition:             transform 350ms ease;
+    -moz-transition:    -moz-transform 350ms ease;
+    -ms-transition:     -ms-transform 350ms ease;
+    -o-transition:      -o-transform 350ms ease;
+    -webkit-transition: -webkit-transform 350ms ease;
+}
 
-  .heartText {
-    color: rgba(0,0,0,.44);
-  }
+.heartIcon {
+  color: rgba(128,0,128, 0.6);
+}
 
-  .enterHeartIcon {
-    color: purple;
-    transition:color 350ms ease;
-      -moz-transition:color 350ms ease;
-      -ms-transition:color 350ms ease;
-      -o-transition:color 350ms ease;
-      -webkit-transition:color 350ms ease;
-  }
+.heartText {
+  color: rgba(0,0,0,.44);
+}
 
-  .leaveHeartIcon {
-    color: rgba(128,0,128, 0.6);
-    transition:color 350ms ease;
-      -moz-transition:color 350ms ease;
-      -ms-transition:color 350ms ease;
-      -o-transition:color 350ms ease;
-      -webkit-transition:color 350ms ease;
-  }
+.enterHeartIcon {
+  color: purple;
+  transition:color 350ms ease;
+    -moz-transition:color 350ms ease;
+    -ms-transition:color 350ms ease;
+    -o-transition:color 350ms ease;
+    -webkit-transition:color 350ms ease;
+}
 
-  .enterHeartText {
-    color: rgba(0,0,0,.6);
-    transition:color 350ms ease;
-      -moz-transition:color 350ms ease;
-      -ms-transition:color 350ms ease;
-      -o-transition:color 350ms ease;
-      -webkit-transition:color 350ms ease;
-  }
+.leaveHeartIcon {
+  color: rgba(128,0,128, 0.6);
+  transition:color 350ms ease;
+    -moz-transition:color 350ms ease;
+    -ms-transition:color 350ms ease;
+    -o-transition:color 350ms ease;
+    -webkit-transition:color 350ms ease;
+}
 
-  .leaveHeartText {
-    color: rgba(0,0,0,.44);
-    transition:color 350ms ease;
-      -moz-transition:color 350ms ease;
-      -ms-transition:color 350ms ease;
-      -o-transition:color 350ms ease;
-      -webkit-transition:color 350ms ease;
-  }
+.enterHeartText {
+  color: rgba(0,0,0,.6);
+  transition:color 350ms ease;
+    -moz-transition:color 350ms ease;
+    -ms-transition:color 350ms ease;
+    -o-transition:color 350ms ease;
+    -webkit-transition:color 350ms ease;
+}
 
-  .inputBox {
-    margin-left: 30px;
+.leaveHeartText {
+  color: rgba(0,0,0,.44);
+  transition:color 350ms ease;
+    -moz-transition:color 350ms ease;
+    -ms-transition:color 350ms ease;
+    -o-transition:color 350ms ease;
+    -webkit-transition:color 350ms ease;
+}
+
+.inputBox {
+  margin-left: 30px;
+  font-size: 14px;
+  input:focus{
+    outline: none;
+  }
+  .inputUrl {
+    font-size: 15px;
+    padding: 0px;
+  }
+  .inputSubmit {
     font-size: 14px;
-    input:focus{
-      outline: none;
-    }
+  }
+  .inactiveUrlSubmitForm {
     .inputUrl {
-      font-size: 15px;
-    }
-    .inputSubmit {
-      font-size: 14px;
-    }
-    .inactiveUrlSubmitForm {
-      .inputUrl {
-        border-left: none;
-        border-right: none;
-        border-top: none;
-        border-bottom: 1px solid white;
-        -webkit-transition: width 350ms;
-        transition: width 350ms;
-      }
-      .inputSubmit {
-        border: none;
-        -webkit-transition: width 150ms;
-        transition: width 150ms;
-      }
-      .inputUrl, .inputSubmit {
-        width: 0px;
-        padding: 0px;
-        margin: 0px;
-      }
-    }
-    .activeUrlSubmitForm {
+      padding: 0px;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: 1px solid white;
       -webkit-transition: width 350ms;
       transition: width 350ms;
-      .inputUrl {
-        color: rgba(0,0,0,.44);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        border-left: none;
-        border-right: none;
-        border-top: none;
-        width: 270px;
-        -webkit-transition: width 350ms;
-        transition: width 350ms;
-      }
-      .inputSubmit {
-        margin-left: 8px;
-        width: 78px;
-        border: 1px solid rgba(34,139,34, 0.9);
-        background-color: rgba(34,139,34, 0.9);
-        color: white;
-        -webkit-transition: width 350ms;
-        transition: width 350ms;
-        &:hover {
-          border: 1px solid rgba(34,139,34, 1);
-          background-color: rgba(34,139,34, 1);
-          transition:background-color 200ms ease;
-            -moz-transition:background-color 200ms ease;
-            -ms-transition:background-color 200ms ease;
-            -o-transition:background-color 200ms ease;
-            -webkit-transition:background-color 200ms ease;
-        }
+    }
+    .inputSubmit {
+      border: none;
+      -webkit-transition: width 150ms;
+      transition: width 150ms;
+    }
+    .inputUrl, .inputSubmit {
+      width: 0px;
+      padding: 0px;
+      margin: 0px;
+    }
+  }
+  .activeUrlSubmitForm {
+    -webkit-transition: width 350ms;
+    transition: width 350ms;
+    .inputUrl {
+      padding: 0px;
+      color: rgba(0,0,0,.44);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      width: 270px;
+      -webkit-transition: width 350ms;
+      transition: width 350ms;
+    }
+    .inputSubmit {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      margin-left: 8px;
+      width: 78px;
+      border: 1px solid rgba(128,0,128, 0.9);
+      background-color: rgba(128,0,128, 0.9);
+      color: white;
+      -webkit-transition: width 350ms;
+      transition: width 350ms;
+      &:hover {
+        border: 1px solid rgba(128,0,128, 1);
+        background-color: rgba(128,0,128, 1);
+        transition:background-color 200ms ease;
+          -moz-transition:background-color 200ms ease;
+          -ms-transition:background-color 200ms ease;
+          -o-transition:background-color 200ms ease;
+          -webkit-transition:background-color 200ms ease;
       }
     }
   }
+}
+
+.recommendationBox {
+  margin-right: 15%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .readNext {
+    margin-top: -3px;
+    display: flex;
+    color: purple;
+    font-size: 12px;
+    line-height: 1.4em;
+    font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important;
+    letter-spacing: 0em;
+    font-weight: 700;
+    font-style: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  },
+  .nextRead {
+    display: flex;
+    font-size: 13px;
+    line-height: 1.2em;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
+    letter-spacing: -.02em;
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+
+/*************/
+/* Old shit we'll never use but are too sentimal to delete yet.
+/*************/
 
 
 .reactTagsModule {

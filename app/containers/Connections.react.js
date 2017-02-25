@@ -74,13 +74,13 @@ class Connections extends Component {
             </div>
           </div>
 
-          <div style={ styles.rightBox }>
+          <div className={'recommendationBox'}>
             <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
-              <div style={ styles.readNext }>
-                <span style={ styles.noOverflow }>Read next</span>
+              <div className={'readNext'} style={styles.readNext}>
+                <span className={'noOverflow'}>Read next</span>
               </div>
-              <div style={ styles.nextRead }>
-                <span style={styles.noOverflow} >
+              <div className={'nextRead'} style={styles.nextRead}>
+                <span className={'noOverflow'}>
                   The Tech Resistance Awakens from Darth Maul&apos;s Lair
                 </span>
               </div>
@@ -97,11 +97,6 @@ export default connect(mapStateToProps)(Connections);
 
 // Functons and constants
 const styles = {
-  noOverflow: {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
   main: {
     height: 45,
     backgroundColor: 'white',
@@ -130,35 +125,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-  },
-  rightBox: {
-    marginRight: '15%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  readNext: {
-    marginTop: '-3px',
-    display: 'flex',
-    color: 'purple',
-    fontSize: 12,
-    lineHeight: '1.4em',
-    fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important',
-    letterSpacing: '0em',
-    fontWeight: 700,
-    fontStyle: 'normal',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  nextRead: {
-    display: 'flex',
-    fontSize: 13,
-    lineHeight: '1.2em',
-    fontFamily: '"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important',
-    letterSpacing: '-.02em',
-    fontWeight: 700,
-    fontStyle: 'normal',
   },
 }
 
@@ -223,7 +189,7 @@ function toggleUrlSubmitForm(e) {
   } else {
     urlSubmitForm.classList.remove('inactiveUrlSubmitForm');
     urlSubmitForm.classList += ' activeUrlSubmitForm';
-    document.getElementById('urlInput').focus();
+    document.getElementById('inputUrl').focus();
     if (addConnectionIcon.classList.contains('rotateOut')){
       addConnectionIcon.style.color='rgba(128,0,128,.6)';
       addConnectionIcon.classList.remove('rotateOut');
