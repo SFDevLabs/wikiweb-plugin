@@ -54,14 +54,13 @@ class InputUrl extends Component {
       typeDelay,
     } = this.state;
 
-    const inputUrlStatusImg = isExistantURL && isValidURL ? 'img/confirmation_tick.png' : 'img/error_cross.png';
-    const inputUrlStatusText = isExistantURL && isValidURL ? 'Page exists' : 'Page does not exist';
-    const inputConfirmationImg = val.length === 0 || typeDelay || isFetching ?
-      null :
-      (<span style={{ display: 'inline-block', marginLeft: -27 }}>
-        {inputUrlStatusText}
-      </span>);
-
+    // const inputUrlStatusImg = isExistantURL && isValidURL ? 'img/confirmation_tick.png' : 'img/error_cross.png';
+    // const inputUrlStatusText = isExistantURL && isValidURL ? 'Page exists' : 'Page does not exist';
+    // const inputConfirmationImg = val.length === 0 || typeDelay || isFetching ?
+    //   null :
+    //   (<span style={{ display: 'inline-block', marginLeft: -27 }}>
+    //     {inputUrlStatusText}
+    //   </span>);
 
     return (
       <div>
@@ -76,7 +75,6 @@ class InputUrl extends Component {
           value={val}
           style={{ height: 26 }}
         />
-        {inputConfirmationImg}
       </div>
     );
   }

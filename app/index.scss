@@ -170,6 +170,17 @@
   }
 }
 
+.errorMessages {
+  color: red;
+  margin-top: 5px;
+ 
+  .type, .text {
+    position: absolute;
+    font-size: 14px;
+    margin-left: 370px;
+  }
+}
+
 .recommendationBox {
   margin-right: 15%;
   display: flex;
