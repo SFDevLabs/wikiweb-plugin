@@ -62,9 +62,9 @@ export const fetchPostEdge = (fromId, toId, description, tags, tabId) => (dispat
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
-        return dispatch(receiveError(res.body.messages));
+        const message = res ? res.body.messages : ['Somethign went wrong. Please Try Again']
+        return dispatch(receiveError(message));
       } // Stop here on err
-      hashHistory.push('/?isNew=true'); //Navigate back Home
       dispatch(fetchEntity(fromId, tabId));  // Re request edges for the page
     });
 };
