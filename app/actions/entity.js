@@ -1,4 +1,4 @@
-import request from 'superagent';
+ import request from 'superagent';
 import { receiveError } from './error';
 import config from '../config';
 

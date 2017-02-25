@@ -65,8 +65,7 @@ class Add extends Component {
     });
   }
 
-  onSave = () => {
-    submitUrlConnection(); // TODO needs a refactor based on conditionals.
+  onSave = (e) => {
     const { dispatch, id, fromId, tabId } = this.props;
 
     const { description, tags } = this.state;
@@ -77,6 +76,8 @@ class Add extends Component {
       tags.map(obj => obj.text),
       tabId,
     ));
+    submitUrlConnection(); // TODO needs a refactor based on conditionals.
+    e.preventDefault();
   }
 
   onDescriptionChange = (e) => {
@@ -92,14 +93,12 @@ class Add extends Component {
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
     return (
       <form id='urlSubmitForm' className={'inactiveUrlSubmitForm'} style={{ display: 'flex', flexDirection: 'row' }} >
-        <div style={{ display: 'inline-block' }}>
-          <Message messages={messages} />
-          <InputUrl
-            onValidURL={this.onRecieveValidURL}
-            isFetching={isFetching}
-            isExistantURL={id.length > 0}
-          />
-        </div>
+        <Message messages={messages} />
+        <InputUrl
+          onValidURL={this.onRecieveValidURL}
+          isFetching={isFetching}
+          isExistantURL={id.length > 0}
+        />
         <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.onSave} />
       </form>
     );
