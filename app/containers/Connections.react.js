@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import TransitionGroup from 'react-addons-transition-group';
+import { TweenMax } from 'gsap';
 import Add from './Add.react';
 
 const startIndex = 0;
@@ -28,7 +30,34 @@ const mapStateToProps = (state) => {
   };
 };
 
+class Box extends Component {
+  componentWillEnter (callback) {
+    const el = this.container;
+    TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
+  }
+
+  componentWillLeave (callback) {
+    const el = this.container;
+    TweenMax.fromTo(el, 0.3, {y: 0, opacity: 1}, {y: -100, opacity: 0, onComplete: callback});
+  }
+
+  render () {
+    return <div className="box" ref={c => this.container = c} style={{ backgroundColor: 'beige' }}>BOX</div>;
+  }
+}
+
+
 class Connections extends Component {
+  state = {
+    shouldShowBox: true
+  };
+
+  toggleBox = () => {
+    this.setState({
+      shouldShowBox: !this.state.shouldShowBox
+    });
+  };
+
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
@@ -86,6 +115,21 @@ class Connections extends Component {
                   </div>
                 </div>
               </div>
+
+              <div className="experiment" style={{ backgroundColor: 'blue' }}>
+
+                <TransitionGroup>
+                  { this.state.shouldShowBox && <Box/>}
+                </TransitionGroup>
+
+                <button
+                  className="toggle-btn"
+                  onClick={this.toggleBox}
+                >
+                  toggle
+                </button>
+              </div>
+
 
             </div>
           </div>
