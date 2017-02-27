@@ -1,8 +1,8 @@
 module.exports = {
   development: {
-    rootURL: '//localhost:3000',
+    rootURL: 'http://localhost:3000',
   },
   production: {
-    rootURL: '//wikiweb.org',
+    rootURL: 'https://wikiweb.org',
   },
 };

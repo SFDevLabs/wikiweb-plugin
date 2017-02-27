@@ -12,7 +12,7 @@
     "128": "img/icon-128-not-connected.png"
   },
   "web_accessible_resources": [
-    "inject.html"
+    "main.html"
   ],
   "background": {
     "page":"/scripts/background.html"
@@ -26,5 +26,5 @@
     }
   ],
   "permissions": [ "contextMenus", "management", "tabs", "storage",  "http://localhost:3000/*", "http://*/*", "https://*/*" ],
-  "content_security_policy": "default-src 'self'; script-src 'self' https://ssl.google-analytics.com http://localhost:4000 https://localhost:4000 'unsafe-eval'; connect-src self http://www.google-analytics.com http://localhost:4000 https://localhost:4000 http://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://www.google-analytics.com https://www.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
+  "content_security_policy": "default-src 'self'; object-src 'self' blob: filesystem:; script-src 'self' blob: filesystem: chrome-extension-resource: https://ssl.google-analytics.com http://localhost:4000 https://localhost:4000 'unsafe-eval'; connect-src 'self' http://www.google-analytics.com http://localhost:4000 https://localhost:4000 http://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://www.google-analytics.com https://www.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
 }

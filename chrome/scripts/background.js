@@ -8,14 +8,14 @@ function setExtensionButon(active) {
   // Set the path for the icon
   const path = active ?
   {
-    16: 'img/icon-16-not-connected.png',
-    48: 'img/icon-48-not-connected.png',
-    128: 'img/icon-128-not-connected.png',
+    16: '../img/icon-16-not-connected.png',
+    48: '../img/icon-48-not-connected.png',
+    128: '../img/icon-128-not-connected.png',
   }:
   {
-    16: 'img/icon-16-connected.png',
-    48: 'img/icon-48-connected.png',
-    128: 'img/icon-128-connected.png',
+    16: '../img/icon-16-connected.png',
+    48: '../img/icon-48-connected.png',
+    128: '../img/icon-128-connected.png',
   };
 
   chrome.browserAction.setIcon({
@@ -38,7 +38,7 @@ chrome.browserAction.onClicked.addListener(function() {
             tab.id,
             {foo:'foo'},
             function (response) {
-                console.log(response, 'response');
+              //  console.log(response, 'response');
             }
         );
       })
@@ -46,3 +46,9 @@ chrome.browserAction.onClicked.addListener(function() {
 
   });
 });
+
+
+// Messaging.addListener(function(request, sender, fnResponse) {
+//     debugger
+//     //self.onRequest(request, sender, fnResponse);
+// });
