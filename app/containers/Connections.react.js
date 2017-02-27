@@ -53,8 +53,9 @@ class Connections extends Component {
       <div className={'wikiwebFooter'} style={ styles.main } >
 
         <div style={ styles.noEdges }>
-          <div style={ styles.leftBox }>
+          <div style={ styles.centerBox }>
             <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              
               <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
                 <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
                   <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
@@ -63,6 +64,7 @@ class Connections extends Component {
                   <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
                 </div>
               </div>
+              
               <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
                 <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
                   <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
@@ -71,19 +73,20 @@ class Connections extends Component {
                   <Add />
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className={'recommendationBox'}>
-            <div style={{ width: 270, paddingLeft: 10, alignItems: 'flex-end' }}>
-              <div className={'readNext'} style={styles.readNext}>
-                <span className={'noOverflow'}>Read next</span>
+              <div className={'recommendationBox'}>
+                <div style={{ width: 400, paddingLeft: 10 }}>
+                  <div className={'readNext'} style={styles.readNext}>
+                    <span className={'noOverflow'}>Read next</span>
+                  </div>
+                  <div className={'nextRead'} style={styles.nextRead}>
+                    <span className={'noOverflow'}>
+                      The Tech Resistance Awakens from Darth Maul&apos;s Lair
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className={'nextRead'} style={styles.nextRead}>
-                <span className={'noOverflow'}>
-                  The Tech Resistance Awakens from Darth Maul&apos;s Lair
-                </span>
-              </div>
+
             </div>
           </div>
         </div>
@@ -120,8 +123,10 @@ const styles = {
     width: '100%',
     justifyContent: 'space-between',
   },
-  leftBox: {
+  centerBox: {
     marginLeft: '20%',
+    marginRight: '20%',
+    width: 936,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',

@@ -182,9 +182,7 @@
 }
 
 .recommendationBox {
-  margin-right: 15%;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   .readNext {
     margin-top: -3px;
@@ -210,7 +208,6 @@
     font-style: normal;
   }
 }
-
 
 /*************/
 /* Old shit we'll never use but are too sentimal to delete yet.
