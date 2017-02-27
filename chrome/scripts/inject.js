@@ -1,6 +1,5 @@
 var MAIN_DOM_ID = 'wikiwebRoot';
 var mainRootDiv;
-
 /**
  * Set Up the DOM for the WW footer
 */

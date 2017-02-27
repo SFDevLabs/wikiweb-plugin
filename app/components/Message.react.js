@@ -16,7 +16,6 @@ class Message extends Component {
     const ResponseJSX = messages ? (
       <div className={'errorMessages'}>
         {messages.map((message, i) => <span key={i}>
-          <span className={'type'}>{message.type}: </span>
           <span className={'text'}>{message.text}</span>
         </span>)}
       </div>) : null;

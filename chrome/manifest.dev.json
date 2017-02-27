@@ -15,7 +15,7 @@
     "inject.html"
   ],
   "background": {
-    "scripts":["/scripts/background.js"]
+    "page":"/scripts/background.html"
   },
   "content_scripts": [
     {
