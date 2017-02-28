@@ -31,9 +31,13 @@ class App extends Component {
     //   dispatch(fetchSearch(url, tabId));
     //   dispatch(fetchProfile());
     // });
-    const url = window.location.href;
-    dispatch(fetchSearch(url));
-    dispatch(fetchProfile());
+    chrome.runtime.onMessage.addListener(
+      (sender) => {
+        const { url } = sender;
+        dispatch(fetchSearch(url));
+        dispatch(fetchProfile());
+      }
+    );
   }
 
   render() {

@@ -18,7 +18,6 @@ const mapStateToProps = (state) => {
       canonicalLink,
     },
   } = state;
-
   return {
     id,
     entityCount,
@@ -111,11 +110,7 @@ class Connections extends Component {
   }
 
   componentDidMount() {
-    chrome.runtime.onMessage.addListener(
-      function(sender, request, sendResponse) {
-        console.log(sender, request, 'hit!')
-      }
-    );
+    //no opp
   }
 
   render() {
@@ -123,7 +118,8 @@ class Connections extends Component {
       superEdges,
       entityCount,
       id,
-      isFetching
+      isFetching,
+      title
     } = this.props;
 
     const {
@@ -132,7 +128,6 @@ class Connections extends Component {
 
     return (
       <div className={'wikiwebFooter'} style={ styles.main } >
-
         <div className={'centerBox'}>
 
           <div className={'addMetaBox'}>
@@ -187,7 +182,10 @@ class Connections extends Component {
           </div>
 
         </div>
-
+        <div style={{position:"fixed", top:0, left:0, backgroundColor:'purple' }}>
+          @TODO DATA PULLED FROM API! THERE ARE {superEdges? superEdges.length: 0} connections(s) ON THIS PAGE!
+          TITLE: {title}
+        </div>
       </div>
     );
   }

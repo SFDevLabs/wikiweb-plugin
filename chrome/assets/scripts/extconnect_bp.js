@@ -107,7 +107,6 @@ Messaging = {
             }, false);
         } else {
             chrome.extension.onMessage.addListener(function(msg, sender, fnResponse) {
-                debugger
                 if(!msg || (msg.type != "SUMESSAGE"))
                     return false;
                 self._handleIncoming(msg, sender);

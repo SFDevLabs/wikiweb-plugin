@@ -47,17 +47,27 @@ chrome.browserAction.onClicked.addListener(function() {
   });
 });
 
-setTimeout(function(){
-  chrome.tabs.query({},function(tabs){
-    tabs.map(function(tab){
-      debugger
-      chrome.tabs.sendMessage(
-          tab.id,
-          {url:tab.url},
-          function (response) {
-            //  console.log(response, 'response');
-          }
-      );
-    })
-  });
-},1000)
+fireRequest = function(){
+
+  setTimeout(function(){
+    chrome.tabs.query({},function(tabs){
+      tabs.map(function(tab){
+        chrome.tabs.sendMessage(
+            tab.id,
+            {url:tab.url},
+            function (response) {
+              //  console.log(response, 'response');
+            }
+        );
+      })
+    });
+  },1000)
+
+}
+fireRequest()
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
+          debugger
+  fireRequest()
+});
