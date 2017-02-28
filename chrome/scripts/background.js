@@ -47,16 +47,17 @@ chrome.browserAction.onClicked.addListener(function() {
   });
 });
 
-
-chrome.tabs.query({},function(tabs){
-  debugger
-  tabs.map(function(tab){
-    chrome.tabs.sendMessage(
-        tab.id,
-        {foo:'foo'},
-        function (response) {
-          //  console.log(response, 'response');
-        }
-    );
-  })
-});
+setTimeout(function(){
+  chrome.tabs.query({},function(tabs){
+    tabs.map(function(tab){
+      debugger
+      chrome.tabs.sendMessage(
+          tab.id,
+          {url:tab.url},
+          function (response) {
+            //  console.log(response, 'response');
+          }
+      );
+    })
+  });
+},1000)

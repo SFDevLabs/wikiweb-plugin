@@ -87,11 +87,11 @@ class Connections extends Component {
 
   incrementConnectionsIndex = (e) => {
     console.log(this.state.dummyData);
-    const dumbData = this.state.dummyData;
+    const dumbyData = this.state.dummyData;
     if (dumbData.connections.length > 0 && dumbData.connectionsIndex < dumbData.connections.length-1){
-      this.state.dummyData.connectionsIndex = dumbData.connectionsIndex + 1;
+      this.state.dummData.connectionsIndex = dumbData.connectionsIndex + 1;
       console.log(dumbData.connectionsIndex);
-    } 
+    }
   }
 
   decrementConnectionsIndex = (e) => {
@@ -100,7 +100,7 @@ class Connections extends Component {
     if (dumbData.connections.length > 0 && dumbData.connectionsIndex > dumbData.connections.length - 1 && dumbData.connectionsIndex > 0){
       this.state.dummyData.connectionsIndex = dumbData.connectionsIndex - 1;
       console.log(dumbData.connectionsIndex);
-    } 
+    }
   }
 
   static propTypes = {
@@ -111,7 +111,11 @@ class Connections extends Component {
   }
 
   componentDidMount() {
-
+    chrome.runtime.onMessage.addListener(
+      function(sender, request, sendResponse) {
+        console.log(sender, request, 'hit!')
+      }
+    );
   }
 
   render() {
@@ -130,7 +134,7 @@ class Connections extends Component {
       <div className={'wikiwebFooter'} style={ styles.main } >
 
         <div className={'centerBox'}>
-            
+
           <div className={'addMetaBox'}>
             <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
@@ -140,7 +144,7 @@ class Connections extends Component {
                 <span id='heartText' className={'heartText'}>{dummyData.recommendations}</span>
               </div>
             </div>
-            
+
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
               <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
                 <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />

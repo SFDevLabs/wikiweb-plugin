@@ -30,24 +30,3 @@ ReactDOM.render(
   <Root />,
   document.querySelector('#wikiwebRoot')
 );
-
-
-// Message Catching for extension button
-setTimeout(function(){
-  chrome.runtime.onMessage.addListener(
-    function(sender, request, sendResponse) {
-      console.log('hit!')
-      // chrome.storage.local.get(
-      //   ['wikiwebFooterActive'],
-      //   function (res) {
-      //     if (res.wikiwebFooterActive === true && mainRootDiv === undefined) {
-      //       footerDOMSetUp();
-      //       createFooterJS();
-      //     } else {
-      //       footerDOMDestroy();
-      //     }
-      //   }
-      // );
-    }
-  );
-},500);
