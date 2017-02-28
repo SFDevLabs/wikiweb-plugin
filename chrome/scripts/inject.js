@@ -1,5 +1,5 @@
 iframe = document.createElement('iframe');
-iframe.src='chrome-extension://chlabnnbbloifmgcmenphjdpakeaoijm/main.html'; // TODO: inject this dynamically
+iframe.src='chrome-extension://akjooaompalcndlllaolceeeaonodbhp/main.html';
 iframe.style.width = '100%';
 iframe.style.position = 'fixed';
 iframe.style.left = 0;

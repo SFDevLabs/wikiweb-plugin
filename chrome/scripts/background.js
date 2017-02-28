@@ -42,13 +42,21 @@ chrome.browserAction.onClicked.addListener(function() {
             }
         );
       })
-    })
+    });
 
   });
 });
 
 
-// Messaging.addListener(function(request, sender, fnResponse) {
-//     debugger
-//     //self.onRequest(request, sender, fnResponse);
-// });
+chrome.tabs.query({},function(tabs){
+  debugger
+  tabs.map(function(tab){
+    chrome.tabs.sendMessage(
+        tab.id,
+        {foo:'foo'},
+        function (response) {
+          //  console.log(response, 'response');
+        }
+    );
+  })
+});
