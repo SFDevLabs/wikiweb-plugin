@@ -49,7 +49,34 @@ class Box extends Component {
 
 class Connections extends Component {
   state = {
-    shouldShowBox: true
+    shouldShowBox: true,
+    dummyData: {
+      recommendations: 183,
+      connectionsIndex: 0,
+      connections: [
+        {
+          title: 'Gone with the Wind, a hunters classic',
+          base_url: 'https://www.wsj.com/',
+          connected_by: 'Nick Sinai',
+          connected_by_handle: 'NickSinai',
+          connected_by_handle_url: 'http://twitter.com/NickSinai',
+        },
+        {
+          title: 'Only a Savant Would Click Like a Reindeer',
+          base_url: 'https://eoinmcmillan.com',
+          connected_by: 'Eoin McMillan',
+          connected_by_handle: 'mceoin',
+          connected_by_handle_url: 'http://twitter.com/mceoin',
+        },
+        {
+          title: 'John Travolta Aint Got Nothin on Me, said Testosterone',
+          base_url: 'http://sfdevlabs.com/',
+          connected_by: 'Jeff Jenkins',
+          connected_by_handle: 'jeffj',
+          connected_by_handle_url: 'http://twitter.com/jeffj',
+        }
+      ]
+    }
   };
 
   toggleBox = () => {
@@ -57,6 +84,24 @@ class Connections extends Component {
       shouldShowBox: !this.state.shouldShowBox
     });
   };
+
+  incrementConnectionsIndex = (e) => {
+    console.log(this.state.dummyData);
+    const dumbData = this.state.dummyData;
+    if (dumbData.connections.length > 0 && dumbData.connectionsIndex < dumbData.connections.length-1){
+      this.state.dummyData.connectionsIndex = dumbData.connectionsIndex + 1;
+      console.log(dumbData.connectionsIndex);
+    } 
+  }
+
+  decrementConnectionsIndex = (e) => {
+    console.log(this.state.dummyData);
+    const dumbData = this.state.dummyData;
+    if (dumbData.connections.length > 0 && dumbData.connectionsIndex > dumbData.connections.length - 1 && dumbData.connectionsIndex > 0){
+      this.state.dummyData.connectionsIndex = dumbData.connectionsIndex - 1;
+      console.log(dumbData.connectionsIndex);
+    } 
+  }
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -77,62 +122,66 @@ class Connections extends Component {
       isFetching
     } = this.props;
 
+    const {
+      dummyData
+    } = this.state;
 
     return (
       <div className={'wikiwebFooter'} style={ styles.main } >
 
-        <div style={ styles.noEdges }>
-          <div style={ styles.centerBox }>
-            <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              
-              <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-                <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
-                  <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
-                </div>
-                <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
-                  <span id='heartText' className={ 'heartText' } style={{ fontSize: 16, fontFamily: '"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif' }}>183</span>
-                </div>
+        <div className={'centerBox'}>
+            
+          <div className={'addMetaBox'}>
+            <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
+                <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
               </div>
-              
-              <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
-                <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
-                  <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
-                </div>
-                <div className={'inputBox'}>
-                  <Add />
-                </div>
+              <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
+                <span id='heartText' className={'heartText'}>{dummyData.recommendations}</span>
               </div>
-
-              <div className={'recommendationBox'}>
-                <div style={{ width: 400, paddingLeft: 10 }}>
-                  <div className={'readNext'} style={styles.readNext}>
-                    <span className={'noOverflow'}>Read next</span>
-                  </div>
-                  <div className={'nextRead'} style={styles.nextRead}>
-                    <span className={'noOverflow'}>
-                      The Tech Resistance Awakens from Darth Maul&apos;s Lair
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="experiment" style={{ backgroundColor: 'blue' }}>
-
-                <TransitionGroup>
-                  { this.state.shouldShowBox && <Box/>}
-                </TransitionGroup>
-
-                <button
-                  className="toggle-btn"
-                  onClick={this.toggleBox}
-                >
-                  toggle
-                </button>
-              </div>
-
-
             </div>
+            
+            <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
+              <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
+                <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
+              </div>
+              <div className={'inputBox'}>
+                <Add />
+              </div>
+            </div>
+            <div className={'verticalDivider'} style={{ marginRight: 4 }}></div>
           </div>
+
+          <div className={'recommendationBox'}>
+            <div style={{ width: 500, paddingLeft: 10 }}>
+              <div className={'readNext'}>
+                <span className={'noOverflow'}>Read next</span>
+              </div>
+              <div className={'nextRead'}>
+                <span className={'noOverflow'}>
+                  {dummyData.connections[dummyData.connectionsIndex].title}
+                </span>
+              </div>
+            </div>
+            <div className={'rotateRecommendationsBox'}>
+              <i onClick={this.incrementConnectionsIndex.bind(this)} className={'fa fa-caret-up recommendationToggleCaret'}></i>
+              <i onClick={this.decrementConnectionsIndex.bind(this)} className={'fa fa-caret-down recommendationToggleCaret'}></i>
+            </div>
+            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
+          </div>
+
+          <div className='animationsExperiment' style={{ backgroundColor: 'blue' }}>
+            <TransitionGroup>
+              { this.state.shouldShowBox && <Box/>}
+            </TransitionGroup>
+            <button
+              className="toggle-btn"
+              onClick={this.toggleBox}
+            >
+              toggle
+            </button>
+          </div>
+
         </div>
 
       </div>
@@ -144,37 +193,7 @@ export default connect(mapStateToProps)(Connections);
 
 // Functons and constants
 const styles = {
-  main: {
-    height: 45,
-    backgroundColor: 'white',
-    display: 'flex',
-    fontFamily: '"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif !important',
-    color: 'rgba(0,0,0,.8)',
-    fontSize: '16px',
-  },
-  edgeBox: {
-    /* Left Blank until data */
-  },
-  noEdges: {
-    color: 'rgba(0,0,0,.8)',
-    flexDirection: 'row',
-    listStyle: 'none',
-    display: '-webkit-box',
-    display: '-moz-box',
-    display: '-ms-flexbox',
-    display: '-webkit-flex',
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  centerBox: {
-    marginLeft: '20%',
-    marginRight: '20%',
-    width: 936,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
+  /* currently blank... styles moved to stylesheet */
 }
 
 function enterHeartIcon(e) {
@@ -260,12 +279,4 @@ window.onkeyup = function(e) {
       addConnectionIcon.classList += ' rotateOut';
     }
   }
-}
-
-function edgeBoxJSX(data){
-  return (
-    <div style={ styles.edgeBox }>
-      <div>Page Has {data.length} Connection(s)</div>
-    </div>
-  );
 }
