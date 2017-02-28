@@ -31,10 +31,3 @@ ReactDOM.render(
   <Root />,
   document.querySelector('#wikiwebRoot')
 );
-
-extconnectWp.sendCSRequest({ type: "GETVALUE" }, function(a, b, c){
-  debugger;
-  console.lg(a, b, c, 'abc');
-});
-
-window.extconnectWp=extconnectWp;
