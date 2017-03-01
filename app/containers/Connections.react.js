@@ -86,16 +86,19 @@ class Connections extends Component {
   };
 
   incrementConnectionsIndex = (e) => {
-    console.log(this.state.dummyData);
-    const dumbData = this.state.dummyData;
-    if (dumbData.connections.length > 0 && dumbData.connectionsIndex < dumbData.connections.length-1){
-      this.state.dummyData.connectionsIndex = dumbData.connectionsIndex + 1;
-      console.log(dumbData.connectionsIndex);
+    const workingDataConst = this.state.dummyData;
+    if (workingDataConst.connections.length > 0 && workingDataConst.connectionsIndex < workingDataConst.connections.length-1){
+      debugger
+      this.setState({
+        dummyData: {
+          ...this.state.dummyData,
+          connectionsIndex: workingDataConst.connectionsIndex + 1  
+        }
+      })
     } 
   }
 
   decrementConnectionsIndex = (e) => {
-    console.log(this.state.dummyData);
     const dumbData = this.state.dummyData;
     if (dumbData.connections.length > 0 && dumbData.connectionsIndex > dumbData.connections.length - 1 && dumbData.connectionsIndex > 0){
       this.state.dummyData.connectionsIndex = dumbData.connectionsIndex - 1;
@@ -125,6 +128,8 @@ class Connections extends Component {
     const {
       dummyData
     } = this.state;
+
+    console.log(dummyData)
 
     return (
       <div className={'wikiwebFooter'} style={ styles.main } >
