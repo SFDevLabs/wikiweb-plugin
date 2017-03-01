@@ -1,6 +1,6 @@
 import {
-  REQUEST_CONNECTED_SEARCH,
-  RECEIVE_CONNECTED_SEARCH,
+  REQUEST_EDGE,
+  RECEIVE_EDGE,
 } from '../actions/edge';
 
 import {
@@ -8,7 +8,7 @@ import {
 } from '../actions/error';
 
 
-const connectEntity = (state = {
+const edge = (state = {
   isFetching: false,
   title: '',
   id: '',
@@ -16,25 +16,19 @@ const connectEntity = (state = {
   messages: [],
 }, action) => {
   switch (action.type) {
-    case REQUEST_CONNECTED_SEARCH: {
+    case REQUEST_EDGE: {
       return {
         ...state,
         isFetching: true,
         messages:[],
       };
     }
-    case RECEIVE_CONNECTED_SEARCH: {
-      const {
-        id,
-        title,
-        isURL,
-      } = action;
+    case RECEIVE_EDGE: {
+      debugger
       return {
         ...state,
-        isURL,
-        id,
-        title,
         isFetching: false,
+        messages:[{"type":"success","text":"SUCCESS! You made a connection"}]
       };
     }
     case RECEIVE_ERROR: {
@@ -53,4 +47,4 @@ const connectEntity = (state = {
   }
 };
 
-export default connectEntity;
+export default edge;

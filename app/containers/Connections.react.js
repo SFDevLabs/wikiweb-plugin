@@ -3,31 +3,46 @@ import { connect } from 'react-redux';
 import TransitionGroup from 'react-addons-transition-group';
 import { TweenMax } from 'gsap';
 import Add from './Add.react';
+import Message from '../components/Message.react';
+import { fetchPostEdge } from '../actions/edge';
 
 const startIndex = 0;
 const endIndex = 3;
 
 const mapStateToProps = (state) => {
-  const { entity:
-    { id,
-      entityCount,
-      isFetching,
-      title,
-      superEdges,
-      queryLink,
-      canonicalLink,
-    },
+  const { 
+    edge,
+    connectEntity,
+    entity:
+      { id,
+        entityCount,
+        isFetching,
+        title,
+        superEdges,
+        queryLink,
+        canonicalLink,
+      },
   } = state;
+  const connectEntityId = connectEntity.id;
+
+
+  const isFetchingEdge = edge.isFetching;
+  const messages = edge.messages;
   return {
+    edge,
     id,
+    connectEntityId,
     entityCount,
     title,
     isFetching,
+    isFetchingEdge,
     superEdges,
     queryLink,
     canonicalLink,
+    messages,
   };
 };
+
 
 class Box extends Component {
   componentWillEnter (callback) {
@@ -138,7 +153,9 @@ class Connections extends Component {
       entityCount,
       id,
       isFetching,
-      title
+      title,
+      isFetchingEdge,
+      messages,
     } = this.props;
 
     const {
@@ -179,7 +196,7 @@ class Connections extends Component {
 
     const inputBoxJSX = isUserLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
-        <Add />
+        <Add onSave={this.onSave}/>
       </div>) : null;
 
     const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
@@ -207,7 +224,7 @@ class Connections extends Component {
               Bro. Bro! Add a link. And style this section while you&#39;re at it.
             </div>
           </div>)
-
+debugger
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
@@ -232,6 +249,8 @@ class Connections extends Component {
         </div>
           
           <div id='middleCol'>
+            <Message messages={messages} />
+            <span>{isFetchingEdge?'isFetchingEdge':''}</span>
             {recommendationBoxJSX}
             {loginTextJSX}
             {inputBoxJSX}
@@ -246,20 +265,23 @@ class Connections extends Component {
       </div>
     );
   }
+
+  onSave = (e) => {
+    const { dispatch, id, connectEntityId } = this.props;
+
+    //const { description, tags } = this.state;
+    dispatch(fetchPostEdge(
+      id,
+      connectEntityId,
+      '',
+      []
+    ));
+    this.setState({
+      isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
+    });
+    e.preventDefault();
+  }
 }
-
-// <div className='animationsExperiment' style={{ backgroundColor: 'blue' }}>
-//   <TransitionGroup>
-//     { this.state.shouldShowBox && <Box/>}
-//   </TransitionGroup>
-//   <button
-//     className="toggle-btn"
-//     onClick={this.toggleBox}
-//   >
-//     toggle
-//   </button>
-// </div>
-
 
 export default connect(mapStateToProps)(Connections);
 
@@ -297,24 +319,10 @@ function leaveHeartText(e) {
 }
 
 function enterConnectionBox(e) {
-  var el = document.getElementById('addConnectionIcon');
-  el.style.color='rgba(128,0,128,.6)';
-  el.classList.remove('rotateOut');
-  el.className += ' rotateIn';
-  e.preventDefault();
+
 }
 
 function leaveConnectionBox(e) {
-  var el = document.getElementById('addConnectionIcon');
-  var otherEl = document.getElementById('urlSubmitForm');
-  if (otherEl.classList.contains('activeUrlSubmitForm')){
-    // do nothing.
-  } else {
-    el.style.color='rgba(0,0,0,.33)';
-    el.classList.remove('rotateIn');
-    el.classList += ' rotateOut';
-  }
-  e.preventDefault();
 }
 
 function toggleMiddleSection(e) {

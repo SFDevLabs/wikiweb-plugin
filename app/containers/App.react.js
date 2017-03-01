@@ -3,8 +3,7 @@ import { Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 //import ReactGA from 'react-ga';
 import Connections from './Connections.react';
-import Login from './Login.react';
-import { fetchSearch } from '../actions/entity';
+import { fetchSearch } from '../actions/currentPage';
 import { fetchProfile } from '../actions/user';
 
 function logPageView() {
@@ -22,15 +21,6 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    // chrome.tabs.query({
-    //   active: true,
-    //   currentWindow: true,
-    // }, (tabs) => {
-    //   const url = tabs[0].url.split('?')[0];
-    //   const tabId = tabs[0].id;
-    //   dispatch(fetchSearch(url, tabId));
-    //   dispatch(fetchProfile());
-    // });
     chrome.runtime.onMessage.addListener(
       (sender) => {
         const { url } = sender;
@@ -48,8 +38,6 @@ class App extends Component {
 }
 
 export default connect()(App);
-
-// Load Google Analytics
 
 (function() {
   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import InputUrl from '../components/InputUrl.react';
 import InputTags from '../components/InputTags.react';
 import Message from '../components/Message.react';
-import { fetchConnectSearch, fetchPostEdge } from '../actions/edge';
+import { fetchConnectSearch } from '../actions/edge';
 
 const mapStateToProps = (state) => {
   const {
@@ -40,6 +40,7 @@ class Add extends Component {
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     messages: PropTypes.array,
+    onSave: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -64,20 +65,6 @@ class Add extends Component {
     });
   }
 
-  onSave = (e) => {
-    const { dispatch, id, fromId } = this.props;
-
-    const { description, tags } = this.state;
-    dispatch(fetchPostEdge(
-      fromId,
-      id,
-      description,
-      tags.map(obj => obj.text)
-    ));
-    submitUrlConnection(); // TODO needs a refactor based on conditionals.
-    e.preventDefault();
-  }
-
   onDescriptionChange = (e) => {
     const description = e.target.value;
     this.setState({
@@ -91,14 +78,15 @@ class Add extends Component {
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
     return (
       <form id='urlSubmitForm' className={'activeUrlSubmitForm urlSubmitForm'} style={{ display: 'flex', flexDirection: 'row', marginBottom: 0 }} >
-        <Message messages={messages} />
+        <Message messages={messages} /><span>{isFetching?'isFetching':null} - {}</span>
           <InputUrl
             onValidURL={this.onRecieveValidURL}
             isFetching={isFetching}
             isExistantURL={id.length > 0}
             style={{ position: 'absolute', bottom: 0 }}
           />
-          <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.onSave} style={{ height: 26 }} />
+
+          <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.props.onSave} style={{ height: 26 }} />
       </form>
     );
   }
@@ -108,9 +96,5 @@ class Add extends Component {
 export default connect(mapStateToProps)(Add);
 
 function submitUrlConnection(e) {
-  var urlSubmitForm = document.getElementById('urlSubmitForm');
-    if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
-      urlSubmitForm.classList.remove('activeUrlSubmitForm');
-      urlSubmitForm.classList += ' inactiveUrlSubmitForm';
-    }
+ console.log('submitUrlConnection function')
 }

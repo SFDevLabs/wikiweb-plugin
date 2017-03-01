@@ -1,9 +1,9 @@
 import {
   REQUEST_SEARCH,
-  RECEIVE_ENTITY,
-} from '../actions/entity';
+  RECEIVE_CURRENT_PAGE,
+} from '../actions/currentPage';
 
-const entity = (state = {
+const currentPage = (state = {
   id: '',
   isFetching: false,
   entityCount: 0,
@@ -24,7 +24,7 @@ const entity = (state = {
         tabId,
       };
     }
-    case RECEIVE_ENTITY: {
+    case RECEIVE_CURRENT_PAGE: {
       const {
         id,
         entityCount,
@@ -51,4 +51,4 @@ const entity = (state = {
   }
 };
 
-export default entity;
+export default currentPage;

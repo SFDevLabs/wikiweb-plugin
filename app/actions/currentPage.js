@@ -1,4 +1,4 @@
- import request from 'superagent';
+import request from 'superagent';
 import { receiveError } from './error';
 import config from '../config';
 
@@ -6,7 +6,7 @@ const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
-export const RECEIVE_ENTITY = 'RECEIVE_ENTITY';
+export const RECEIVE_CURRENT_PAGE = 'RECEIVE_CURRENT_PAGE';
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 
@@ -17,8 +17,8 @@ export const requestSearch = (url, tabId) => ({
   tabId,
 });
 
-const receiveEntity = (id, entityCount, title, superEdges, queryLink, canonicalLink) => ({
-  type: RECEIVE_ENTITY,
+const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink) => ({
+  type: RECEIVE_CURRENT_PAGE,
   id,
   entityCount,
   title,
@@ -27,13 +27,12 @@ const receiveEntity = (id, entityCount, title, superEdges, queryLink, canonicalL
   canonicalLink,
 });
 
-
 /* This demands a more efficent API.
-   We have almost two identical functions fetchEntity fetchConnectEntity.
+   We have almost two identical functions fetchCurrentPage fetchConnectEntity.
    @TODO Consolidate functions around a single efficent API Call @jeffj
 */
 
-export const fetchEntity = (id, tabId) => dispatch =>
+export const fetchCurrentPage = (id, tabId) => dispatch =>
   request
     .get(`${rootURL}/api/node/${id}`)
     .set('Accept', 'application/json')
@@ -42,7 +41,7 @@ export const fetchEntity = (id, tabId) => dispatch =>
         dispatch(receiveError(['Error in Response']));
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink, _id } = res.body;
-        dispatch(receiveEntity(
+        dispatch(receiveCurrentPage(
           _id,
           entityCount,
           title,
@@ -70,7 +69,7 @@ export const fetchSearch = (url, tabId) => (dispatch) => {
           // No Opp
       } else {
         const { _id } = node;
-        dispatch(fetchEntity(_id, tabId));
+        dispatch(fetchCurrentPage(_id, tabId));
       }
     });
 };
