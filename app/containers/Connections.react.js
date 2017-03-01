@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import TransitionGroup from 'react-addons-transition-group';
 import { TweenMax } from 'gsap';
 import Add from './Add.react';
-import Login from './Login.react';
 
 const startIndex = 0;
 const endIndex = 3;
@@ -49,8 +48,9 @@ class Box extends Component {
 
 class Connections extends Component {
   state = {
-    shouldShowBox: true,
-    isLoggedIn: true,
+    isUserLoggedIn: false,
+    isAddConnectionToggledOn: false,
+    shouldShowConnectionBox: true,
     dummyData: {
       recommendations: 183,
       connectionsIndex: 0,
@@ -85,13 +85,13 @@ class Connections extends Component {
 
   toggleBox = () => {
     this.setState({
-      shouldShowBox: !this.state.shouldShowBox
+      shouldShowConnectionBox: !this.state.shouldShowConnectionBox
     });
   };
 
   toggleLogin = () => {
     this.setState({
-      isLoggedIn: !this.state.isLoggedIn
+      isUserLoggedIn: !this.state.isUserLoggedIn
     });
   }
 
@@ -143,7 +143,8 @@ class Connections extends Component {
 
     const {
       dummyData,
-      isLoggedIn,
+      isUserLoggedIn,
+      isAddConnectionToggledOn
     } = this.state;
 
     let incrementButtonStyle;
@@ -163,20 +164,22 @@ class Connections extends Component {
     }
 
     // onClick={function () { chrome.tabs.create({ url: 'http://localhost:3000/login' }); }}
-    const pleaseLoginBoxJSX = (
+
+    const pleaseLoginBoxJSX = !isUserLoggedIn ? (
       <div className={'pleaseLoginBox'}>
-        <span>
-          You must be logged in to make a connection
-        </span>
         <span className={'loginButton'} onClick={this.toggleLogin}>
           Login
         </span>
-      </div>);
-    
-    const inputBoxJSX = isLoggedIn ? <Add /> : pleaseLoginBoxJSX;
+      </div>) : null;
 
+    const inputBoxJSX = isUserLoggedIn ? (
+      <div className={'inputBox'}>
+        <Add />
+      </div>) : null;
+
+    const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
     const recommendationBoxJSX = dummyData.connections.length > 0 ?
-      (<div className={'recommendationBox'}>
+      (<div className={'recommendationBox'} style={{display: showRecommendationBox}}>
           <div style={{ width: 480 }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
@@ -194,11 +197,14 @@ class Connections extends Component {
             <i onClick={this.decrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
           </div>
         </div>) : 
-        ( <div className={'recommendationBox'}>
-            <div style={{ width: 500, paddingLeft: 10 }}>
+        ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
+            <div style={{ width: 480 }}>
               Bro. Bro! Add a link. And style this section while you&#39;re at it.
             </div>
           </div>)
+
+    const sanityChecker = isAddConnectionToggledOn ? "green" : "red";
+    console.log('toggle is currently: '+this.state.isAddConnectionToggledOn+' inside render')
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -216,7 +222,7 @@ class Connections extends Component {
             </div>
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
               <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} className={'addConnectionBox'} >
-                <i id='addConnectionIcon' onClick={this.toggleLogin} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
+                <i id='addConnectionIcon' onClick={toggleMiddleSection.bind(this)} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
               </div>
             </div>
             <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
@@ -224,14 +230,14 @@ class Connections extends Component {
         </div>
           
           <div id='middleSide'>
-            <div className={'inputBox'}>
-              {inputBoxJSX}
-            </div>
+            <span style={{ height: 10, width: 10, backgroundColor: sanityChecker }}></span>
+            {inputBoxJSX}
             {recommendationBoxJSX}
           </div>
           
           <div id='rightSide'>
             <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
+            {pleaseLoginBoxJSX}
           </div>
 
         </div>
@@ -308,8 +314,9 @@ function leaveConnectionBox(e) {
   }
   e.preventDefault();
 }
-
+  
 function toggleUrlSubmitForm(e) {
+  console.log('toggling')
   var urlSubmitForm = document.getElementById('urlSubmitForm');
   var addConnectionIcon = document.getElementById('addConnectionIcon');
   if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
@@ -331,8 +338,21 @@ function toggleUrlSubmitForm(e) {
   e.preventDefault();
 }
 
+function toggleMiddleSection(e) {
+  this.setState({
+    isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
+  });
+  console.log('toggle is currently: '+this.state.isAddConnectionToggledOn+' inside function')
+  if (this.state.isUserLoggedIn){
+    toggleUrlSubmitForm();
+  } else {
+    console.log('...else')
+  }
+  e.preventDefault();
+}
+
 window.onkeyup = function(e) {
-  if (e.keyCode == 27) { // escape key maps to keycode `27`
+  if (e.keyCode == 27) { /* escape key */
     var urlSubmitForm = document.getElementById('urlSubmitForm');
     var addConnectionIcon = document.getElementById('addConnectionIcon');
     if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {

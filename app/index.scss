@@ -229,13 +229,11 @@ a {
   width: 142px;
   min-width: 142px;
   max-width: 142px;
-  // background-color: yellow;
 }
 #middleSide {
   display: flex;
   align-items: center;
   height: 45px;
-  // background-color: aqua;
   width: 500px;
   min-width: 500px;
   max-width: 500px;
@@ -247,7 +245,6 @@ a {
   width: 222px;
   min-width: 222px;
   max-width: 222px;
-  // background-color: beige;
 }
 
 .addMetaBox {
@@ -262,7 +259,6 @@ a {
 }
 
 .pleaseLoginBox {
-  width: 500;
   display: flex; 
   justify-content: center;
   align-items: center;
@@ -276,6 +272,7 @@ a {
 .recommendationBox {
   display: flex;
   align-items: center;
+  width: 480px;
   .readNext {
     margin-top: -3px;
     display: flex;
