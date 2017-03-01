@@ -93,7 +93,6 @@ class Connections extends Component {
           connectionsIndex: workingDataConst.connectionsIndex + 1  
         }
       })
-      console.log('incrementing to: '+ (workingDataConst.connectionsIndex + 1) + ' of ' + workingDataConst.connections.length)
     }
   }
 
@@ -106,7 +105,6 @@ class Connections extends Component {
           connectionsIndex: workingDataConst.connectionsIndex - 1  
         }
       })
-      console.log('decrementing to: '+ (workingDataConst.connectionsIndex + 1) + ' of ' + workingDataConst.connections.length)
     } 
   }
 
@@ -136,10 +134,24 @@ class Connections extends Component {
       dummyData
     } = this.state;
 
-    console.log(dummyData)
+    let incrementButtonStyle;
+    let decrementButtonStyle;
+
+    if (dummyData.connections.length) {  
+      incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
+      decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
+      if (dummyData.connections.length - 1 === dummyData.connectionsIndex) {
+        incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
+      } else if (dummyData.connectionsIndex === 0) {
+        decrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
+      }
+    } else {
+      incrementButtonStyle = { display: 'none' };
+      decrementButtonStyle = { display: 'none' };
+    }
 
     return (
-      <div className={'wikiwebFooter'} style={ styles.main } >
+      <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
 
           <div className={'addMetaBox'}>
@@ -175,8 +187,8 @@ class Connections extends Component {
               </div>
             </div>
             <div className={'rotateRecommendationsBox'}>
-              <i onClick={this.incrementConnectionsIndex.bind(this)} className={'fa fa-caret-up recommendationToggleCaret'}></i>
-              <i onClick={this.decrementConnectionsIndex.bind(this)} className={'fa fa-caret-down recommendationToggleCaret'}></i>
+              <i onClick={this.incrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
+              <i onClick={this.decrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
             </div>
             <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
           </div>

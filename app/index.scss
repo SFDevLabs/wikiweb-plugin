@@ -72,12 +72,6 @@
   color: rgba(128,0,128, 0.6);
 }
 
-.heartText {
-  color: rgba(0,0,0,.44);
-  font-size: 16px;
-  font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
-}
-
 .enterHeartIcon {
   color: purple;
   transition:color 350ms ease;
@@ -94,6 +88,12 @@
     -ms-transition:color 350ms ease;
     -o-transition:color 350ms ease;
     -webkit-transition:color 350ms ease;
+}
+
+.heartText {
+  color: rgba(0,0,0,.44);
+  font-size: 16px;
+  font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
 }
 
 .enterHeartText {
