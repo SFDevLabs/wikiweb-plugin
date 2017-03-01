@@ -55,6 +55,7 @@ class Connections extends Component {
       connections: [
         {
           title: 'Gone with the Wind, a hunters classic',
+          connection_url: 'http://paulgraham.com/ds.html',
           base_url: 'https://www.wsj.com/',
           connected_by: 'Nick Sinai',
           connected_by_handle: 'NickSinai',
@@ -62,6 +63,7 @@ class Connections extends Component {
         },
         {
           title: 'Only a Savant Would Click Like a Reindeer',
+          connection_url: 'http://paulgraham.com/ds.html',
           base_url: 'https://eoinmcmillan.com',
           connected_by: 'Eoin McMillan',
           connected_by_handle: 'mceoin',
@@ -69,6 +71,7 @@ class Connections extends Component {
         },
         {
           title: 'John Travolta Aint Got Nothin on Me, said Testosterone',
+          connection_url: 'http://paulgraham.com/ds.html',
           base_url: 'http://sfdevlabs.com/',
           connected_by: 'Jeff Jenkins',
           connected_by_handle: 'jeffj',
@@ -154,11 +157,13 @@ class Connections extends Component {
       (<div className={'recommendationBox'}>
           <div style={{ width: 500, paddingLeft: 10 }}>
             <div className={'readNext'}>
-              <span className={'noOverflow'}>Read next</span>
+              <span className={'noOverflow'}>
+                <a href={dummyData.connections[dummyData.connectionsIndex].connection_url}>Read next</a>
+              </span>
             </div>
             <div className={'nextRead'}>
               <span className={'noOverflow'}>
-                {dummyData.connections[dummyData.connectionsIndex].title}
+                <a href={dummyData.connections[dummyData.connectionsIndex].connection_url}>{dummyData.connections[dummyData.connectionsIndex].title}</a>
               </span>
             </div>
           </div>
