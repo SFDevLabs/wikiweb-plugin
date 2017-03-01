@@ -42,13 +42,32 @@ chrome.browserAction.onClicked.addListener(function() {
             }
         );
       })
-    })
+    });
 
   });
 });
 
+fireRequest = function(){
 
-// Messaging.addListener(function(request, sender, fnResponse) {
-//     debugger
-//     //self.onRequest(request, sender, fnResponse);
-// });
+  setTimeout(function(){
+    chrome.tabs.query({},function(tabs){
+      tabs.map(function(tab){
+        chrome.tabs.sendMessage(
+            tab.id,
+            {url:tab.url},
+            function (response) {
+              //  console.log(response, 'response');
+            }
+        );
+      })
+    });
+  },1000)
+
+}
+fireRequest()
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
+          debugger
+  fireRequest()
+});

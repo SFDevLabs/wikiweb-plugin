@@ -35,7 +35,6 @@ class Add extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    tabId: PropTypes.number.isRequired,
     isURL: PropTypes.bool.isRequired,
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -66,15 +65,14 @@ class Add extends Component {
   }
 
   onSave = (e) => {
-    const { dispatch, id, fromId, tabId } = this.props;
+    const { dispatch, id, fromId } = this.props;
 
     const { description, tags } = this.state;
     dispatch(fetchPostEdge(
       fromId,
       id,
       description,
-      tags.map(obj => obj.text),
-      tabId,
+      tags.map(obj => obj.text)
     ));
     submitUrlConnection(); // TODO needs a refactor based on conditionals.
     e.preventDefault();

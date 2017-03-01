@@ -18,7 +18,6 @@ const mapStateToProps = (state) => {
       canonicalLink,
     },
   } = state;
-
   return {
     id,
     entityCount,
@@ -88,21 +87,26 @@ class Connections extends Component {
   incrementConnectionsIndex = (e) => {
     const workingDataConst = this.state.dummyData;
     if (workingDataConst.connections.length > 0 && workingDataConst.connectionsIndex < workingDataConst.connections.length-1){
-      debugger
       this.setState({
         dummyData: {
           ...this.state.dummyData,
           connectionsIndex: workingDataConst.connectionsIndex + 1  
         }
       })
-    } 
+      console.log('incrementing to: '+ (workingDataConst.connectionsIndex + 1) + ' of ' + workingDataConst.connections.length)
+    }
   }
 
   decrementConnectionsIndex = (e) => {
-    const dumbData = this.state.dummyData;
-    if (dumbData.connections.length > 0 && dumbData.connectionsIndex > dumbData.connections.length - 1 && dumbData.connectionsIndex > 0){
-      this.state.dummyData.connectionsIndex = dumbData.connectionsIndex - 1;
-      console.log(dumbData.connectionsIndex);
+    const workingDataConst = this.state.dummyData;
+    if (workingDataConst.connections.length > 0 && workingDataConst.connectionsIndex > 0){
+      this.setState({
+        dummyData: {
+          ...this.state.dummyData,
+          connectionsIndex: workingDataConst.connectionsIndex - 1  
+        }
+      })
+      console.log('decrementing to: '+ (workingDataConst.connectionsIndex + 1) + ' of ' + workingDataConst.connections.length)
     } 
   }
 
@@ -114,15 +118,18 @@ class Connections extends Component {
   }
 
   componentDidMount() {
-
+    //no opp
   }
+
+  // @TODO DATA PULLED FROM API! THERE ARE {superEdges? superEdges.length: 0} connections(s) ON THIS PAGE!
 
   render() {
     const {
       superEdges,
       entityCount,
       id,
-      isFetching
+      isFetching,
+      title
     } = this.props;
 
     const {
@@ -133,9 +140,8 @@ class Connections extends Component {
 
     return (
       <div className={'wikiwebFooter'} style={ styles.main } >
-
         <div className={'centerBox'}>
-            
+
           <div className={'addMetaBox'}>
             <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
@@ -145,7 +151,7 @@ class Connections extends Component {
                 <span id='heartText' className={'heartText'}>{dummyData.recommendations}</span>
               </div>
             </div>
-            
+
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
               <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
                 <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
@@ -188,7 +194,9 @@ class Connections extends Component {
           </div>
 
         </div>
-
+        <div style={{position:"fixed", top:0, left:0, backgroundColor:'purple' }}>
+          TITLE: {title}
+        </div>
       </div>
     );
   }
