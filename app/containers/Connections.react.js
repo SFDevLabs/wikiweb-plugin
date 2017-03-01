@@ -141,14 +141,39 @@ class Connections extends Component {
       incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       if (dummyData.connections.length - 1 === dummyData.connectionsIndex) {
-        incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
-      } else if (dummyData.connectionsIndex === 0) {
         decrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
+      } else if (dummyData.connectionsIndex === 0) {
+        incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
       }
     } else {
       incrementButtonStyle = { display: 'none' };
       decrementButtonStyle = { display: 'none' };
     }
+
+    const recommendationBoxJSX = dummyData.connections.length > 0 ? 
+      (<div className={'recommendationBox'}>
+          <div style={{ width: 500, paddingLeft: 10 }}>
+            <div className={'readNext'}>
+              <span className={'noOverflow'}>Read next</span>
+            </div>
+            <div className={'nextRead'}>
+              <span className={'noOverflow'}>
+                {dummyData.connections[dummyData.connectionsIndex].title}
+              </span>
+            </div>
+          </div>
+          <div className={'rotateRecommendationsBox'}>
+            <i onClick={this.incrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
+            <i onClick={this.decrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
+          </div>
+          <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
+        </div>) : 
+        ( <div className={'recommendationBox'}>
+            <div style={{ width: 500, paddingLeft: 10 }}>
+              Bro. Bro! Add a link. And style this section while you&#39;re at it.
+            </div>
+            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
+          </div>)
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -175,23 +200,7 @@ class Connections extends Component {
             <div className={'verticalDivider'} style={{ marginRight: 4 }}></div>
           </div>
 
-          <div className={'recommendationBox'}>
-            <div style={{ width: 500, paddingLeft: 10 }}>
-              <div className={'readNext'}>
-                <span className={'noOverflow'}>Read next</span>
-              </div>
-              <div className={'nextRead'}>
-                <span className={'noOverflow'}>
-                  {dummyData.connections[dummyData.connectionsIndex].title}
-                </span>
-              </div>
-            </div>
-            <div className={'rotateRecommendationsBox'}>
-              <i onClick={this.incrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
-              <i onClick={this.decrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
-            </div>
-            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
-          </div>
+          {recommendationBoxJSX}
 
           <div className='animationsExperiment' style={{ backgroundColor: 'blue' }}>
             <TransitionGroup>

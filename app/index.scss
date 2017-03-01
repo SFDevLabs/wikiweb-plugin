@@ -207,6 +207,9 @@
   .recommendationToggleCaret {
     color: rgba(0, 0, 0, 0.33);
     font-size: 14px;
+    &:hover {
+      cursor: pointer;
+    }
   }  
 }
 
