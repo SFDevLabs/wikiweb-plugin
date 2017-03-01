@@ -90,7 +90,7 @@ class Add extends Component {
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
     return (
-      <form id='urlSubmitForm' className={'inactiveUrlSubmitForm urlSubmitForm'} style={{ display: 'flex', flexDirection: 'row', marginBottom: 0 }} >
+      <form id='urlSubmitForm' className={'activeUrlSubmitForm urlSubmitForm'} style={{ display: 'flex', flexDirection: 'row', marginBottom: 0 }} >
         <Message messages={messages} />
           <InputUrl
             onValidURL={this.onRecieveValidURL}

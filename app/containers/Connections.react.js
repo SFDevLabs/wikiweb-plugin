@@ -165,14 +165,19 @@ class Connections extends Component {
 
     // onClick={function () { chrome.tabs.create({ url: 'http://localhost:3000/login' }); }}
 
-    const pleaseLoginBoxJSX = !isUserLoggedIn ? (
-      <div className={'pleaseLoginBox'}>
-        <span className={'loginButton'} onClick={this.toggleLogin}>
-          Login
-        </span>
-      </div>) : null;
+    const showLoginInfo = isAddConnectionToggledOn && !isUserLoggedIn ? 'flex' : 'none';
+    const loginButton = (
+      <span className={'loginButton'} style={{ display: showLoginInfo }} onClick={this.toggleLogin}>
+        Login
+      </span>);
 
-    const inputBoxJSX = isUserLoggedIn ? (
+    const loginTextJSX = (
+      <div className={'loginText'} style={{ display: showLoginInfo }}>
+        <span>You must be logged in to make a connection</span>
+      </div>
+    )
+
+    const inputBoxJSX = isUserLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
         <Add />
       </div>) : null;
@@ -203,14 +208,11 @@ class Connections extends Component {
             </div>
           </div>)
 
-    const sanityChecker = isAddConnectionToggledOn ? "green" : "red";
-    console.log('toggle is currently: '+this.state.isAddConnectionToggledOn+' inside render')
-
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
 
-        <div id='leftSide'>
+        <div id='leftCol'>
           <div className={'addMetaBox'}>
             <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
@@ -229,15 +231,15 @@ class Connections extends Component {
           </div>
         </div>
           
-          <div id='middleSide'>
-            <span style={{ height: 10, width: 10, backgroundColor: sanityChecker }}></span>
-            {inputBoxJSX}
+          <div id='middleCol'>
             {recommendationBoxJSX}
+            {loginTextJSX}
+            {inputBoxJSX}
           </div>
           
-          <div id='rightSide'>
+          <div id='rightCol'>
             <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
-            {pleaseLoginBoxJSX}
+            {loginButton}
           </div>
 
         </div>
@@ -314,53 +316,17 @@ function leaveConnectionBox(e) {
   }
   e.preventDefault();
 }
-  
-function toggleUrlSubmitForm(e) {
-  console.log('toggling')
-  var urlSubmitForm = document.getElementById('urlSubmitForm');
-  var addConnectionIcon = document.getElementById('addConnectionIcon');
-  if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
-    urlSubmitForm.classList.remove('activeUrlSubmitForm');
-    urlSubmitForm.classList += ' inactiveUrlSubmitForm';
-    addConnectionIcon.style.color='rgba(0,0,0,.33)';
-    addConnectionIcon.classList.remove('rotateIn');
-    addConnectionIcon.classList += ' rotateOut';
-  } else {
-    urlSubmitForm.classList.remove('inactiveUrlSubmitForm');
-    urlSubmitForm.classList += ' activeUrlSubmitForm';
-    document.getElementById('inputUrl').focus();
-    if (addConnectionIcon.classList.contains('rotateOut')){
-      addConnectionIcon.style.color='rgba(128,0,128,.6)';
-      addConnectionIcon.classList.remove('rotateOut');
-      addConnectionIcon.className += ' rotateIn';
-    }
-  }
-  e.preventDefault();
-}
 
 function toggleMiddleSection(e) {
   this.setState({
     isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
   });
-  console.log('toggle is currently: '+this.state.isAddConnectionToggledOn+' inside function')
-  if (this.state.isUserLoggedIn){
-    toggleUrlSubmitForm();
-  } else {
-    console.log('...else')
-  }
   e.preventDefault();
 }
 
 window.onkeyup = function(e) {
   if (e.keyCode == 27) { /* escape key */
-    var urlSubmitForm = document.getElementById('urlSubmitForm');
-    var addConnectionIcon = document.getElementById('addConnectionIcon');
-    if (urlSubmitForm.classList.contains('activeUrlSubmitForm')) {
-      urlSubmitForm.classList.remove('activeUrlSubmitForm');
-      urlSubmitForm.classList += ' inactiveUrlSubmitForm';
-      addConnectionIcon.style.color='rgba(0,0,0,.33)';
-      addConnectionIcon.classList.remove('rotateIn');
-      addConnectionIcon.classList += ' rotateOut';
-    }
+    /* Yo Jeff - I'm too tired to think this one through, but how do I pass state through to a function on keypress? */
+    /* thoughts are to attach this to body and pass state "this" through on all keystrokes, ... seems excessive */
   }
 }

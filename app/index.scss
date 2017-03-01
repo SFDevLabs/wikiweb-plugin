@@ -221,7 +221,7 @@ a {
   height: 45px;
 }
 
-#leftSide {
+#leftCol {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -230,7 +230,7 @@ a {
   min-width: 142px;
   max-width: 142px;
 }
-#middleSide {
+#middleCol {
   display: flex;
   align-items: center;
   height: 45px;
@@ -238,7 +238,7 @@ a {
   min-width: 500px;
   max-width: 500px;
 }
-#rightSide {
+#rightCol {
   display: flex;
   align-items: center;
   height: 45px;
@@ -258,15 +258,20 @@ a {
   cursor: pointer;
 }
 
-.pleaseLoginBox {
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  .loginButton {
-    margin-left: 30px;
-    border: 1px solid black;
-    padding: 6px 10px;
-  }
+.loginText {
+  margin-left: 80px;
+  font-size: 14px;
+  line-height: 1.2em;
+  font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
+  letter-spacing: -.02em;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.loginButton {
+  margin-left: 30px;
+  border: 1px solid black;
+  padding: 6px 10px;
 }
 
 .recommendationBox {
