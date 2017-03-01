@@ -73,6 +73,7 @@
 }
 
 .enterHeartIcon {
+  cursor: pointer;
   color: purple;
   transition:color 350ms ease;
     -moz-transition:color 350ms ease;
@@ -97,6 +98,7 @@
 }
 
 .enterHeartText {
+  cursor: pointer;
   color: rgba(0,0,0,.6);
   transition:color 350ms ease;
     -moz-transition:color 350ms ease;
@@ -226,7 +228,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: 'pink'
+}
+
+.addConnectionBox:hover {
+  cursor: pointer;
 }
 
 .recommendationBox {

@@ -190,7 +190,7 @@ class Connections extends Component {
             </div>
 
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
-              <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} >
+              <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} className={'addConnectionBox'} >
                 <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
               </div>
               <div className={'inputBox'}>
