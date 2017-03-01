@@ -138,24 +138,8 @@ a {
     font-size: 14px;
   }
   .inactiveUrlSubmitForm {
-    .inputUrl {
-      padding: 0px;
-      border-left: none;
-      border-right: none;
-      border-top: none;
-      border-bottom: 1px solid white;
-      -webkit-transition: width 350ms;
-      transition: width 350ms;
-    }
-    .inputSubmit {
-      border: none;
-      -webkit-transition: width 150ms;
-      transition: width 150ms;
-    }
     .inputUrl, .inputSubmit {
-      width: 0px;
-      padding: 0px;
-      margin: 0px;
+      display: none;
     }
   }
   .activeUrlSubmitForm {
@@ -183,6 +167,7 @@ a {
       -webkit-transition: width 350ms;
       transition: width 350ms;
       &:hover {
+        cursor: pointer;
         border: 1px solid rgba(128,0,128, 1);
         background-color: rgba(128,0,128, 1);
         transition:background-color 200ms ease;
@@ -216,7 +201,7 @@ a {
   margin-right: 8px;
   .recommendationToggleCaret {
     color: rgba(0, 0, 0, 0.33);
-    font-size: 14px;
+    font-size: 15px;
     &:hover {
       cursor: pointer;
     }
@@ -232,7 +217,7 @@ a {
   align-items: center;
 }
 
-.addMetaBox{
+.addMetaBox {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -240,6 +225,10 @@ a {
 
 .addConnectionBox:hover {
   cursor: pointer;
+}
+
+.pleaseLoginBox {
+
 }
 
 .recommendationBox {

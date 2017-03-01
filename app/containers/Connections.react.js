@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TransitionGroup from 'react-addons-transition-group';
 import { TweenMax } from 'gsap';
 import Add from './Add.react';
+import Login from './Login.react';
 
 const startIndex = 0;
 const endIndex = 3;
@@ -49,6 +50,7 @@ class Box extends Component {
 class Connections extends Component {
   state = {
     shouldShowBox: true,
+    isLoggedIn: true,
     dummyData: {
       recommendations: 183,
       connectionsIndex: 0,
@@ -134,7 +136,8 @@ class Connections extends Component {
     } = this.props;
 
     const {
-      dummyData
+      dummyData,
+      isLoggedIn,
     } = this.state;
 
     let incrementButtonStyle;
@@ -153,9 +156,12 @@ class Connections extends Component {
       decrementButtonStyle = { display: 'none' };
     }
 
-    const recommendationBoxJSX = dummyData.connections.length > 0 ? 
-      (<div className={'recommendationBox'}>
-          <div style={{ width: 500, paddingLeft: 10 }}>
+    const inputBoxJSX = !isLoggedIn ? <Add /> : <Login />
+
+    const recommendationBoxJSX = dummyData.connections.length > 0 ?
+      /* remove */ 
+      (<div className={'recommendationBox'} style={{ display: 'none' }}>
+          <div style={{ width: 500 }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
                 <a href={dummyData.connections[dummyData.connectionsIndex].connection_url}>Read next</a>
@@ -193,18 +199,17 @@ class Connections extends Component {
                 <span id='heartText' className={'heartText'}>{dummyData.recommendations}</span>
               </div>
             </div>
-
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
               <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} className={'addConnectionBox'} >
                 <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
               </div>
-              <div className={'inputBox'}>
-                <Add />
-              </div>
             </div>
-            <div className={'verticalDivider'} style={{ marginRight: 4 }}></div>
+            <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
           </div>
 
+          <div className={'inputBox'}>
+            {inputBoxJSX}
+          </div>
           {recommendationBoxJSX}
 
           <div className='animationsExperiment' style={{ backgroundColor: 'blue' }}>
@@ -219,9 +224,6 @@ class Connections extends Component {
             </button>
           </div>
 
-        </div>
-        <div style={{position:"fixed", top:0, left:0, backgroundColor:'purple' }}>
-          TITLE: {title}
         </div>
       </div>
     );
