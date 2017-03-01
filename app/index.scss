@@ -100,6 +100,7 @@ a {
 }
 
 .heartText {
+  margin-left: 2px;
   color: rgba(0,0,0,.44);
   font-size: 16px;
   font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
@@ -125,7 +126,6 @@ a {
 }
 
 .inputBox {
-  margin-left: 30px;
   font-size: 14px;
   input:focus{
     outline: none;
@@ -197,7 +197,8 @@ a {
   background-color: #D3D3D3;
 }
 
-.rotateRecommendationsBox {
+.changeRecommendationBox {
+  padding-right: 8px;
   margin-right: 8px;
   .recommendationToggleCaret {
     color: rgba(0, 0, 0, 0.33);
@@ -209,15 +210,48 @@ a {
 }
 
 .centerBox {
-  margin-left: 20%;
-  margin-right: 20%;
-  width: 864;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  width: 864px;
+  min-width: 864px;
+  max-width: 864px;
+  height: 45px;
+}
+
+#leftSide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 45px;
+  width: 142px;
+  min-width: 142px;
+  max-width: 142px;
+  // background-color: yellow;
+}
+#middleSide {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  // background-color: aqua;
+  width: 500px;
+  min-width: 500px;
+  max-width: 500px;
+}
+#rightSide {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  width: 222px;
+  min-width: 222px;
+  max-width: 222px;
+  // background-color: beige;
 }
 
 .addMetaBox {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -228,7 +262,15 @@ a {
 }
 
 .pleaseLoginBox {
-
+  width: 500;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  .loginButton {
+    margin-left: 30px;
+    border: 1px solid black;
+    padding: 6px 10px;
+  }
 }
 
 .recommendationBox {

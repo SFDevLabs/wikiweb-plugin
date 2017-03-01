@@ -89,6 +89,12 @@ class Connections extends Component {
     });
   };
 
+  toggleLogin = () => {
+    this.setState({
+      isLoggedIn: !this.state.isLoggedIn
+    });
+  }
+
   incrementConnectionsIndex = (e) => {
     const workingDataConst = this.state.dummyData;
     if (workingDataConst.connections.length > 0 && workingDataConst.connectionsIndex < workingDataConst.connections.length-1){
@@ -156,12 +162,22 @@ class Connections extends Component {
       decrementButtonStyle = { display: 'none' };
     }
 
-    const inputBoxJSX = !isLoggedIn ? <Add /> : <Login />
+    // onClick={function () { chrome.tabs.create({ url: 'http://localhost:3000/login' }); }}
+    const pleaseLoginBoxJSX = (
+      <div className={'pleaseLoginBox'}>
+        <span>
+          You must be logged in to make a connection
+        </span>
+        <span className={'loginButton'} onClick={this.toggleLogin}>
+          Login
+        </span>
+      </div>);
+    
+    const inputBoxJSX = isLoggedIn ? <Add /> : pleaseLoginBoxJSX;
 
     const recommendationBoxJSX = dummyData.connections.length > 0 ?
-      /* remove */ 
-      (<div className={'recommendationBox'} style={{ display: 'none' }}>
-          <div style={{ width: 500 }}>
+      (<div className={'recommendationBox'}>
+          <div style={{ width: 480 }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
                 <a href={dummyData.connections[dummyData.connectionsIndex].connection_url}>Read next</a>
@@ -173,23 +189,22 @@ class Connections extends Component {
               </span>
             </div>
           </div>
-          <div className={'rotateRecommendationsBox'}>
+          <div className={'changeRecommendationBox'}>
             <i onClick={this.incrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
             <i onClick={this.decrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
           </div>
-          <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
         </div>) : 
         ( <div className={'recommendationBox'}>
             <div style={{ width: 500, paddingLeft: 10 }}>
               Bro. Bro! Add a link. And style this section while you&#39;re at it.
             </div>
-            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
           </div>)
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
 
+        <div id='leftSide'>
           <div className={'addMetaBox'}>
             <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
@@ -201,27 +216,22 @@ class Connections extends Component {
             </div>
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
               <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} className={'addConnectionBox'} >
-                <i id='addConnectionIcon' onClick={toggleUrlSubmitForm} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
+                <i id='addConnectionIcon' onClick={this.toggleLogin} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
               </div>
             </div>
             <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
           </div>
-
-          <div className={'inputBox'}>
-            {inputBoxJSX}
+        </div>
+          
+          <div id='middleSide'>
+            <div className={'inputBox'}>
+              {inputBoxJSX}
+            </div>
+            {recommendationBoxJSX}
           </div>
-          {recommendationBoxJSX}
-
-          <div className='animationsExperiment' style={{ backgroundColor: 'blue' }}>
-            <TransitionGroup>
-              { this.state.shouldShowBox && <Box/>}
-            </TransitionGroup>
-            <button
-              className="toggle-btn"
-              onClick={this.toggleBox}
-            >
-              toggle
-            </button>
+          
+          <div id='rightSide'>
+            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
           </div>
 
         </div>
@@ -229,6 +239,19 @@ class Connections extends Component {
     );
   }
 }
+
+// <div className='animationsExperiment' style={{ backgroundColor: 'blue' }}>
+//   <TransitionGroup>
+//     { this.state.shouldShowBox && <Box/>}
+//   </TransitionGroup>
+//   <button
+//     className="toggle-btn"
+//     onClick={this.toggleBox}
+//   >
+//     toggle
+//   </button>
+// </div>
+
 
 export default connect(mapStateToProps)(Connections);
 
