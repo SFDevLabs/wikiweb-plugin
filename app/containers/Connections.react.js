@@ -92,9 +92,7 @@ class Connections extends Component {
   };
 
   incrementConnectionsIndex = (e) => {
-    console.log(this.props.entityCount, "this.props.entityCount")
-    console.log(this.state.connectionDisplayIndex, "this.state.connectionDisplayIndex")
-    if (this.state.connectionDisplayIndex < this.props.entityCount) {
+    if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
       this.setState({
         connectionDisplayIndex: this.state.connectionDisplayIndex + 1
       })
