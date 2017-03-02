@@ -10,25 +10,29 @@ const startIndex = 0;
 const endIndex = 3;
 
 const mapStateToProps = (state) => {
-  const { 
+  const {
+    user: {
+      isLoggedIn,
+    },
     edge,
     connectEntity,
-    currentPage:
-      { id,
-        entityCount,
-        isFetching,
-        title,
-        superEdges,
-        queryLink,
-        canonicalLink,
-      },
+    currentPage: { 
+      id,
+      entityCount,
+      isFetching,
+      title,
+      superEdges,
+      queryLink,
+      canonicalLink,
+    },
   } = state;
+  
   const connectEntityId = connectEntity.id;
-
-
   const isFetchingEdge = edge.isFetching;
   const messages = edge.messages;
+  
   return {
+    isLoggedIn,
     edge,
     id,
     connectEntityId,
@@ -43,29 +47,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-
-class Box extends Component {
-  componentWillEnter (callback) {
-    const el = this.container;
-    TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
-  }
-
-  componentWillLeave (callback) {
-    const el = this.container;
-    TweenMax.fromTo(el, 0.3, {y: 0, opacity: 1}, {y: -100, opacity: 0, onComplete: callback});
-  }
-
-  render () {
-    return <div className="box" ref={c => this.container = c} style={{ backgroundColor: 'beige' }}>BOX</div>;
-  }
-}
-
-
 class Connections extends Component {
   state = {
-    isUserLoggedIn: false,
+    connectionDisplayIndex: 0,
     isAddConnectionToggledOn: false,
     shouldShowConnectionBox: true,
+    dummyRecommendations: 183,
     dummyData: {
       recommendations: 183,
       connectionsIndex: 0,
@@ -104,34 +91,22 @@ class Connections extends Component {
     });
   };
 
-  toggleLogin = () => {
-    this.setState({
-      isUserLoggedIn: !this.state.isUserLoggedIn
-    });
-  }
-
   incrementConnectionsIndex = (e) => {
-    const workingDataConst = this.state.dummyData;
-    if (workingDataConst.connections.length > 0 && workingDataConst.connectionsIndex < workingDataConst.connections.length-1){
+    console.log(this.props.entityCount, "this.props.entityCount")
+    console.log(this.state.connectionDisplayIndex, "this.state.connectionDisplayIndex")
+    if (this.state.connectionDisplayIndex < this.props.entityCount) {
       this.setState({
-        dummyData: {
-          ...this.state.dummyData,
-          connectionsIndex: workingDataConst.connectionsIndex + 1  
-        }
+        connectionDisplayIndex: this.state.connectionDisplayIndex + 1
       })
     }
   }
 
   decrementConnectionsIndex = (e) => {
-    const workingDataConst = this.state.dummyData;
-    if (workingDataConst.connections.length > 0 && workingDataConst.connectionsIndex > 0){
+    if (this.state.connectionDisplayIndex > 0) {
       this.setState({
-        dummyData: {
-          ...this.state.dummyData,
-          connectionsIndex: workingDataConst.connectionsIndex - 1  
-        }
+        connectionDisplayIndex: this.state.connectionDisplayIndex - 1
       })
-    } 
+    }
   }
 
   static propTypes = {
@@ -149,6 +124,7 @@ class Connections extends Component {
 
   render() {
     const {
+      isLoggedIn,
       superEdges,
       entityCount,
       id,
@@ -159,20 +135,20 @@ class Connections extends Component {
     } = this.props;
 
     const {
-      dummyData,
-      isUserLoggedIn,
+      connectionDisplayIndex,
+      dummyRecommendations,
       isAddConnectionToggledOn
     } = this.state;
 
     let incrementButtonStyle;
     let decrementButtonStyle;
 
-    if (dummyData.connections.length) {  
+    if (entityCount > 0) {  
       incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
-      if (dummyData.connections.length - 1 === dummyData.connectionsIndex) {
+      if (connectionDisplayIndex === entityCount) {
         decrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
-      } else if (dummyData.connectionsIndex === 0) {
+      } else if (connectionDisplayIndex === 0) {
         incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
       }
     } else {
@@ -180,12 +156,11 @@ class Connections extends Component {
       decrementButtonStyle = { display: 'none' };
     }
 
-    // onClick={function () { chrome.tabs.create({ url: 'http://localhost:3000/login' }); }}
-
-    const showLoginInfo = isAddConnectionToggledOn && !isUserLoggedIn ? 'flex' : 'none';
+    const showLoginInfo = isAddConnectionToggledOn && !isLoggedIn ? 'flex' : 'none';
+    /* TODO: make this login link dynamic */
     const loginButton = (
-      <span className={'loginButton'} style={{ display: showLoginInfo }} onClick={this.toggleLogin}>
-        Login
+      <span className={'loginButton'} style={{ display: showLoginInfo }}>
+        <a href="http://localhost:3000/login">Login</a>
       </span>);
 
     const loginTextJSX = (
@@ -194,23 +169,23 @@ class Connections extends Component {
       </div>
     )
 
-    const inputBoxJSX = isUserLoggedIn && isAddConnectionToggledOn ? (
+    const inputBoxJSX = isLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
         <Add onSave={this.onSave}/>
       </div>) : null;
 
     const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
-    const recommendationBoxJSX = dummyData.connections.length > 0 ?
+    const recommendationBoxJSX = entityCount > 0 ?
       (<div className={'recommendationBox'} style={{display: showRecommendationBox}}>
           <div style={{ width: 480 }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
-                <a href={dummyData.connections[dummyData.connectionsIndex].connection_url}>Read next</a>
+                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>Read next</a>
               </span>
             </div>
             <div className={'nextRead'}>
               <span className={'noOverflow'}>
-                <a href={dummyData.connections[dummyData.connectionsIndex].connection_url}>{dummyData.connections[dummyData.connectionsIndex].title}</a>
+                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>{superEdges[connectionDisplayIndex].entity.title}</a>
               </span>
             </div>
           </div>
@@ -235,7 +210,7 @@ class Connections extends Component {
                 <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
               </div>
               <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
-                <span id='heartText' className={'heartText'}>{dummyData.recommendations}</span>
+                <span id='heartText' className={'heartText'}>{dummyRecommendations}</span>
               </div>
             </div>
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
