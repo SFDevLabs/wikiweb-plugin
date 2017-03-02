@@ -24,7 +24,6 @@ const edge = (state = {
       };
     }
     case RECEIVE_EDGE: {
-      debugger
       return {
         ...state,
         isFetching: false,

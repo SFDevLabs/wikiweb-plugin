@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
   const { 
     edge,
     connectEntity,
-    entity:
+    currentPage:
       { id,
         entityCount,
         isFetching,
@@ -224,7 +224,6 @@ class Connections extends Component {
               Bro. Bro! Add a link. And style this section while you&#39;re at it.
             </div>
           </div>)
-debugger
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>

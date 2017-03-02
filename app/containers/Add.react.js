@@ -14,11 +14,11 @@ const mapStateToProps = (state) => {
         isFetching,
         messages,
       },
-      entity,
+      currentPage,
   } = state;
 
-  const fromId = entity.id;
-  const tabId = entity.tabId;
+  const fromId = currentPage.id;
+  const tabId = currentPage.tabId;
 
   return {
     id,
