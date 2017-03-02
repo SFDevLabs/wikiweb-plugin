@@ -144,7 +144,7 @@ class Connections extends Component {
     if (entityCount > 0) {  
       incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
-      if (connectionDisplayIndex === entityCount) {
+      if (connectionDisplayIndex === entityCount - 1 ) {
         decrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
       } else if (connectionDisplayIndex === 0) {
         incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
