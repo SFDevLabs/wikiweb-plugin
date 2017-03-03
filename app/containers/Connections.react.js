@@ -56,30 +56,8 @@ class Connections extends Component {
   state = {
     connectionDisplayIndex: 0,
     isAddConnectionToggledOn: false,
-    shouldShowConnectionBox: true,
+    heartClickAttempted: false,
   };
-
-  toggleBox = () => {
-    this.setState({
-      shouldShowConnectionBox: !this.state.shouldShowConnectionBox
-    });
-  };
-
-  incrementConnectionsIndex = (e) => {
-    if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
-      this.setState({
-        connectionDisplayIndex: this.state.connectionDisplayIndex + 1
-      })
-    }
-  }
-
-  decrementConnectionsIndex = (e) => {
-    if (this.state.connectionDisplayIndex > 0) {
-      this.setState({
-        connectionDisplayIndex: this.state.connectionDisplayIndex - 1
-      })
-    }
-  }
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -103,18 +81,18 @@ class Connections extends Component {
       isFetchingEdge,
       messages,
       heartValue,
-      heartCount
+      heartCount,
     } = this.props;
 
     const {
       connectionDisplayIndex,
       isAddConnectionToggledOn,
-      heartHover
+      heartClickAttempted,
     } = this.state;
 
+    /* increment/decrement styling */
     let incrementButtonStyle;
     let decrementButtonStyle;
-
     if (entityCount > 0) {
       incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
@@ -129,14 +107,17 @@ class Connections extends Component {
     }
 
     /* TODO: make this login link dynamic */
-    const showLoginInfo = isAddConnectionToggledOn && !isLoggedIn ? 'flex' : 'none';
+    const showLoginInfo = (isAddConnectionToggledOn && !isLoggedIn) || (heartClickAttempted && !isLoggedIn) ? 'flex' : 'none';
     const loginButton = (
       <div className={'loginButton'} style={{ display: showLoginInfo }}>
         <span><a target="_blank" href="http://localhost:3000/login">Log in</a></span>
       </div>)
 
-    const loginText = (
-      <div className={'loginText'} style={{ display: showLoginInfo }}>
+    const loginText = heartClickAttempted ?
+      (<div className={'loginText'} style={{ display: showLoginInfo }}>
+        <span>You must be logged in to recommend a web page</span>
+      </div>) : 
+      (<div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to make a connection</span>
       </div>)
 
@@ -184,7 +165,7 @@ class Connections extends Component {
           </div>
         </div>) : null
 
-    const noRecommendationBox = entityCount === 0 ?
+    const noRecommendationBox = entityCount === 0 && !heartClickAttempted ?
       ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
           <div className={'noRecommendations'} style={{ width: 480 }}>
             <span style={{ marginLeft: 100 }}>
@@ -209,7 +190,7 @@ class Connections extends Component {
         <div id='leftCol'>
           <div className={'addMetaBox'}>
             <div className={'heartSubmit'}>
-              <i onClick={this.onHeart} className={'fa '+heartIconType+' heartIcon'} />
+              <i onClick={this.onHeart.bind(this)} className={'fa '+heartIconType+' heartIcon'} />
               <span className={'heartCount'} style={{ display: showHeartCount }} >{heartCount}</span>
             </div>
             <div className={'addConnectionBox'} onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox}>
@@ -239,6 +220,22 @@ class Connections extends Component {
     );
   }
 
+  incrementConnectionsIndex = (e) => {
+    if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
+      this.setState({
+        connectionDisplayIndex: this.state.connectionDisplayIndex + 1
+      })
+    }
+  }
+
+  decrementConnectionsIndex = (e) => {
+    if (this.state.connectionDisplayIndex > 0) {
+      this.setState({
+        connectionDisplayIndex: this.state.connectionDisplayIndex - 1
+      })
+    }
+  }
+
   onSave = (e) => {
     const { dispatch, id, connectEntityId } = this.props;
 
@@ -254,13 +251,20 @@ class Connections extends Component {
     });
     e.preventDefault();
   }
+
   onHeart = (e) => {
-    const { dispatch, id, heartValue } = this.props;
-    dispatch(fetchHeart(
-      id,
-      !heartValue,
-    ));
-    e.preventDefault();
+    if (this.props.isLoggedIn) {
+      const { dispatch, id, heartValue } = this.props;
+      dispatch(fetchHeart(
+        id,
+        !heartValue,
+      ));
+    } else {
+      this.setState({
+        heartClickAttempted: !this.state.heartClickAttempted
+      })
+    }
+    e.preventDefault(); 
   }
 }
 
@@ -280,6 +284,7 @@ function leaveConnectionBox(e) {
 
 function toggleMiddleSection(e) {
   this.setState({
+    heartClickAttempted: false,
     isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
   });
   e.preventDefault();
