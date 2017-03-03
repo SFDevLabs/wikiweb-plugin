@@ -144,7 +144,7 @@ class Connections extends Component {
     if (entityCount > 0) {  
       incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
-      if (connectionDisplayIndex === entityCount - 1 ) {
+      if (connectionDisplayIndex === entityCount - 1) {
         decrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
       } else if (connectionDisplayIndex === 0) {
         incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
@@ -157,24 +157,36 @@ class Connections extends Component {
     const showLoginInfo = isAddConnectionToggledOn && !isLoggedIn ? 'flex' : 'none';
     /* TODO: make this login link dynamic */
     const loginButton = (
-      <span className={'loginButton'} style={{ display: showLoginInfo }}>
-        <a href="http://localhost:3000/login">Login</a>
-      </span>);
+      <div className={'loginButton'} style={{ display: showLoginInfo }}>
+        <span><a href="http://localhost:3000/login">Log in</a></span>
+      </div>)
 
-    const loginTextJSX = (
+    const loginText = (
       <div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to make a connection</span>
-      </div>
-    )
+      </div>)
 
-    const inputBoxJSX = isLoggedIn && isAddConnectionToggledOn ? (
+    const showRecommenderInfo = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
+    const recommenderInfo =  entityCount > 0 ?
+      (<div className={'recommenderInfo'} style={{ display: showRecommenderInfo }}>
+        <span>recommender info goes here</span>
+      </div>) : null
+
+    const showAddRecommendationButton = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
+    const addRecommendationButton = entityCount === 0 ? 
+      (<div className={'addRecommendationButton'} onClick={toggleMiddleSection.bind(this)} style={{ display: showAddRecommendationButton }} >
+        <span>Add Recommendation</span>
+      </div>) : null
+    
+
+    const inputBox = isLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
         <Add onSave={this.onSave}/>
       </div>) : null;
 
     const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
-    const recommendationBoxJSX = entityCount > 0 ?
-      (<div className={'recommendationBox'} style={{display: showRecommendationBox}}>
+    const recommendationBox = entityCount > 0 ?
+      (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div style={{ width: 480 }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
@@ -191,12 +203,23 @@ class Connections extends Component {
             <i onClick={this.incrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
             <i onClick={this.decrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
           </div>
-        </div>) : 
-        ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
-            <div style={{ width: 480 }}>
-              Bro. Bro! Add a link. And style this section while you&#39;re at it.
+        </div>) : null
+
+    const noRecommendationBox = entityCount === 0 ? 
+      ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
+            <div className={'noRecommendations'} style={{ width: 480 }}>
+              <span style={{ marginLeft: 100 }}>
+                There are no recommendations for this page
+              </span>
             </div>
-          </div>)
+          </div>) : null
+
+    const inputSuccessErrorMessages = isAddConnectionToggledOn ? 
+      (<div className={'inputSuccessErrorMessages noOverflow'}>
+        <span>{isFetchingEdge?'isFetchingEdge':''}</span>
+        <Message messages={messages} />
+      </div>) : null
+
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
@@ -221,16 +244,18 @@ class Connections extends Component {
         </div>
           
           <div id='middleCol'>
-            <Message messages={messages} />
-            <span>{isFetchingEdge?'isFetchingEdge':''}</span>
-            {recommendationBoxJSX}
-            {loginTextJSX}
-            {inputBoxJSX}
+            {recommendationBox}
+            {noRecommendationBox}
+            {loginText}
+            {inputBox}
           </div>
           
           <div id='rightCol'>
             <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
             {loginButton}
+            {recommenderInfo}
+            {addRecommendationButton}
+            {inputSuccessErrorMessages}
           </div>
 
         </div>

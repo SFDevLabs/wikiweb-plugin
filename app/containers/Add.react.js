@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import InputUrl from '../components/InputUrl.react';
 import InputTags from '../components/InputTags.react';
-import Message from '../components/Message.react';
 import { fetchConnectSearch } from '../actions/edge';
 
 const mapStateToProps = (state) => {
@@ -12,7 +11,6 @@ const mapStateToProps = (state) => {
         title,
         isURL,
         isFetching,
-        messages,
       },
       currentPage,
   } = state;
@@ -26,7 +24,6 @@ const mapStateToProps = (state) => {
     title,
     isURL,
     isFetching,
-    messages,
     tabId,
   };
 };
@@ -39,7 +36,6 @@ class Add extends Component {
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    messages: PropTypes.array,
     onSave: PropTypes.func.isRequired
   }
 
@@ -72,21 +68,23 @@ class Add extends Component {
     });
   }
 
+
+  /* TODO isFetching currently removed... needs to be added back to account for server lag on live product */
+  //<span>{ isFetching ? 'isFetching' : null }</span>
   render() {
-    const { id, isFetching, isURL, messages } = this.props;
+    const { id, isFetching, isURL } = this.props;
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
     return (
       <form id='urlSubmitForm' className={'activeUrlSubmitForm urlSubmitForm'} style={{ display: 'flex', flexDirection: 'row', marginBottom: 0 }} >
-        <Message messages={messages} /><span>{isFetching?'isFetching':null} - {}</span>
-          <InputUrl
-            onValidURL={this.onRecieveValidURL}
-            isFetching={isFetching}
-            isExistantURL={id.length > 0}
-            style={{ position: 'absolute', bottom: 0 }}
-          />
+        <InputUrl
+          onValidURL={this.onRecieveValidURL}
+          isFetching={isFetching}
+          isExistantURL={id.length > 0}
+          style={{ position: 'absolute', bottom: 0 }}
+        />
 
-          <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.props.onSave} style={{ height: 26 }} />
+        <input type="submit" value="Submit" className={'inputSubmit ' + isValidSubmit} onClick={this.props.onSave} style={{ height: 26 }} />
       </form>
     );
   }
