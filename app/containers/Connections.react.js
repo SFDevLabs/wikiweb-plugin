@@ -35,13 +35,13 @@ const mapStateToProps = (state) => {
   const messages = edge.messages;
 
   return {
+    isFetching,
     isLoggedIn,
     edge,
     id,
     connectEntityId,
     entityCount,
     title,
-    isFetching,
     isFetchingEdge,
     superEdges,
     queryLink,
@@ -92,15 +92,13 @@ class Connections extends Component {
     //no opp
   }
 
-  // @TODO DATA PULLED FROM API! THERE ARE {superEdges? superEdges.length: 0} connections(s) ON THIS PAGE!
-
   render() {
     const {
+      isFetching,
       isLoggedIn,
       superEdges,
       entityCount,
       id,
-      isFetching,
       title,
       isFetchingEdge,
       messages,
@@ -144,7 +142,12 @@ class Connections extends Component {
     const showRecommenderInfo = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
       (<div className={'recommenderInfo'} style={{ display: showRecommenderInfo }}>
-        <span>recommender info goes here</span>
+        <div className={'user'}>
+          <span>{superEdges[connectionDisplayIndex].edges[0].user.name}</span>
+        </div>
+        <div className={'username'}>
+          <span>@{superEdges[connectionDisplayIndex].edges[0].user.username}</span>
+        </div>
       </div>) : null
 
     const showAddRecommendationButton = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
@@ -182,12 +185,12 @@ class Connections extends Component {
 
     const noRecommendationBox = entityCount === 0 ?
       ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
-            <div className={'noRecommendations'} style={{ width: 480 }}>
-              <span style={{ marginLeft: 100 }}>
-                There are no recommendations for this page
-              </span>
-            </div>
-          </div>) : null
+          <div className={'noRecommendations'} style={{ width: 480 }}>
+            <span style={{ marginLeft: 100 }}>
+              There are no recommendations for this page
+            </span>
+          </div>
+        </div>) : null
 
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
@@ -196,6 +199,8 @@ class Connections extends Component {
       </div>) : null
 
     const heartClass = heartValue ? 'fa-heart':'fa-heart-o'
+
+    console.log(this.props)
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
