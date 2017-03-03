@@ -57,6 +57,7 @@ class Connections extends Component {
     connectionDisplayIndex: 0,
     isAddConnectionToggledOn: false,
     shouldShowConnectionBox: true,
+    heartHover: true,
   };
 
   toggleBox = () => {
@@ -110,7 +111,8 @@ class Connections extends Component {
 
     const {
       connectionDisplayIndex,
-      isAddConnectionToggledOn
+      isAddConnectionToggledOn,
+      heartHover
     } = this.state;
 
     let incrementButtonStyle;
@@ -195,7 +197,7 @@ class Connections extends Component {
         <Message messages={messages} />
       </div>) : null
 
-    const heartClass = heartValue ? 'fa-heart':'fa-heart-o'
+    const heartClass = heartValue || heartHover ? 'fa-heart':'fa-heart-o'
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -204,8 +206,12 @@ class Connections extends Component {
         <div id='leftCol'>
           <div className={'addMetaBox'}>
             <div className={'heartSubmit'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} onClick={this.onHeart} >
-                <i id='heartIcon' className={'fa '+heartClass+' heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
+              <div
+                onMouseEnter={() => { this.setState({ heartHover: true }); }}
+                onMouseLeave={() => { this.setState({ heartHover: false }); }}
+                onClick={this.onHeart}
+              >
+                <i  className={'fa '+heartClass+' heartIcon'} onstyle={{ fontSize: 22, paddingRight: 4 }} />
               </div>
 
               <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} >
