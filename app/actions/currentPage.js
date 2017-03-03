@@ -17,7 +17,7 @@ export const requestSearch = (url, tabId) => ({
   tabId,
 });
 
-const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink) => ({
+const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount) => ({
   type: RECEIVE_CURRENT_PAGE,
   id,
   entityCount,
@@ -25,6 +25,8 @@ const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canon
   superEdges,
   queryLink,
   canonicalLink,
+  heartValue,
+  heartCount,
 });
 
 /* This demands a more efficent API.
@@ -40,7 +42,7 @@ export const fetchCurrentPage = (id, tabId) => dispatch =>
       if (err) {
         dispatch(receiveError(['Error in Response']));
       } else {
-        const { entityCount, title, superEdges, queryLink, canonicalLink, _id } = res.body;
+        const { entityCount, title, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
         dispatch(receiveCurrentPage(
           _id,
           entityCount,
@@ -48,6 +50,8 @@ export const fetchCurrentPage = (id, tabId) => dispatch =>
           superEdges,
           queryLink,
           canonicalLink,
+          value,
+          count
         ));
       }
     });

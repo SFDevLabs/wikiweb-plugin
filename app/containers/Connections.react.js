@@ -5,6 +5,7 @@ import { TweenMax } from 'gsap';
 import Add from './Add.react';
 import Message from '../components/Message.react';
 import { fetchPostEdge } from '../actions/edge';
+import { fetchHeart } from '../actions/heart';
 
 const startIndex = 0;
 const endIndex = 3;
@@ -16,7 +17,7 @@ const mapStateToProps = (state) => {
     },
     edge,
     connectEntity,
-    currentPage: { 
+    currentPage: {
       id,
       entityCount,
       isFetching,
@@ -24,13 +25,15 @@ const mapStateToProps = (state) => {
       superEdges,
       queryLink,
       canonicalLink,
+      heartCount,
+      heartValue,
     },
   } = state;
-  
+
   const connectEntityId = connectEntity.id;
   const isFetchingEdge = edge.isFetching;
   const messages = edge.messages;
-  
+
   return {
     isLoggedIn,
     edge,
@@ -44,6 +47,8 @@ const mapStateToProps = (state) => {
     queryLink,
     canonicalLink,
     messages,
+    heartCount,
+    heartValue,
   };
 };
 
@@ -130,6 +135,8 @@ class Connections extends Component {
       title,
       isFetchingEdge,
       messages,
+      heartValue,
+      heartCount
     } = this.props;
 
     const {
@@ -141,7 +148,7 @@ class Connections extends Component {
     let incrementButtonStyle;
     let decrementButtonStyle;
 
-    if (entityCount > 0) {  
+    if (entityCount > 0) {
       incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
       if (connectionDisplayIndex === entityCount - 1) {
@@ -173,11 +180,11 @@ class Connections extends Component {
       </div>) : null
 
     const showAddRecommendationButton = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
-    const addRecommendationButton = entityCount === 0 ? 
+    const addRecommendationButton = entityCount === 0 ?
       (<div className={'addRecommendationButton'} onClick={toggleMiddleSection.bind(this)} style={{ display: showAddRecommendationButton }} >
         <span>Add Recommendation</span>
       </div>) : null
-    
+
 
     const inputBox = isLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
@@ -205,7 +212,7 @@ class Connections extends Component {
           </div>
         </div>) : null
 
-    const noRecommendationBox = entityCount === 0 ? 
+    const noRecommendationBox = entityCount === 0 ?
       ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
             <div className={'noRecommendations'} style={{ width: 480 }}>
               <span style={{ marginLeft: 100 }}>
@@ -214,11 +221,13 @@ class Connections extends Component {
             </div>
           </div>) : null
 
-    const inputSuccessErrorMessages = isAddConnectionToggledOn ? 
+    const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
         <span>{isFetchingEdge?'isFetchingEdge':''}</span>
         <Message messages={messages} />
       </div>) : null
+
+    const heartClass = heartValue ? 'fa-heart':'fa-heart-o'
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -226,11 +235,13 @@ class Connections extends Component {
 
         <div id='leftCol'>
           <div className={'addMetaBox'}>
-            <div className={'heartBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <div onMouseEnter={enterHeartIcon} onMouseLeave={leaveHeartIcon} >
-                <i id='heartIcon' className={'fa fa-heart-o heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
+            <div className={'heartSubmit'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} onClick={this.onHeart} >
+                <span>{heartCount}</span>
+                <i id='heartIcon' className={'fa '+heartClass+' heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
               </div>
-              <div onMouseEnter={enterHeartText} onMouseLeave={leaveHeartText} >
+
+              <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} >
                 <span id='heartText' className={'heartText'}>{dummyRecommendations}</span>
               </div>
             </div>
@@ -242,14 +253,14 @@ class Connections extends Component {
             <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
           </div>
         </div>
-          
+
           <div id='middleCol'>
             {recommendationBox}
             {noRecommendationBox}
             {loginText}
             {inputBox}
           </div>
-          
+
           <div id='rightCol'>
             <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
             {loginButton}
@@ -278,6 +289,14 @@ class Connections extends Component {
     });
     e.preventDefault();
   }
+  onHeart = (e) => {
+    const { dispatch, id, heartValue } = this.props;
+    dispatch(fetchHeart(
+      id,
+      !heartValue,
+    ));
+    e.preventDefault();
+  }
 }
 
 export default connect(mapStateToProps)(Connections);
@@ -287,33 +306,33 @@ const styles = {
   /* currently blank... styles moved to stylesheet */
 }
 
-function enterHeartIcon(e) {
-  var el = document.getElementById('heartIcon');
-  el.classList.remove('leaveHeartIcon');
-  el.className += ' enterHeartIcon';
-  e.preventDefault();
-}
-
-function leaveHeartIcon(e) {
-  var el = document.getElementById('heartIcon');
-  el.classList.remove('enterHeartIcon');
-  el.className += ' leaveHeartIcon';
-  e.preventDefault();
-}
-
-function enterHeartText(e) {
-  var el = document.getElementById('heartText');
-  el.classList.remove('leaveHeartText');
-  el.className += ' enterHeartText';
-  e.preventDefault();
-}
-
-function leaveHeartText(e) {
-  var el = document.getElementById('heartText');
-  el.classList.remove('enterHeartText');
-  el.className += ' leaveHeartText';
-  e.preventDefault();
-}
+// function enterHeartIcon(e) {
+//   var el = document.getElementById('heartIcon');
+//   el.classList.remove('leaveHeartIcon');
+//   el.className += ' enterHeartIcon';
+//   e.preventDefault();
+// }
+//
+// function leaveHeartIcon(e) {
+//   var el = document.getElementById('heartIcon');
+//   el.classList.remove('enterHeartIcon');
+//   el.className += ' leaveHeartIcon';
+//   e.preventDefault();
+// }
+//
+// function enterHeartText(e) {
+//   var el = document.getElementById('heartText');
+//   el.classList.remove('leaveHeartText');
+//   el.className += ' enterHeartText';
+//   e.preventDefault();
+// }
+//
+// function leaveHeartText(e) {
+//   var el = document.getElementById('heartText');
+//   el.classList.remove('enterHeartText');
+//   el.className += ' leaveHeartText';
+//   e.preventDefault();
+// }
 
 function enterConnectionBox(e) {
 
