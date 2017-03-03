@@ -306,6 +306,35 @@ const styles = {
 //   e.preventDefault();
 // }
 
+
+// function enterHeartIcon(e) {
+//   var el = document.getElementById('heartIcon');
+//   el.classList.remove('leaveHeartIcon');
+//   el.className += ' enterHeartIcon';
+//   e.preventDefault();
+// }
+//
+// function leaveHeartIcon(e) {
+//   var el = document.getElementById('heartIcon');
+//   el.classList.remove('enterHeartIcon');
+//   el.className += ' leaveHeartIcon';
+//   e.preventDefault();
+// }
+//
+// function enterHeartText(e) {
+//   var el = document.getElementById('heartText');
+//   el.classList.remove('leaveHeartText');
+//   el.className += ' enterHeartText';
+//   e.preventDefault();
+// }
+//
+// function leaveHeartText(e) {
+//   var el = document.getElementById('heartText');
+//   el.classList.remove('enterHeartText');
+//   el.className += ' leaveHeartText';
+//   e.preventDefault();
+// }
+
 function enterConnectionBox(e) {
 
 }
