@@ -57,7 +57,6 @@ class Connections extends Component {
     connectionDisplayIndex: 0,
     isAddConnectionToggledOn: false,
     shouldShowConnectionBox: true,
-    dummyRecommendations: 183,
   };
 
   toggleBox = () => {
@@ -111,7 +110,6 @@ class Connections extends Component {
 
     const {
       connectionDisplayIndex,
-      dummyRecommendations,
       isAddConnectionToggledOn
     } = this.state;
 
@@ -131,11 +129,11 @@ class Connections extends Component {
       decrementButtonStyle = { display: 'none' };
     }
 
-    const showLoginInfo = isAddConnectionToggledOn && !isLoggedIn ? 'flex' : 'none';
     /* TODO: make this login link dynamic */
+    const showLoginInfo = isAddConnectionToggledOn && !isLoggedIn ? 'flex' : 'none';
     const loginButton = (
       <div className={'loginButton'} style={{ display: showLoginInfo }}>
-        <span><a href="http://localhost:3000/login">Log in</a></span>
+        <span><a target="_blank" href="http://localhost:3000/login">Log in</a></span>
       </div>)
 
     const loginText = (
@@ -207,12 +205,11 @@ class Connections extends Component {
           <div className={'addMetaBox'}>
             <div className={'heartSubmit'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} onClick={this.onHeart} >
-                <span>{heartCount}</span>
                 <i id='heartIcon' className={'fa '+heartClass+' heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
               </div>
 
               <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} >
-                <span id='heartText' className={'heartText'}>{dummyRecommendations}</span>
+                <span id='heartText' className={'heartText'}>{heartCount}</span>
               </div>
             </div>
             <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
