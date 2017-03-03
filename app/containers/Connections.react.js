@@ -53,36 +53,6 @@ class Connections extends Component {
     isAddConnectionToggledOn: false,
     shouldShowConnectionBox: true,
     dummyRecommendations: 183,
-    dummyData: {
-      recommendations: 183,
-      connectionsIndex: 0,
-      connections: [
-        {
-          title: 'Gone with the Wind, a hunters classic',
-          connection_url: 'http://paulgraham.com/ds.html',
-          base_url: 'https://www.wsj.com/',
-          connected_by: 'Nick Sinai',
-          connected_by_handle: 'NickSinai',
-          connected_by_handle_url: 'http://twitter.com/NickSinai',
-        },
-        {
-          title: 'Only a Savant Would Click Like a Reindeer',
-          connection_url: 'http://paulgraham.com/ds.html',
-          base_url: 'https://eoinmcmillan.com',
-          connected_by: 'Eoin McMillan',
-          connected_by_handle: 'mceoin',
-          connected_by_handle_url: 'http://twitter.com/mceoin',
-        },
-        {
-          title: 'John Travolta Aint Got Nothin on Me, said Testosterone',
-          connection_url: 'http://paulgraham.com/ds.html',
-          base_url: 'http://sfdevlabs.com/',
-          connected_by: 'Jeff Jenkins',
-          connected_by_handle: 'jeffj',
-          connected_by_handle_url: 'http://twitter.com/jeffj',
-        }
-      ]
-    }
   };
 
   toggleBox = () => {

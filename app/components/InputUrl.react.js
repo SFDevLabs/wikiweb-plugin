@@ -1,8 +1,15 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import { isWebUri } from 'valid-url';
 
 const TYPING_DELAY = 1110;
+
+const mapStateToProps = (state) => {
+  const { edge } = state;
+  const messages = edge.messages;
+  return { messages };
+}
 
 class InputUrl extends Component {
 
@@ -47,6 +54,7 @@ class InputUrl extends Component {
     const {
       isExistantURL,
       isFetching,
+      messages,
     } = this.props;
 
     const {
@@ -63,6 +71,8 @@ class InputUrl extends Component {
     //     {inputUrlStatusText}
     //   </span>);
 
+    const inputURLColor = (messages.length && (messages[0].type === "warning" || messages[0].type === "error")) ?
+      'red' : 'rgba(0,0,0,.44)';
 
     return (
       <div>
@@ -75,7 +85,7 @@ class InputUrl extends Component {
           autoFocus
           onChange={this.onChange}
           value={val}
-          style={{ height: 26 }}
+          style={{ height: 26, color: inputURLColor }}
         />
       </div>
     );
@@ -83,4 +93,4 @@ class InputUrl extends Component {
 
 }
 
-export default InputUrl;
+export default connect(mapStateToProps)(InputUrl);
