@@ -198,9 +198,7 @@ class Connections extends Component {
         <Message messages={messages} />
       </div>) : null
 
-    const heartClass = heartValue ? 'fa-heart':'fa-heart-o'
-
-    console.log(this.props)
+    const heartClass = heartValue ? 'fa-heart' : 'fa-heart-o';
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -277,35 +275,6 @@ export default connect(mapStateToProps)(Connections);
 const styles = {
   /* currently blank... styles moved to stylesheet */
 }
-
-// function enterHeartIcon(e) {
-//   var el = document.getElementById('heartIcon');
-//   el.classList.remove('leaveHeartIcon');
-//   el.className += ' enterHeartIcon';
-//   e.preventDefault();
-// }
-//
-// function leaveHeartIcon(e) {
-//   var el = document.getElementById('heartIcon');
-//   el.classList.remove('enterHeartIcon');
-//   el.className += ' leaveHeartIcon';
-//   e.preventDefault();
-// }
-//
-// function enterHeartText(e) {
-//   var el = document.getElementById('heartText');
-//   el.classList.remove('leaveHeartText');
-//   el.className += ' enterHeartText';
-//   e.preventDefault();
-// }
-//
-// function leaveHeartText(e) {
-//   var el = document.getElementById('heartText');
-//   el.classList.remove('enterHeartText');
-//   el.className += ' leaveHeartText';
-//   e.preventDefault();
-// }
-
 
 // function enterHeartIcon(e) {
 //   var el = document.getElementById('heartIcon');
