@@ -3,6 +3,11 @@ import {
   RECEIVE_CURRENT_PAGE,
 } from '../actions/currentPage';
 
+import {
+  RECEIVE_HEART,
+} from '../actions/heart';
+
+
 const currentPage = (state = {
   id: '',
   isFetching: false,
@@ -12,6 +17,8 @@ const currentPage = (state = {
   queryLink: '',
   canonicalLink: '',
   tabId: 0,
+  heartCount: 0,
+  heartValue: false,
 }, action) => {
   switch (action.type) {
     case REQUEST_SEARCH: {
@@ -32,6 +39,8 @@ const currentPage = (state = {
         superEdges,
         queryLink,
         canonicalLink,
+        heartCount,
+        heartValue,
       } = action;
       return {
         ...state,
@@ -41,7 +50,20 @@ const currentPage = (state = {
         superEdges,
         queryLink,
         canonicalLink,
+        heartCount,
+        heartValue,
         isFetching: false,
+      };
+    }
+    case RECEIVE_HEART: {
+      const {
+        heartValue,
+        heartCount,
+      } = action;
+      return {
+        ...state,
+        heartCount,
+        heartValue,
       };
     }
 
