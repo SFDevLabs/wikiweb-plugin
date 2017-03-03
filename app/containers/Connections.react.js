@@ -108,7 +108,8 @@ class Connections extends Component {
 
     const {
       connectionDisplayIndex,
-      isAddConnectionToggledOn
+      isAddConnectionToggledOn,
+      heartHover
     } = this.state;
 
     let incrementButtonStyle;
@@ -198,7 +199,8 @@ class Connections extends Component {
         <Message messages={messages} />
       </div>) : null
 
-    const heartClass = heartValue ? 'fa-heart' : 'fa-heart-o';
+    const heartIconType = heartValue ? 'fa-heart' : 'fa-heart-o';
+    const showHeartCount = heartCount > 0 ? 'flex' : 'none';
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -206,19 +208,12 @@ class Connections extends Component {
 
         <div id='leftCol'>
           <div className={'addMetaBox'}>
-            <div className={'heartSubmit'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} onClick={this.onHeart} >
-                <i id='heartIcon' className={'fa '+heartClass+' heartIcon'} style={{ fontSize: 22, paddingRight: 4 }} />
-              </div>
-
-              <div onMouseEnter={()=>{}} onMouseLeave={()=>{}} >
-                <span id='heartText' className={'heartText'}>{heartCount}</span>
-              </div>
+            <div className={'heartSubmit'}>
+              <i onClick={this.onHeart} className={'fa '+heartIconType+' heartIcon'} />
+              <span className={'heartCount'} style={{ display: showHeartCount }} >{heartCount}</span>
             </div>
-            <div className={'addBox'} style={{ alignItems: 'center', display: 'flex', flexDirection: 'row', marginLeft: 20 }}>
-              <div onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox} className={'addConnectionBox'} >
-                <i id='addConnectionIcon' onClick={toggleMiddleSection.bind(this)} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
-              </div>
+            <div className={'addConnectionBox'} onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox}>
+              <i id='addConnectionIcon' onClick={toggleMiddleSection.bind(this)} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
             </div>
             <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
           </div>
@@ -275,34 +270,6 @@ export default connect(mapStateToProps)(Connections);
 const styles = {
   /* currently blank... styles moved to stylesheet */
 }
-
-// function enterHeartIcon(e) {
-//   var el = document.getElementById('heartIcon');
-//   el.classList.remove('leaveHeartIcon');
-//   el.className += ' enterHeartIcon';
-//   e.preventDefault();
-// }
-//
-// function leaveHeartIcon(e) {
-//   var el = document.getElementById('heartIcon');
-//   el.classList.remove('enterHeartIcon');
-//   el.className += ' leaveHeartIcon';
-//   e.preventDefault();
-// }
-//
-// function enterHeartText(e) {
-//   var el = document.getElementById('heartText');
-//   el.classList.remove('leaveHeartText');
-//   el.className += ' enterHeartText';
-//   e.preventDefault();
-// }
-//
-// function leaveHeartText(e) {
-//   var el = document.getElementById('heartText');
-//   el.classList.remove('enterHeartText');
-//   el.className += ' leaveHeartText';
-//   e.preventDefault();
-// }
 
 function enterConnectionBox(e) {
 
