@@ -187,18 +187,18 @@ class Connections extends Component {
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
 
-        <div id='leftCol'>
-          <div className={'addMetaBox'}>
-            <div className={'heartSubmit'}>
-              <i onClick={this.onHeart.bind(this)} className={'fa '+heartIconType+' heartIcon'} />
-              <span className={'heartCount'} style={{ display: showHeartCount }} >{heartCount}</span>
+          <div id='leftCol'>
+            <div className={'addMetaBox'}>
+              <div className={'heartSubmit'}>
+                <i onClick={this.onHeart.bind(this)} className={'fa '+heartIconType+' heartIcon'} />
+                <span className={'heartCount'} style={{ display: showHeartCount }}>{heartCount}</span>
+              </div>
+              <div className={'addConnectionBox'} onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox}>
+                <i className={'addConnectionIcon fa fa-plus-square-o'} onClick={toggleMiddleSection.bind(this)}/>
+              </div>
+              <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
             </div>
-            <div className={'addConnectionBox'} onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox}>
-              <i id='addConnectionIcon' onClick={toggleMiddleSection.bind(this)} className={'fa fa-plus-square-o'} style={{ color: 'rgba(0,0,0,.33)', fontSize: 27, paddingTop: 3 }} />
-            </div>
-            <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
           </div>
-        </div>
 
           <div id='middleCol'>
             {recommendationBox}

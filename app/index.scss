@@ -98,7 +98,8 @@ a {
 }
 
 .heartCount {
-  margin-left: 2px;
+  justify-content: space-around;
+  width: 21px;
   color: rgba(0,0,0,.44);
   font-size: 16px;
   font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
@@ -235,9 +236,15 @@ a {
 }
 
 .addConnectionBox {
+  width: 22px;
   align-items: center;
   display: flex;
   flex-direction: row; 
+  .addConnectionIcon {
+    color: rgba(0,0,0,.33);
+    font-size: 27px;
+    padding-top: 3;
+  }
 }
 
 .addConnectionBox:hover {
@@ -252,11 +259,11 @@ a {
 }
 
 .heartSubmit {
-  min-width: 47px;
+  min-width: 49px;
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .loginText {
