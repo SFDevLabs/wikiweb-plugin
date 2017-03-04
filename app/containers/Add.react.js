@@ -75,6 +75,7 @@ class Add extends Component {
     const { id, isFetching, isURL } = this.props;
     const { tags, description } = this.state;
     const isValidSubmit = isURL ? 'formSubmit' : 'formSubmit invalidSubmit';
+    console.log(this.props, this.state, 'this.props', 'this.state')
     return (
       <form id='urlSubmitForm' className={'activeUrlSubmitForm urlSubmitForm'} style={{ display: 'flex', flexDirection: 'row', marginBottom: 0 }} >
         <InputUrl

@@ -57,6 +57,7 @@ class Connections extends Component {
     connectionDisplayIndex: 0,
     isAddConnectionToggledOn: false,
     heartClickAttempted: false,
+    rotateConnectionBox: false,
   };
 
   static propTypes = {
@@ -88,6 +89,7 @@ class Connections extends Component {
       connectionDisplayIndex,
       isAddConnectionToggledOn,
       heartClickAttempted,
+      rotateConnectionBox,
     } = this.state;
 
     /* increment/decrement styling */
@@ -145,7 +147,7 @@ class Connections extends Component {
 
     const inputBox = isLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
-        <Add onSave={this.onSave}/>
+        <Add onSave={this.onSave} />
       </div>) : null;
 
     const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
@@ -159,7 +161,7 @@ class Connections extends Component {
             </div>
             <div className={'nextRead'}>
               <span className={'noOverflow'}>
-                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>{superEdges[connectionDisplayIndex].entity.title}</a>
+                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>{superEdges[connectionDisplayIndex].entity.domain} - {superEdges[connectionDisplayIndex].entity.title}</a>
               </span>
             </div>
           </div>
@@ -186,6 +188,8 @@ class Connections extends Component {
 
     const heartIconType = heartValue ? 'fa-heart' : 'fa-heart-o';
     const showHeartCount = heartCount > 0 ? 'flex' : 'none';
+    const connectionBoxRotationClass = rotateConnectionBox ? 'rotateIn' : 'rotateOut';
+
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -197,8 +201,12 @@ class Connections extends Component {
                 <i onClick={this.onHeart.bind(this)} className={'fa '+heartIconType+' heartIcon'} />
                 <span className={'heartCount'} style={{ display: showHeartCount }}>{heartCount}</span>
               </div>
-              <div className={'addConnectionBox'} onMouseEnter={enterConnectionBox} onMouseLeave={leaveConnectionBox}>
-                <i className={'addConnectionIcon fa fa-plus-square-o'} onClick={toggleMiddleSection.bind(this)}/>
+              <div className={'addConnectionBox'} onClick={toggleMiddleSection.bind(this)}>
+                <i 
+                  className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass} 
+                  onMouseEnter={enterConnectionBox.bind(this)} 
+                  onMouseLeave={leaveConnectionBox.bind(this)} 
+                />
               </div>
               <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
             </div>
@@ -251,7 +259,8 @@ class Connections extends Component {
       []
     ));
     this.setState({
-      isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
+      isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn,
+      rotateConnectionBox: false
     });
     e.preventDefault();
   }
@@ -280,10 +289,19 @@ const styles = {
 }
 
 function enterConnectionBox(e) {
-
+  this.setState({
+    rotateConnectionBox: true,
+  });
+  e.preventDefault();
 }
 
 function leaveConnectionBox(e) {
+  if (!this.state.isAddConnectionToggledOn) {
+    this.setState({
+      rotateConnectionBox: false,
+    });  
+  }  
+  e.preventDefault();
 }
 
 function toggleMiddleSection(e) {
