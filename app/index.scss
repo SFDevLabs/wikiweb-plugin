@@ -209,6 +209,33 @@ a {
   height: 45px;
 }
 
+@media only screen 
+and (max-width : 767px) {
+  .centerBox {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1023px) {
+  .centerBox {
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+}
+
+@media only screen 
+and (min-width : 1024px)
+and (max-width : 1224px) {
+  .centerBox {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+
+
 #leftCol {
   display: flex;
   align-items: center;
@@ -320,34 +347,43 @@ a {
   }
 }
 
-.recommenderInfo {
-  height: 45px;
-  align-items: center;
-  width: 100px;
-  .user {
-    margin-top: -3px;
-    display: flex;
-    color: purple;
-    font-size: 12px;
-    line-height: 1.4em;
-    font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important;
-    letter-spacing: 0em;
-    font-weight: 700;
-    font-style: normal;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  },
-  .username {
-    display: flex;
-    font-size: 13px;
-    line-height: 1.2em;
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
-    letter-spacing: -.02em;
-    font-weight: 700;
-    font-style: normal;
+.recommenderInfoBox {
+    margin-left: 20px;
+    height: 45px;
+    width: 100px;
+    align-items: center;
+  .recommenderInfo {
+    flex-direction: column;
+    .user {
+      margin-top: -3px;
+      display: flex;
+      color: purple;
+      font-size: 12px;
+      line-height: 1.4em;
+      font-family: "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue", sans-serif !important;
+      letter-spacing: 0em;
+      font-weight: 700;
+      font-style: normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    },
+    .username {
+      max-width: 200px;
+      display: flex;
+      font-size: 12px;
+      line-height: 1.2em;
+      font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
+      letter-spacing: -.02em;
+      font-weight: 700;
+      font-style: normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
+
 
 .addRecommendationButton, .loginButton {
   margin-left: 20;

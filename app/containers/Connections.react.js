@@ -123,12 +123,16 @@ class Connections extends Component {
 
     const showRecommenderInfo = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
-      (<div className={'recommenderInfo'} style={{ display: showRecommenderInfo }}>
-        <div className={'user'}>
-          <span>{superEdges[connectionDisplayIndex].edges[0].user.name}</span>
-        </div>
-        <div className={'username'}>
-          <span>@{superEdges[connectionDisplayIndex].edges[0].user.username}</span>
+      (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
+        <div className={'recommenderInfo'}>
+          <div className={'user'}>
+            <span>Contributor</span>
+          </div>
+          <div className={'username'}>
+            <a target="_blank" href={"https://twitter.com/"+superEdges[connectionDisplayIndex].edges[0].user.username}>
+              @{superEdges[connectionDisplayIndex].edges[0].user.username}
+            </a>
+          </div>
         </div>
       </div>) : null
 
