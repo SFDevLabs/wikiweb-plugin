@@ -52,7 +52,7 @@ a {
 }
 
 .rotateIn {
-  color: rgba(128,0,128, 0.8);
+  color: rgba(128,0,128, 0.75);
   transform:             rotate( 90deg );
     -moz-transform:    rotate( 90deg );
     -ms-transform:     rotate( 90deg );
@@ -132,9 +132,13 @@ a {
   }
   .inputSubmit {
     font-size: 14px;
+    height: 26px;
   }
-  .activeUrlSubmitForm {
+  .urlSubmitForm {
     width: 480px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0px;
     .inputUrl {
       width: 370px;
       padding: 0px;
@@ -144,7 +148,6 @@ a {
       border-right: none;
       border-top: none;
     }
-
     .inputSubmit {
       padding-top: 0px;
       padding-bottom: 0px;
@@ -165,6 +168,20 @@ a {
           -o-transition:background-color 200ms ease;
           -webkit-transition:background-color 200ms ease;
       }
+    }
+    .invalidSubmit {
+      color: white;
+      background-color: rgba(128,128,128, 0.8);
+      border: 1px solid rgba(128,128,128, 0.8);
+      transition:background-color 200ms ease;
+        -moz-transition:background-color 200ms ease;
+        -ms-transition:background-color 200ms ease;
+        -o-transition:background-color 200ms ease;
+        -webkit-transition:background-color 200ms ease;
+        &:hover {
+          background-color: rgba(128,128,128, 0.8);
+          border: 1px solid rgba(128,128,128, 0.8);
+        }
     }
   }
 }
