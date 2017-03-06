@@ -21,13 +21,17 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    chrome.runtime.onMessage.addListener(
-      (sender) => {
-        const { url } = sender;
-        dispatch(fetchSearch(url));
-        dispatch(fetchProfile());
-      }
-    );
+
+    chrome.tabs.query(
+      { active: true, currentWindow: true },
+      (tabs) => {
+        const tab = tabs[0];
+        if (tab) {
+          const { url } = tab;
+          dispatch(fetchSearch(url));
+          dispatch(fetchProfile());
+        }
+      });
   }
 
   render() {
