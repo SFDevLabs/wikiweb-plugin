@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import InputUrl from '../components/InputUrl.react';
-import InputTags from '../components/InputTags.react';
 import { fetchConnectSearch } from '../actions/connectedPage';
 
 const mapStateToProps = (state) => {
@@ -16,12 +15,10 @@ const mapStateToProps = (state) => {
       },
       currentPage,
   } = state;
-  const fromId = currentPage.id;
   const tabId = currentPage.tabId;
 
   return {
     id,
-    fromId,
     title,
     isURL,
     isFetching,
@@ -35,10 +32,10 @@ class Add extends Component {
 
   static propTypes = {
     isURL: PropTypes.bool.isRequired,
-    fromId: PropTypes.string.isRequired,
+    parseSuccess: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
   }
 
   constructor() {
@@ -69,14 +66,12 @@ class Add extends Component {
     });
   }
 
-
-  /* TODO isFetching currently removed... needs to be added back to account for server lag on live product */
-  //<span>{ isFetching ? 'isFetching' : null }</span>
   render() {
-    const { id, isFetching, isURL, parseSuccess } = this.props;
-//    const { tags, description } = this.state;
+    const { isFetching, isURL, parseSuccess } = this.props;
     const formInputClass = isURL && parseSuccess ? '' : 'invalidSubmit';
-    const formInputOnClick = isURL && parseSuccess ? this.props.onSave : (e) => {e.preventDefault(); };
+    const formInputOnClick = isURL && parseSuccess ?
+      this.props.onSave :
+      (e) => { e.preventDefault(); };
 
     return (
       <form
@@ -91,7 +86,7 @@ class Add extends Component {
         <input
           type="submit"
           value="Submit"
-          className= {'inputSubmit ' + formInputClass}
+          className={`inputSubmit ${formInputClass}`}
           onClick={formInputOnClick}
         />
       </form>
