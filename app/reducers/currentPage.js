@@ -1,6 +1,7 @@
 import {
   REQUEST_SEARCH,
   RECEIVE_CURRENT_PAGE,
+  RECEIVE_SEARCH_ERROR,
 } from '../actions/currentPage';
 
 import {
@@ -64,6 +65,16 @@ const currentPage = (state = {
         ...state,
         heartCount,
         heartValue,
+      };
+    }
+    case RECEIVE_SEARCH_ERROR: {
+      const {
+        messages,
+      } = action;
+      return {
+        ...state,
+        isFetching: false,
+        messages,
       };
     }
 

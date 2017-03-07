@@ -4,8 +4,8 @@ import {
 } from '../actions/edge';
 
 import {
-  RECEIVE_ERROR,
-} from '../actions/error';
+  RECEIVE_EDGE_ERROR,
+} from '../actions/edge';
 
 
 const edge = (state = {
@@ -30,7 +30,7 @@ const edge = (state = {
         messages:[{"type":"success","text":"SUCCESS! You made a connection"}]
       };
     }
-    case RECEIVE_ERROR: {
+    case RECEIVE_EDGE_ERROR: {
       const {
         messages,
       } = action;

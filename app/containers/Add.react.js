@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import InputUrl from '../components/InputUrl.react';
 import InputTags from '../components/InputTags.react';
-import { fetchConnectSearch } from '../actions/edge';
+import { fetchConnectSearch } from '../actions/connectedPage';
 
 const mapStateToProps = (state) => {
   const {
@@ -10,11 +10,12 @@ const mapStateToProps = (state) => {
       { id,
         title,
         isURL,
+        parseSuccess,
         isFetching,
+        messages,
       },
       currentPage,
   } = state;
-
   const fromId = currentPage.id;
   const tabId = currentPage.tabId;
 
@@ -25,13 +26,14 @@ const mapStateToProps = (state) => {
     isURL,
     isFetching,
     tabId,
+    messages,
+    parseSuccess,
   };
 };
 
 class Add extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     isURL: PropTypes.bool.isRequired,
     fromId: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -44,7 +46,6 @@ class Add extends Component {
 
     this.state = {
       isInput: false,
-      isURL: false,
       description: '',
       tags: [],
     };
@@ -72,33 +73,27 @@ class Add extends Component {
   /* TODO isFetching currently removed... needs to be added back to account for server lag on live product */
   //<span>{ isFetching ? 'isFetching' : null }</span>
   render() {
-    const { id, isFetching, isURL } = this.props;
-    const { tags, description } = this.state;
-    const formInput = isURL ? 
-      (<input 
-          type="submit" 
-          value="Submit" 
-          className={'inputSubmit'} 
-          onClick={this.props.onSave} 
-        />) :
-      (<input 
-          type="submit" 
-          value="Submit" 
-          className={'inputSubmit invalidSubmit'} 
-          onClick={""} 
-        />)
+    const { id, isFetching, isURL, parseSuccess } = this.props;
+//    const { tags, description } = this.state;
+    const formInputClass = isURL && parseSuccess ? '' : 'invalidSubmit';
+    const formInputOnClick = isURL && parseSuccess ? this.props.onSave : null;
 
     return (
       <form
-        className={'urlSubmitForm'} 
+        className={'urlSubmitForm'}
       >
         <InputUrl
           onValidURL={this.onRecieveValidURL}
+          isValid={isURL && parseSuccess}
           isFetching={isFetching}
-          isExistantURL={id.length > 0}
           style={{ position: 'absolute', bottom: 0 }}
         />
-        {formInput}
+        <input
+          type="submit"
+          value="Submit"
+          className= {'inputSubmit ' + formInputClass}
+          onClick={formInputOnClick}
+        />
       </form>
     );
   }

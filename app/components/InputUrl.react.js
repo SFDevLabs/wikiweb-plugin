@@ -5,16 +5,10 @@ import { isWebUri } from 'valid-url';
 
 const TYPING_DELAY = 1110;
 
-const mapStateToProps = (state) => {
-  const { edge } = state;
-  const messages = edge.messages;
-  return { messages };
-}
-
 class InputUrl extends Component {
 
   static propTypes = {
-    isExistantURL: PropTypes.bool.isRequired,
+    isValid: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     onValidURL: PropTypes.func.isRequired,
   }
@@ -22,8 +16,7 @@ class InputUrl extends Component {
   constructor() {
     super();
     this.state = {
-      val: '',
-      isValidURL: false,
+      val: ''
     };
     this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
   }
@@ -52,14 +45,12 @@ class InputUrl extends Component {
 
   render() {
     const {
-      isExistantURL,
+      isValid,
       isFetching,
-      messages,
     } = this.props;
 
     const {
       val,
-      isValidURL,
       typeDelay,
     } = this.state;
 
@@ -71,12 +62,22 @@ class InputUrl extends Component {
     //     {inputUrlStatusText}
     //   </span>);
 
-    const inputURLColor = (messages.length && (messages[0].type === "warning" || messages[0].type === "error")) ?
-      'red' : 'rgba(0,0,0,.44)';
-
+    /*
+    * Becuase we need these checks to make the input text red
+    * only when the server has responded that the URL is not valid.
+    */
+    const inputURLColor =
+      val.length > 0 && // input has a value
+      !isValid && // server tells us input value is valid
+      !isFetching && // is not waiting for the server
+      !typeDelay // is not pausing for the user to stop typing
+      ? 'red'
+      : 'rgba(0,0,0,.44)'; // @todo make these classes
+    const spinner = isFetching || typeDelay ?<span style={{ position:'absolute' }}>*</span>:null;
     return (
       <div>
         <input
+          autoComplete="off"
           type="text"
           name="inputBox goes here"
           placeholder="What should people read next?"
@@ -86,10 +87,11 @@ class InputUrl extends Component {
           value={val}
           style={{ height: 26, color: inputURLColor }}
         />
+        {spinner}
       </div>
     );
   }
 
 }
 
-export default connect(mapStateToProps)(InputUrl);
+export default InputUrl;

@@ -1,5 +1,4 @@
 import request from 'superagent';
-import { receiveError } from './error';
 import config from '../config';
 
 const env = process.env.NODE_ENV || 'development';
@@ -8,8 +7,12 @@ const { rootURL } = config[env];
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_CURRENT_PAGE = 'RECEIVE_CURRENT_PAGE';
 
-export const REQUEST_EDGE = 'REQUEST_EDGE';
+export const RECEIVE_SEARCH_ERROR = 'RECEIVE_SEARCH_ERROR';
 
+const receiveSearchError = messages => ({
+  type: RECEIVE_SEARCH_ERROR,
+  messages,
+});
 
 export const requestSearch = (url, tabId) => ({
   type: REQUEST_SEARCH,
@@ -17,7 +20,7 @@ export const requestSearch = (url, tabId) => ({
   tabId,
 });
 
-const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount) => ({
+const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL) => ({
   type: RECEIVE_CURRENT_PAGE,
   id,
   entityCount,
@@ -27,6 +30,7 @@ const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canon
   canonicalLink,
   heartValue,
   heartCount,
+  isURL,
 });
 
 /* This demands a more efficent API.
@@ -40,9 +44,13 @@ export const fetchCurrentPage = (id, tabId) => dispatch =>
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
-        dispatch(receiveError(['Error in Response']));
+        dispatch(receiveSearchError([{
+          type: 'error',
+          text: 'Error in Response'
+        }]));
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
+        const isURL = true;
         dispatch(receiveCurrentPage(
           _id,
           entityCount,
@@ -51,7 +59,8 @@ export const fetchCurrentPage = (id, tabId) => dispatch =>
           queryLink,
           canonicalLink,
           value,
-          count
+          count,
+          isURL
         ));
       }
     });
@@ -63,14 +72,13 @@ export const fetchSearch = (url, tabId) => (dispatch) => {
     .set('Accept', 'application/json')
     .end((err, res) => {
       if (err) {
-        return dispatch(receiveError(['Error in Response']));
+        return dispatch(receiveSearchError([{
+          type: 'error',
+        }]));
       } // Stop here on err
-
-      const { body: { isURL, node } } = res;
-      if (isURL === false) {
-        // No Opp
-      } else if (!node || node === null) {
-          // No Opp
+      const { body: { isURL, node, parseSuccess, messages } } = res;
+      if (isURL === false || parseSuccess === false) {
+        dispatch(receiveSearchError(messages));
       } else {
         const { _id } = node;
         dispatch(fetchCurrentPage(_id, tabId));
