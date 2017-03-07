@@ -117,7 +117,7 @@ a {
       -moz-transition:color 350ms ease;
       -ms-transition:color 350ms ease;
       -o-transition:color 350ms ease;
-      -webkit-transition:color 350ms ease; 
+      -webkit-transition:color 350ms ease;
   }
 }
 
@@ -174,14 +174,15 @@ a {
       background-color: rgba(128,128,128, 0.8);
       border: 1px solid rgba(128,128,128, 0.8);
       transition:background-color 200ms ease;
-        -moz-transition:background-color 200ms ease;
-        -ms-transition:background-color 200ms ease;
-        -o-transition:background-color 200ms ease;
-        -webkit-transition:background-color 200ms ease;
-        &:hover {
-          background-color: rgba(128,128,128, 0.8);
-          border: 1px solid rgba(128,128,128, 0.8);
-        }
+      -moz-transition:background-color 200ms ease;
+      -ms-transition:background-color 200ms ease;
+      -o-transition:background-color 200ms ease;
+      -webkit-transition:background-color 200ms ease;
+			cursor: default !important;
+      &:hover {
+        background-color: rgba(128,128,128, 0.8);
+        border: 1px solid rgba(128,128,128, 0.8);
+      }
     }
   }
 }
@@ -227,7 +228,7 @@ a {
   height: 45px;
 }
 
-@media only screen 
+@media only screen
 and (max-width : 767px) {
   .centerBox {
     margin-left: 5%;
@@ -235,8 +236,8 @@ and (max-width : 767px) {
   }
 }
 
-@media only screen 
-and (min-width : 768px) 
+@media only screen
+and (min-width : 768px)
 and (max-width : 1023px) {
   .centerBox {
     margin-left: 10%;
@@ -244,7 +245,7 @@ and (max-width : 1023px) {
   }
 }
 
-@media only screen 
+@media only screen
 and (min-width : 1024px)
 and (max-width : 1224px) {
   .centerBox {
@@ -284,7 +285,7 @@ and (max-width : 1224px) {
   width: 22px;
   align-items: center;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   padding-top: 3px;
   .addConnectionIcon {
     font-size: 27px;
