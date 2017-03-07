@@ -76,6 +76,7 @@ class Add extends Component {
     const { id, isFetching, isURL, parseSuccess } = this.props;
 //    const { tags, description } = this.state;
     const formInputClass = isURL && parseSuccess ? '' : 'invalidSubmit';
+    const formInputOnClick = isURL && parseSuccess ? this.props.onSave : (e) => {e.preventDefault(); };
 
     return (
       <form
@@ -100,7 +101,3 @@ class Add extends Component {
 }
 
 export default connect(mapStateToProps)(Add);
-
-function submitUrlConnection(e) {
- console.log('submitUrlConnection function')
-}
