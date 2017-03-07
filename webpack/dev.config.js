@@ -9,8 +9,7 @@ const hotScript = 'webpack-hot-middleware/client?path=__webpack_hmr&dynamicPubli
 const baseDevConfig = () => ({
   devtool: 'eval-cheap-module-source-map',
   entry: {
-    todoapp: [customPath, hotScript, path.join(__dirname, '../chrome/extension/todoapp')],
-    background: [customPath, hotScript, path.join(__dirname, '../chrome/extension/background')],
+    main: [customPath, hotScript, path.join(__dirname, '../chrome/extension/main')],
   },
   devMiddleware: {
     publicPath: `http://${host}:${port}/js`,
@@ -57,25 +56,32 @@ const baseDevConfig = () => ({
         'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         'postcss'
       ]
-    }]
+    },
+    {
+      test: /\.scss$/,
+      loaders: ['style-loader', 'css-loader', 'sass-loader']
+    },
+    { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+    { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+    { test: /\.svg$/, loader: 'file-loader' }
+  ]
   }
 });
 
-const injectPageConfig = baseDevConfig();
-injectPageConfig.entry = [
-  customPath,
-  path.join(__dirname, '../chrome/extension/inject')
-];
-delete injectPageConfig.hotMiddleware;
-delete injectPageConfig.module.loaders[0].query;
-injectPageConfig.plugins.shift(); // remove HotModuleReplacementPlugin
-injectPageConfig.output = {
-  path: path.join(__dirname, '../dev/js'),
-  filename: 'inject.bundle.js',
-};
+// const injectPageConfig = baseDevConfig();
+// injectPageConfig.entry = [
+//   customPath,
+//   path.join(__dirname, '../chrome/extension/inject')
+// ];
+// delete injectPageConfig.hotMiddleware;
+// delete injectPageConfig.module.loaders[0].query;
+// injectPageConfig.plugins.shift(); // remove HotModuleReplacementPlugin
+// injectPageConfig.output = {
+//   path: path.join(__dirname, '../dev/js'),
+//   filename: 'inject.bundle.js',
+// };
 const appConfig = baseDevConfig();
 
 module.exports = [
-  injectPageConfig,
   appConfig
 ];

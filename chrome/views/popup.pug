@@ -9,6 +9,4 @@ html
 
   body
     #root
-    if env !== 'prod'
-      script(src='chrome-extension://lmhkpmbekcpmknklioeibfkpmmfibljd/js/redux-devtools-extension.js')
-    script(src=env == 'prod' ? '/js/todoapp.bundle.js' : 'http://localhost:4000/js/todoapp.bundle.js')
+    script(src=env == 'prod' ? '/js/popup.bundle.js' : '//localhost:4000/js/popup.bundle.js')

@@ -20,3 +20,10 @@ exports.copyAssets = (type) => {
   cp('-R', 'chrome/assets/*', type);
   exec(`pug -O "{ env: '${env}' }" -o ${type} chrome/views/`);
 };
+
+exports.copyScripts = (type) => {
+  const folder = `${type}/scripts`;
+  rm('-rf', folder);
+  mkdir(folder);
+  cp('-R', 'chrome/scripts/*', folder);
+};

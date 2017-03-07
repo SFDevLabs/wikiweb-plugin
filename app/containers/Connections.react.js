@@ -1,0 +1,320 @@
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import TransitionGroup from 'react-addons-transition-group';
+import { TweenMax } from 'gsap';
+import Add from './Add.react';
+import Message from '../components/Message.react';
+import { fetchPostEdge } from '../actions/edge';
+import { fetchHeart } from '../actions/heart';
+
+const startIndex = 0;
+const endIndex = 3;
+
+const mapStateToProps = (state) => {
+  const {
+    user: {
+      isLoggedIn,
+    },
+    edge,
+    connectEntity,
+    currentPage: {
+      id,
+      entityCount,
+      isFetching,
+      title,
+      superEdges,
+      queryLink,
+      canonicalLink,
+      heartCount,
+      heartValue,
+    },
+  } = state;
+
+  const connectEntityId = connectEntity.id;
+  const isFetchingEdge = edge.isFetching;
+  const messages = edge.messages;
+
+  return {
+    isFetching,
+    isLoggedIn,
+    edge,
+    id,
+    connectEntityId,
+    entityCount,
+    title,
+    isFetchingEdge,
+    superEdges,
+    queryLink,
+    canonicalLink,
+    messages,
+    heartCount,
+    heartValue,
+  };
+};
+
+class Connections extends Component {
+  state = {
+    connectionDisplayIndex: 0,
+    isAddConnectionToggledOn: false,
+    heartClickAttempted: false,
+    rotateConnectionBox: false,
+  };
+
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    superEdges: PropTypes.array.isRequired,
+    entityCount: PropTypes.number.isRequired,
+    id: PropTypes.string,
+  }
+
+  componentDidMount() {
+    //no opp
+  }
+
+  render() {
+    const {
+      isFetching,
+      isLoggedIn,
+      superEdges,
+      entityCount,
+      id,
+      title,
+      isFetchingEdge,
+      messages,
+      heartValue,
+      heartCount,
+    } = this.props;
+
+    const {
+      connectionDisplayIndex,
+      isAddConnectionToggledOn,
+      heartClickAttempted,
+      rotateConnectionBox,
+    } = this.state;
+
+    /* increment/decrement styling */
+    let incrementButtonStyle;
+    let decrementButtonStyle;
+    if (entityCount > 0) {
+      incrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
+      decrementButtonStyle = { color: 'rgba(0,0,0,.6)' };
+      if (connectionDisplayIndex === entityCount - 1) {
+        decrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
+      } else if (connectionDisplayIndex === 0) {
+        incrementButtonStyle = { color: 'rgba(0,0,0,.33)' };
+      }
+    } else {
+      incrementButtonStyle = { display: 'none' };
+      decrementButtonStyle = { display: 'none' };
+    }
+
+    /* TODO: make this login link dynamic */
+    const showLoginInfo = (isAddConnectionToggledOn && !isLoggedIn) || (heartClickAttempted && !isLoggedIn) ? 'flex' : 'none';
+    const loginButton = (
+      <div className={'loginButton'} style={{ display: showLoginInfo }}>
+        <span><a target="_blank" href="http://localhost:3000/login">Log in</a></span>
+      </div>)
+
+    const loginText = heartClickAttempted ?
+      (<div className={'loginText'} style={{ display: showLoginInfo }}>
+        <span>You must be logged in to recommend a web page</span>
+      </div>) : 
+      (<div className={'loginText'} style={{ display: showLoginInfo }}>
+        <span>You must be logged in to make a connection</span>
+      </div>)
+
+    const showRecommenderInfo = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
+    const recommenderInfo =  entityCount > 0 ?
+      (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
+        <div className={'recommenderInfo'}>
+          <div className={'user'}>
+            <span>Contributor</span>
+          </div>
+          <div className={'username'}>
+            <a target="_blank" href={"https://twitter.com/"+superEdges[connectionDisplayIndex].edges[0].user.username}>
+              @{superEdges[connectionDisplayIndex].edges[0].user.username}
+            </a>
+          </div>
+        </div>
+      </div>) : null
+
+    const showAddRecommendationButton = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
+    const addRecommendationButton = entityCount === 0 ?
+      (<div className={'addRecommendationButton'} onClick={toggleMiddleSection.bind(this)} style={{ display: showAddRecommendationButton }} >
+        <span>Add Recommendation</span>
+      </div>) : null
+
+
+    const inputBox = isLoggedIn && isAddConnectionToggledOn ? (
+      <div className={'inputBox'}>
+        <Add onSave={this.onSave} />
+      </div>) : null;
+
+    const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
+    const recommendationBox = entityCount > 0 ?
+      (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
+          <div style={{ width: 480 }}>
+            <div className={'readNext'}>
+              <span className={'noOverflow'}>
+                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>Read next</a>
+              </span>
+            </div>
+            <div className={'nextRead'}>
+              <span className={'noOverflow'}>
+                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>{superEdges[connectionDisplayIndex].entity.domain} - {superEdges[connectionDisplayIndex].entity.title}</a>
+              </span>
+            </div>
+          </div>
+          <div className={'changeRecommendationBox'}>
+            <i onClick={this.incrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
+            <i onClick={this.decrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
+          </div>
+        </div>) : null
+
+    const noRecommendationBox = entityCount === 0 && !heartClickAttempted ?
+      ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
+          <div className={'noRecommendations'} style={{ width: 480 }}>
+            <span style={{ marginLeft: 100 }}>
+              There are no recommendations for this page
+            </span>
+          </div>
+        </div>) : null
+
+    const inputSuccessErrorMessages = isAddConnectionToggledOn ?
+      (<div className={'inputSuccessErrorMessages noOverflow'}>
+        <span>{isFetchingEdge?'isFetchingEdge':''}</span>
+        <Message messages={messages} />
+      </div>) : null
+
+    const heartIconType = heartValue ? 'fa-heart' : 'fa-heart-o';
+    const showHeartCount = heartCount > 0 ? 'flex' : 'none';
+    const connectionBoxRotationClass = rotateConnectionBox ? 'rotateIn' : 'rotateOut';
+
+
+    return (
+      <div className={'wikiwebFooter'} style={{ height: 45 }} >
+        <div className={'centerBox'}>
+
+          <div id='leftCol'>
+            <div className={'addMetaBox'}>
+              <div className={'heartSubmit'}>
+                <i onClick={this.onHeart.bind(this)} className={'fa '+heartIconType+' heartIcon'} />
+                <span className={'heartCount'} style={{ display: showHeartCount }}>{heartCount}</span>
+              </div>
+              <div className={'addConnectionBox'} onClick={toggleMiddleSection.bind(this)}>
+                <i 
+                  className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass} 
+                  onMouseEnter={enterConnectionBox.bind(this)} 
+                  onMouseLeave={leaveConnectionBox.bind(this)} 
+                />
+              </div>
+              <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
+            </div>
+          </div>
+
+          <div id='middleCol'>
+            {recommendationBox}
+            {noRecommendationBox}
+            {loginText}
+            {inputBox}
+          </div>
+
+          <div id='rightCol'>
+            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
+            {loginButton}
+            {recommenderInfo}
+            {addRecommendationButton}
+            {inputSuccessErrorMessages}
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
+  incrementConnectionsIndex = (e) => {
+    if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
+      this.setState({
+        connectionDisplayIndex: this.state.connectionDisplayIndex + 1
+      })
+    }
+  }
+
+  decrementConnectionsIndex = (e) => {
+    if (this.state.connectionDisplayIndex > 0) {
+      this.setState({
+        connectionDisplayIndex: this.state.connectionDisplayIndex - 1
+      })
+    }
+  }
+
+  onSave = (e) => {
+    const { dispatch, id, connectEntityId } = this.props;
+
+    //const { description, tags } = this.state;
+    dispatch(fetchPostEdge(
+      id,
+      connectEntityId,
+      '',
+      []
+    ));
+    this.setState({
+      isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn,
+      rotateConnectionBox: false
+    });
+    e.preventDefault();
+  }
+
+  onHeart = (e) => {
+    if (this.props.isLoggedIn) {
+      const { dispatch, id, heartValue } = this.props;
+      dispatch(fetchHeart(
+        id,
+        !heartValue,
+      ));
+    } else {
+      this.setState({
+        heartClickAttempted: !this.state.heartClickAttempted
+      })
+    }
+    e.preventDefault(); 
+  }
+}
+
+export default connect(mapStateToProps)(Connections);
+
+// Functons and constants
+const styles = {
+  /* currently blank... styles moved to stylesheet */
+}
+
+function enterConnectionBox(e) {
+  this.setState({
+    rotateConnectionBox: true,
+  });
+  e.preventDefault();
+}
+
+function leaveConnectionBox(e) {
+  if (!this.state.isAddConnectionToggledOn) {
+    this.setState({
+      rotateConnectionBox: false,
+    });  
+  }  
+  e.preventDefault();
+}
+
+function toggleMiddleSection(e) {
+  this.setState({
+    heartClickAttempted: false,
+    isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
+  });
+  e.preventDefault();
+}
+
+window.onkeyup = function(e) {
+  if (e.keyCode == 27) { /* escape key */
+    /* Yo Jeff - I'm too tired to think this one through, but how do I pass state through to a function on keypress? */
+    /* thoughts are to attach this to body and pass state "this" through on all keystrokes, ... seems excessive */
+  }
+}

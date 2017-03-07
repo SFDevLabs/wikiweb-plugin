@@ -2,22 +2,29 @@
   "version": "0.0.0",
   "name": "react-chrome-extension-example",
   "manifest_version": 2,
-  "description": "Example for react-chrome-extension-boilerplate",
+  "description": "Wikiweb",
   "browser_action": {
-    "default_title": "React Chrome Extension Example",
-    "default_popup": "popup.html"
+    "default_title": "Wikiweb"
   },
   "icons": {
-    "16": "img/icon-16.png",
-    "48": "img/icon-48.png",
-    "128": "img/icon-128.png"
+    "16": "img/icon-16-not-connected.png",
+    "48": "img/icon-48-not-connected.png",
+    "128": "img/icon-128-not-connected.png"
   },
   "web_accessible_resources": [
-    "inject.html"
+    "main.html"
   ],
   "background": {
-    "page": "background.html"
+    "page":"/scripts/background.html"
   },
-  "permissions": [ "contextMenus", "tabs", "storage", "https://github.com/*" ],
-  "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;"
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*"],
+      "exclude_matches": [ "https://gmail.com/*" ],
+      "js": ["scripts/inject.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [ "contextMenus", "management", "tabs", "storage",  "https://wikiweb.org/*", "http://*/*", "https://*/*" ],
+  "content_security_policy": "default-src data 'self'; object-src 'self' blob: filesystem:; script-src 'self' blob: filesystem: chrome-extension-resource: https://ssl.google-analytics.com 'unsafe-eval'; connect-src 'self' http://www.google-analytics.com https://wikiweb.org/; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://www.google-analytics.com https://www.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
 }

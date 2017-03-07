@@ -1,35 +1,15 @@
-import { combineReducers } from 'redux'
-import {
-  SELECT_REDDIT, INVALIDATE_REDDIT,
-  REQUEST_POSTS, RECEIVE_POSTS
-} from '../actions'
-
-
-const posts = (state = {
-  isFetching: false,
-  entityCount: null
-}, action) => {
-  switch (action.type) {
-    case REQUEST_POSTS:
-      return {
-        ...state,
-        isFetching: true
-      }
-    case RECEIVE_POSTS:
-      const entityCount = action.entityCount;
-      return {
-        ...state,
-        entityCount,
-      }
-    default:
-      return state
-  }
-}
-
+import { combineReducers } from 'redux';
+import currentPage from './currentPage';
+import connectEntity from './connectEntity';
+import user from './user';
+import edge from './edge';
 
 
 const rootReducer = combineReducers({
-  posts
-})
+  currentPage,
+  connectEntity,
+  user,
+  edge,
+});
 
-export default rootReducer
+export default rootReducer;
