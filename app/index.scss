@@ -313,12 +313,17 @@ and (max-width : 1224px) {
 
 .loginText {
   margin-left: 80px;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.2em;
   font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
   letter-spacing: -.02em;
-  font-weight: 500;
+  font-weight: 700;
   font-style: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+      
+      
 }
 
 .recommendationBox {
