@@ -6,10 +6,10 @@ import Add from './Add.react';
 import Message from '../components/Message.react';
 import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
-import config from '../config';
+import analytics from '../analytics';
 
-const env = process.env.NODE_ENV || 'development';
-const { rootURL } = config[env];
+import config from '../config';
+const { rootURL } = config;
 
 const startIndex = 0;
 const endIndex = 3;
@@ -301,10 +301,12 @@ class Connections extends Component {
       isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn,
       rotateConnectionBox: false,
     });
+    analytics('connectionMade');
     e.preventDefault();
   }
 
   onCloseFooter = () => {
+    analytics('footerClosed');
     chrome.storage.local.set({ wikiwebFooterActive: false });
   }
 
@@ -320,6 +322,7 @@ class Connections extends Component {
         heartClickAttempted: !this.state.heartClickAttempted,
       });
     }
+    analytics('pageHeartMade');
     e.preventDefault();
   }
 }

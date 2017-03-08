@@ -1,5 +1,6 @@
 import request from 'superagent';
 import config from '../config';
+import analytics from '../analytics';
 
 const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
@@ -51,6 +52,7 @@ export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
       } else {
         const { entityCount, title, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
         const isURL = true;
+        analytics('pageConnectionDisplayed', String(entityCount));
         dispatch(receiveCurrentPage(
           _id,
           entityCount,
