@@ -6,8 +6,9 @@ import Add from './Add.react';
 import Message from '../components/Message.react';
 import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
-import config from '../config';
+import analytics from '../analytics';
 
+import config from '../config';
 const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
 
@@ -82,6 +83,7 @@ class Connections extends Component {
 
   incrementConnectionsIndex = () => {
     if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
+      analytics('incrementConnectionsIndex');
       this.setState({
         connectionDisplayIndex: this.state.connectionDisplayIndex + 1,
       });
@@ -90,6 +92,7 @@ class Connections extends Component {
 
   decrementConnectionsIndex = () => {
     if (this.state.connectionDisplayIndex > 0) {
+      analytics('decrementConnectionsIndex');
       this.setState({
         connectionDisplayIndex: this.state.connectionDisplayIndex - 1,
       });
@@ -134,7 +137,12 @@ class Connections extends Component {
     const showLoginInfo = (isAddConnectionToggledOn && !isLoggedIn) || (heartClickAttempted && !isLoggedIn) ? 'flex' : 'none';
     const loginButton = (
       <div className={'loginButton'} style={{ display: showLoginInfo }}>
-        <span><a target="_blank" href={`${rootURL}/login`}>Log in</a></span>
+        <span><a
+          target="_blank"
+          onClick={() => { analytics('loginClicked'); }}
+          href={`${rootURL}/login`}
+        >
+          Log in</a></span>
       </div>)
 
     const loginText = heartClickAttempted ?
@@ -156,6 +164,7 @@ class Connections extends Component {
             <a
               target="_blank"
               rel="noreferrer noopener"
+              onClick={() => { analytics('reccommenderClicked'); }}
               href={'https://twitter.com/' + superEdges[connectionDisplayIndex].edges[0].user.username}
             >
               @{superEdges[connectionDisplayIndex].edges[0].user.username}
@@ -187,12 +196,18 @@ class Connections extends Component {
         <div style={{ width: 480 }} >
           <div className={'readNext'}>
             <span className={'noOverflow'}>
-              <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>Read next</a>
+              <a
+                href={superEdges[connectionDisplayIndex].entity.canonicalLink}
+                onClick={() => { analytics('outboundLinkToTheArticle'); }}
+              >
+              Read next</a>
             </span>
           </div>
           <div className={'nextRead'}>
             <span className={'noOverflow'}>
-              <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>
+              <a
+                onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                href={superEdges[connectionDisplayIndex].entity.canonicalLink}>
                 {superEdges[connectionDisplayIndex].entity.domain}
                 <span> - </span>
                 {superEdges[connectionDisplayIndex].entity.title}
@@ -298,16 +313,19 @@ class Connections extends Component {
       isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn,
       rotateConnectionBox: false,
     });
+    analytics('connectionMade');
     e.preventDefault();
   }
 
   onCloseFooter = () => {
+    analytics('toolbarClosed');
     chrome.storage.local.set({ wikiwebFooterActive: false });
   }
 
   onHeart = (e) => {
     if (this.props.isLoggedIn) {
       const { dispatch, id, heartValue } = this.props;
+      analytics(heartValue ? 'pageHeartCreated' : 'pageHeartUndone');
       dispatch(fetchHeart(
         id,
         !heartValue,
@@ -317,6 +335,7 @@ class Connections extends Component {
         heartClickAttempted: !this.state.heartClickAttempted,
       });
     }
+
     e.preventDefault();
   }
 }
@@ -345,9 +364,12 @@ function leaveConnectionBox(e) {
 }
 
 function toggleMiddleSection(e) {
+  const { isAddConnectionToggledOn } = this.state;
+  if (isAddConnectionToggledOn) { analytics('addConnectionToggled'); }
+
   this.setState({
     heartClickAttempted: false,
-    isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn
+    isAddConnectionToggledOn: !isAddConnectionToggledOn
   });
   e.preventDefault();
 }
