@@ -322,8 +322,6 @@ and (max-width : 1224px) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-      
-      
 }
 
 .recommendationBox {
@@ -426,6 +424,11 @@ and (max-width : 1224px) {
     -o-transition:color 350ms ease;
     -webkit-transition:color 350ms ease;
   &:hover {
+    transition:color 350ms ease;
+    -moz-transition:color 350ms ease;
+    -ms-transition:color 350ms ease;
+    -o-transition:color 350ms ease;
+    -webkit-transition:color 350ms ease;
     cursor: pointer;
     color: purple;
   }
@@ -450,6 +453,23 @@ and (max-width : 1224px) {
     .type, .text {
       font-size: 14px;
     }
+  }
+}
+
+.closeButton {
+  color: rgba(0, 0, 0, 0.15);
+  transition:color 250ms ease;
+    -moz-transition:color 250ms ease;
+    -ms-transition:color 250ms ease;
+    -o-transition:color 250ms ease;
+    -webkit-transition:color 250ms ease;
+  &:hover {
+    color: rgba(0, 0, 0, 0.5);
+    transition:color 250ms ease;
+    -moz-transition:color 250ms ease;
+    -ms-transition:color 250ms ease;
+    -o-transition:color 250ms ease;
+    -webkit-transition:color 250ms ease;
   }
 }
 
