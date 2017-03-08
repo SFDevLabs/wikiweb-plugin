@@ -62,7 +62,7 @@ export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
           count,
           isURL
         ));
-        if (cb) { cb() }; // Hack for ending edge when we refresh the page  
+        if (cb) { cb() }; // Hack for ending edge when we refresh the page
       }
     });
 

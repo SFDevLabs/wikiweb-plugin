@@ -36,7 +36,8 @@ const mapStateToProps = (state) => {
 
   const connectEntityId = connectEntity.id;
   const isFetchingEdge = edge.isFetching;
-  const messages = edge.messages;
+  const messagesEdge = edge.messages;
+  const messagesConnect = connectEntity.messages;
 
   return {
     isFetching,
@@ -50,7 +51,7 @@ const mapStateToProps = (state) => {
     superEdges,
     queryLink,
     canonicalLink,
-    messages,
+    messagesConnect,
     heartCount,
     heartValue,
   };
@@ -73,7 +74,7 @@ class Connections extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     isFetchingEdge: PropTypes.bool.isRequired,
     heartValue: PropTypes.bool.isRequired,
-    messages: PropTypes.array.isRequired,
+    messagesConnect: PropTypes.array.isRequired,
     heartCount: PropTypes.number.isRequired,
     connectEntityId: PropTypes.string,
   }
@@ -104,9 +105,8 @@ class Connections extends Component {
       isLoggedIn,
       superEdges,
       entityCount,
-
       isFetchingEdge,
-      messages,
+      messagesConnect,
       heartValue,
       heartCount,
     } = this.props;
@@ -231,11 +231,10 @@ class Connections extends Component {
           </div>
         </div>
       ) : null;
-
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
         <span>{isFetchingEdge ? 'isFetchingEdge' : ''} </span>
-        <Message messages={messages} />
+        <Message messages={messagesConnect} />
       </div>) : null;
 
     const heartIconType = heartValue ? 'fa-heart' : 'fa-heart-o';

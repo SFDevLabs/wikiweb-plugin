@@ -188,16 +188,6 @@ a {
 }
 
 
-.errorMessages {
-  color: red;
-  margin-top: 5px;
-
-  .type, .text {
-    position: absolute;
-    font-size: 14px;
-    margin-left: 370px;
-  }
-}
 
 .verticalDivider {
   width: 1px;
@@ -449,8 +439,10 @@ and (max-width : 1224px) {
     -o-transition:color 350ms ease;
     -webkit-transition:color 350ms ease;
   .errorMessages {
+		margin-left: 7px;
     color: red;
     .type, .text {
+			font-weight: 500;
       font-size: 14px;
     }
   }

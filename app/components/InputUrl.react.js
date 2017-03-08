@@ -73,7 +73,7 @@ class InputUrl extends Component {
       !typeDelay // is not pausing for the user to stop typing
       ? 'red'
       : 'rgba(0,0,0,.44)'; // @todo make these classes
-    const spinner = isFetching || typeDelay ?<span style={{ position:'absolute' }}>*</span>:null;
+    const spinner = null; //isFetching || typeDelay ?<span style={{ position:'absolute' }}>*</span>:null; @TODO Add visual for server fetching.
     return (
       <div>
         <input
