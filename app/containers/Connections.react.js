@@ -241,7 +241,6 @@ class Connections extends Component {
     const showHeartCount = heartCount > 0 ? 'flex' : 'none';
     const connectionBoxRotationClass = rotateConnectionBox ? 'rotateIn' : 'rotateOut';
 
-
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
