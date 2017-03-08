@@ -20,11 +20,11 @@
   "content_scripts": [
     {
       "matches": [ "http://*/*", "https://*/*"],
-      "exclude_matches": [ "https://gmail.com/*" ],
+      "exclude_matches": [ "https://gmail.com/*", "https://google.com/*", "https://facebook.com/*" ],
       "js": ["scripts/inject.js"],
       "run_at": "document_idle"
     }
   ],
   "permissions": [ "contextMenus", "management", "tabs", "storage",  "http://localhost:3000/*", "http://*/*", "https://*/*" ],
-  "content_security_policy": "default-src data 'self'; object-src 'self' blob: filesystem:; script-src 'self' blob: filesystem: chrome-extension-resource: https://ssl.google-analytics.com http://localhost:4000 https://localhost:4000 'unsafe-eval'; connect-src 'self' http://www.google-analytics.com  https://localhost:4000 http://localhost:4000 http://localhost:3000 https://localhost:3000 http://localhost:3000 https://wikiweb.org; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://www.google-analytics.com https://www.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
+  "content_security_policy": "default-src data 'self'; object-src 'self' blob: filesystem:; script-src 'self' blob: filesystem: chrome-extension-resource: https://www.google-analytics.com http://localhost:4000 https://localhost:4000 'unsafe-eval'; connect-src 'self' http://www.google-analytics.com  https://localhost:4000 http://localhost:4000 http://localhost:3000 https://localhost:3000 http://localhost:3000 https://wikiweb.org; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://ssl.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
 }
