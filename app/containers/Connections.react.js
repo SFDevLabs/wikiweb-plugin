@@ -11,9 +11,6 @@ import config from '../config';
 const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
 
-const startIndex = 0;
-const endIndex = 3;
-
 const mapStateToProps = (state) => {
   const {
     user: {
@@ -187,7 +184,7 @@ class Connections extends Component {
       !isFetching &&
       !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
-        <div style={{ width: 480 }}>
+        <div style={{ width: 480 }} >
           <div className={'readNext'}>
             <span className={'noOverflow'}>
               <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>Read next</a>

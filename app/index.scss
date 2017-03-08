@@ -187,8 +187,6 @@ a {
   }
 }
 
-
-
 .verticalDivider {
   width: 1px;
   height: 25px;
@@ -196,7 +194,8 @@ a {
 }
 
 .changeRecommendationBox {
-  margin-right: -8px;
+  margin-left: 3px;
+  width: 15px;
   .recommendationToggleCaret {
     color: rgba(0, 0, 0, 0.33);
     font-size: 15px;
@@ -317,7 +316,7 @@ and (max-width : 1224px) {
 .recommendationBox {
   display: flex;
   align-items: center;
-  width: 480px;
+  width: 500px;
   .readNext {
     margin-top: -3px;
     display: flex;
