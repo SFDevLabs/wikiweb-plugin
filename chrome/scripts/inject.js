@@ -57,11 +57,31 @@ chrome.runtime.onMessage.addListener(
     const { wikiwebFooterActive } = sender;
     if (!wikiwebFooterActive) {
       destroyApp();
-    } else if (iframe === null) {
+    } else {
       initApp();
     }
   }
 );
 
+/**
+ * getLocallyStoreActiveFooter State
+ * @param  {Function} cb
+ */
+function getLocallyStoreActiveFooter (cb) {
+  chrome.storage.local.get(['wikiwebFooterActive'], function (res) {
+    var activeFooter = res.wikiwebFooterActive;
+    const err = false;
+    cb(
+      err,
+      activeFooter === undefined ? true : activeFooter
+    );
+  });
+}
+
+/** Set the inital extension button state **/
+getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
+  if (wikiwebFooterActive){
+    initApp();
+  }
+});
 /** Kick Off the App on Page Load **/
-initApp();
