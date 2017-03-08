@@ -6,6 +6,10 @@ import Add from './Add.react';
 import Message from '../components/Message.react';
 import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
+import config from '../config';
+
+const env = process.env.NODE_ENV || 'development';
+const { rootURL } = config[env];
 
 const startIndex = 0;
 const endIndex = 3;
@@ -65,10 +69,33 @@ class Connections extends Component {
     superEdges: PropTypes.array.isRequired,
     entityCount: PropTypes.number.isRequired,
     id: PropTypes.string,
+    isFetching: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    isFetchingEdge: PropTypes.bool.isRequired,
+    heartValue: PropTypes.number.isRequired,
+    messages: PropTypes.array.isRequired,
+    heartCount: PropTypes.number.isRequired,
+    connectEntityId: PropTypes.string,
   }
 
   componentDidMount() {
     //no opp
+  }
+
+  incrementConnectionsIndex = () => {
+    if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
+      this.setState({
+        connectionDisplayIndex: this.state.connectionDisplayIndex + 1,
+      });
+    }
+  }
+
+  decrementConnectionsIndex = () => {
+    if (this.state.connectionDisplayIndex > 0) {
+      this.setState({
+        connectionDisplayIndex: this.state.connectionDisplayIndex - 1,
+      });
+    }
   }
 
   render() {
@@ -77,8 +104,7 @@ class Connections extends Component {
       isLoggedIn,
       superEdges,
       entityCount,
-      id,
-      title,
+
       isFetchingEdge,
       messages,
       heartValue,
@@ -112,13 +138,13 @@ class Connections extends Component {
     const showLoginInfo = (isAddConnectionToggledOn && !isLoggedIn) || (heartClickAttempted && !isLoggedIn) ? 'flex' : 'none';
     const loginButton = (
       <div className={'loginButton'} style={{ display: showLoginInfo }}>
-        <span><a target="_blank" href="http://localhost:3000/login">Log in</a></span>
+        <span><a target="_blank" href={`${rootURL}/login`}>Log in</a></span>
       </div>)
 
     const loginText = heartClickAttempted ?
       (<div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to recommend a web page</span>
-      </div>) : 
+      </div>) :
       (<div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to make a connection</span>
       </div>)
@@ -131,7 +157,11 @@ class Connections extends Component {
             <span>Contributor</span>
           </div>
           <div className={'username'}>
-            <a target="_blank" href={"https://twitter.com/"+superEdges[connectionDisplayIndex].edges[0].user.username}>
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href={'https://twitter.com/' + superEdges[connectionDisplayIndex].edges[0].user.username}
+            >
               @{superEdges[connectionDisplayIndex].edges[0].user.username}
             </a>
           </div>
@@ -140,51 +170,72 @@ class Connections extends Component {
 
     const showAddRecommendationButton = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
     const addRecommendationButton = entityCount === 0 ?
-      (<div className={'addRecommendationButton'} onClick={toggleMiddleSection.bind(this)} style={{ display: showAddRecommendationButton }} >
+      (<div
+        className={'addRecommendationButton'}
+        onClick={toggleMiddleSection.bind(this)}
+        style={{ display: showAddRecommendationButton }} >
         <span>Add Recommendation</span>
-      </div>) : null
+      </div>) : null;
 
 
     const inputBox = isLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
         <Add onSave={this.onSave} />
       </div>) : null;
-
+      debugger
     const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
-    const recommendationBox = entityCount > 0 ?
+    const recommendationBox = entityCount > 0 && !isFetching && !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
-          <div style={{ width: 480 }}>
-            <div className={'readNext'}>
-              <span className={'noOverflow'}>
-                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>Read next</a>
-              </span>
-            </div>
-            <div className={'nextRead'}>
-              <span className={'noOverflow'}>
-                <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>{superEdges[connectionDisplayIndex].entity.domain} - {superEdges[connectionDisplayIndex].entity.title}</a>
-              </span>
-            </div>
+        <div style={{ width: 480 }}>
+          <div className={'readNext'}>
+            <span className={'noOverflow'}>
+              <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>Read next</a>
+            </span>
           </div>
-          <div className={'changeRecommendationBox'}>
-            <i onClick={this.incrementConnectionsIndex.bind(this)} style={decrementButtonStyle} className={'fa fa-caret-up recommendationToggleCaret'}></i>
-            <i onClick={this.decrementConnectionsIndex.bind(this)} style={incrementButtonStyle} className={'fa fa-caret-down recommendationToggleCaret'}></i>
+          <div className={'nextRead'}>
+            <span className={'noOverflow'}>
+              <a href={superEdges[connectionDisplayIndex].entity.canonicalLink}>
+                {superEdges[connectionDisplayIndex].entity.domain}
+                <span> - </span>
+                {superEdges[connectionDisplayIndex].entity.title}
+              </a>
+            </span>
           </div>
-        </div>) : null
+        </div>
+        <div className={'changeRecommendationBox'}>
+          <i
+            onClick={this.incrementConnectionsIndex.bind(this)}
+            style={decrementButtonStyle}
+            className={'fa fa-caret-up recommendationToggleCaret'}
+          />
+          <i
+            onClick={this.decrementConnectionsIndex.bind(this)}
+            style={incrementButtonStyle}
+            className={'fa fa-caret-down recommendationToggleCaret'}
+          />
+        </div>
+      </div>) : null;
 
-    const noRecommendationBox = entityCount === 0 && !heartClickAttempted ?
-      ( <div className={'recommendationBox'} style={{display: showRecommendationBox}}>
+    const noRecommendationBox =
+      entityCount === 0 &&
+      !heartClickAttempted &&
+      !isFetching &&
+      !isFetchingEdge ?
+      (
+        <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div className={'noRecommendations'} style={{ width: 480 }}>
             <span style={{ marginLeft: 100 }}>
               There are no recommendations for this page
             </span>
           </div>
-        </div>) : null
+        </div>
+      ) : null;
 
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
-        <span>{isFetchingEdge?'isFetchingEdge':''}</span>
+        <span>{isFetchingEdge ? 'isFetchingEdge' : ''} </span>
         <Message messages={messages} />
-      </div>) : null
+      </div>) : null;
 
     const heartIconType = heartValue ? 'fa-heart' : 'fa-heart-o';
     const showHeartCount = heartCount > 0 ? 'flex' : 'none';
@@ -194,58 +245,46 @@ class Connections extends Component {
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
-
-          <div id='leftCol'>
+          <div id="leftCol">
             <div className={'addMetaBox'}>
               <div className={'heartSubmit'}>
-                <i onClick={this.onHeart.bind(this)} className={'fa '+heartIconType+' heartIcon'} />
+                <i
+                  onClick={this.onHeart.bind(this)}
+                  className={'fa ' + heartIconType + ' heartIcon'}
+                />
                 <span className={'heartCount'} style={{ display: showHeartCount }}>{heartCount}</span>
               </div>
               <div className={'addConnectionBox'} onClick={toggleMiddleSection.bind(this)}>
-                <i 
-                  className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass} 
-                  onMouseEnter={enterConnectionBox.bind(this)} 
-                  onMouseLeave={leaveConnectionBox.bind(this)} 
+                <i
+                  className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass}
+                  onMouseEnter={enterConnectionBox.bind(this)}
+                  onMouseLeave={leaveConnectionBox.bind(this)}
                 />
               </div>
-              <div className={'verticalDivider'} style={{ marginLeft: 20 }}></div>
+              <div className={'verticalDivider'} style={{ marginLeft: 20 }} />
             </div>
           </div>
 
-          <div id='middleCol'>
+          <div id="middleCol">
             {recommendationBox}
             {noRecommendationBox}
             {loginText}
             {inputBox}
           </div>
 
-          <div id='rightCol'>
-            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }}></div>
-            {loginButton}
+          <div id="rightCol">
+            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }} />
             {recommenderInfo}
             {addRecommendationButton}
             {inputSuccessErrorMessages}
+            <a onClick={this.onCloseFooter}>
+              <i className={'fa fa-times'} style={{ position: 'absolute', right: 20 }} />
+            </a>
           </div>
 
         </div>
       </div>
     );
-  }
-
-  incrementConnectionsIndex = (e) => {
-    if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
-      this.setState({
-        connectionDisplayIndex: this.state.connectionDisplayIndex + 1
-      })
-    }
-  }
-
-  decrementConnectionsIndex = (e) => {
-    if (this.state.connectionDisplayIndex > 0) {
-      this.setState({
-        connectionDisplayIndex: this.state.connectionDisplayIndex - 1
-      })
-    }
   }
 
   onSave = (e) => {
@@ -260,9 +299,13 @@ class Connections extends Component {
     ));
     this.setState({
       isAddConnectionToggledOn: !this.state.isAddConnectionToggledOn,
-      rotateConnectionBox: false
+      rotateConnectionBox: false,
     });
     e.preventDefault();
+  }
+
+  onCloseFooter = () => {
+    chrome.storage.local.set({ wikiwebFooterActive: false });
   }
 
   onHeart = (e) => {
@@ -274,10 +317,10 @@ class Connections extends Component {
       ));
     } else {
       this.setState({
-        heartClickAttempted: !this.state.heartClickAttempted
-      })
+        heartClickAttempted: !this.state.heartClickAttempted,
+      });
     }
-    e.preventDefault(); 
+    e.preventDefault();
   }
 }
 
@@ -299,8 +342,8 @@ function leaveConnectionBox(e) {
   if (!this.state.isAddConnectionToggledOn) {
     this.setState({
       rotateConnectionBox: false,
-    });  
-  }  
+    });
+  }
   e.preventDefault();
 }
 
