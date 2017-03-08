@@ -1,6 +1,5 @@
 import request from 'superagent';
 import config from '../config';
-
 const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
 
