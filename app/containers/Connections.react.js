@@ -72,7 +72,7 @@ class Connections extends Component {
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isFetchingEdge: PropTypes.bool.isRequired,
-    heartValue: PropTypes.number.isRequired,
+    heartValue: PropTypes.bool.isRequired,
     messages: PropTypes.array.isRequired,
     heartCount: PropTypes.number.isRequired,
     connectEntityId: PropTypes.string,
@@ -278,7 +278,7 @@ class Connections extends Component {
             {addRecommendationButton}
             {inputSuccessErrorMessages}
             <a onClick={this.onCloseFooter}>
-              <i className={'fa fa-times'} style={{ position: 'absolute', right: 20 }} />
+              <i className={'fa fa-times'} style={{ position: 'absolute', right: 20, bottom: 15 }} />
             </a>
           </div>
 
