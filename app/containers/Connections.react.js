@@ -275,6 +275,7 @@ class Connections extends Component {
             {recommenderInfo}
             {addRecommendationButton}
             {inputSuccessErrorMessages}
+            {loginButton}
             <a onClick={this.onCloseFooter}>
               <i className={'fa fa-times'} style={{ position: 'absolute', right: 20, bottom: 15 }} />
             </a>
