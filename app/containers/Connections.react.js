@@ -224,7 +224,7 @@ class Connections extends Component {
       (
         <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div className={'noRecommendations'} style={{ width: 480 }}>
-            <span style={{ marginLeft: 100 }}>
+            <span style={{ marginLeft: 80 }}>
               There are no recommendations for this page
             </span>
           </div>
