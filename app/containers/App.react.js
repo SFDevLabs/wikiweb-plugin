@@ -6,13 +6,6 @@ import Connections from './Connections.react';
 import { fetchSearch } from '../actions/currentPage';
 import { fetchProfile } from '../actions/user';
 
-function logPageView() {
-  if ( typeof(_gaq) !== 'undefined'){
-    _gaq.push(['_setAccount', 'UA-90661699-1']);
-    _gaq.push(['_trackPageview', location.hash]);
-  }
-}
-
 class App extends Component {
 
   static propTypes = {
@@ -42,16 +35,3 @@ class App extends Component {
 }
 
 export default connect()(App);
-
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  ga.onload = function(){
-    setTimeout(function(){
-      _gaq.push(['_setAccount', 'UA-90661699-1']);
-      _gaq.push(['_trackPageview', 'extentionOpened']);
-      logPageView();
-    }, 10)
-  }
-})();

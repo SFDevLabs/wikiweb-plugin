@@ -11,7 +11,7 @@ import {
 
 const currentPage = (state = {
   id: '',
-  isFetching: false,
+  isFetching: true, // Initaly set to true to prevent inital app flicker
   entityCount: 0,
   title: '',
   superEdges: [],

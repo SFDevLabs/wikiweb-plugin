@@ -38,7 +38,7 @@ const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canon
    @TODO Consolidate functions around a single efficent API Call @jeffj
 */
 
-export const fetchCurrentPage = (id, tabId) => dispatch =>
+export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
   request
     .get(`${rootURL}/api/node/${id}`)
     .set('Accept', 'application/json')
@@ -62,6 +62,7 @@ export const fetchCurrentPage = (id, tabId) => dispatch =>
           count,
           isURL
         ));
+        if (cb) { cb() }; // Hack for ending edge when we refresh the page  
       }
     });
 

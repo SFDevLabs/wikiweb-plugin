@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 import ReactDOM from 'react-dom';
 import reducer from './reducers';
 import App from './containers/App.react';
+import ga from './ga';
+
 import extconnectWp from './messaging/extconnect_wp';
 // Adding Styles to page
 import styles from './index.scss';

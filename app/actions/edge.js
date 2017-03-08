@@ -39,7 +39,9 @@ export const fetchPostEdge = (fromId, toId, description, tags, tabId) => (dispat
         return dispatch(receiveError(message));
       } // Stop here on err
 
-      dispatch(recievePostEdge());
-      dispatch(fetchCurrentPage(fromId, tabId));  // Re request edges for the page
+      dispatch(fetchCurrentPage(
+        fromId,
+        tabId,
+        () => { dispatch(recievePostEdge()); }));  // Re request edges for the page
     });
 };

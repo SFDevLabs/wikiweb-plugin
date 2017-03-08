@@ -41,19 +41,23 @@ getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
   setExtensionButon(wikiwebFooterActive);
 });
 
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  const wikiwebFooterActive = changes.wikiwebFooterActive.newValue
+  setExtensionButon(wikiwebFooterActive);
+  // Send the message to the inject script to create of destroy the footer
+  chrome.tabs.query({}, function (tabs) {
+    tabs.map(function (tab) {
+      chrome.tabs.sendMessage(
+          tab.id,
+          { wikiwebFooterActive }
+      );
+    });
+  });
+});
+
 /** Add a listener for the extensions on click event **/
 chrome.browserAction.onClicked.addListener(function () {
   getLocallyStoreActiveFooter(function (err, wikiwebFooterActive) {
     chrome.storage.local.set({ wikiwebFooterActive: !wikiwebFooterActive });
-    setExtensionButon(wikiwebFooterActive);
-    // Send the message to the inject script to create of destroy the footer
-    chrome.tabs.query({}, function (tabs) {
-      tabs.map(function (tab) {
-        chrome.tabs.sendMessage(
-            tab.id,
-            { wikiwebFooterActive }
-        );
-      });
-    });
   });
 });
