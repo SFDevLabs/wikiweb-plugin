@@ -134,7 +134,6 @@ class Connections extends Component {
       decrementButtonStyle = { display: 'none' };
     }
 
-    /* TODO: make this login link dynamic */
     const showLoginInfo = (isAddConnectionToggledOn && !isLoggedIn) || (heartClickAttempted && !isLoggedIn) ? 'flex' : 'none';
     const loginButton = (
       <div className={'loginButton'} style={{ display: showLoginInfo }}>
@@ -182,8 +181,11 @@ class Connections extends Component {
       <div className={'inputBox'}>
         <Add onSave={this.onSave} />
       </div>) : null;
-    const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
-    const recommendationBox = entityCount > 0 && !isFetching && !isFetchingEdge ?
+    const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
+    const recommendationBox =
+      entityCount > 0 &&
+      !isFetching &&
+      !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
         <div style={{ width: 480 }}>
           <div className={'readNext'}>
