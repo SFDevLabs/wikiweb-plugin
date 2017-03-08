@@ -182,7 +182,6 @@ class Connections extends Component {
       <div className={'inputBox'}>
         <Add onSave={this.onSave} />
       </div>) : null;
-      debugger
     const showRecommendationBox = isAddConnectionToggledOn ? 'none' : 'flex';
     const recommendationBox = entityCount > 0 && !isFetching && !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
