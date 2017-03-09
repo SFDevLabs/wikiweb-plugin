@@ -195,7 +195,7 @@ class Connections extends Component {
       <div className={'inputBox'}>
         <Add onSave={this.onSave} />
       </div>) : null;
-    
+
     const calculatedTopOffset = connectionDisplayIndex * -48;
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
     const recommendationBox =
@@ -204,7 +204,7 @@ class Connections extends Component {
       !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
         <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
-        superEdges.map((edge, i) =>
+        {superEdges.map((edge, i) =>
           <div key={i} style={{ width: 480, height: 45, margin: '10px 0px' }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
