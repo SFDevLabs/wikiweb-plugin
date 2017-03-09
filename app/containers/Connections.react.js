@@ -120,6 +120,8 @@ class Connections extends Component {
       rotateConnectionBox,
     } = this.state;
 
+    console.log(superEdges, 'superEdges')
+
     /* increment/decrement styling */
     let incrementButtonStyle;
     let decrementButtonStyle;
@@ -158,8 +160,8 @@ class Connections extends Component {
     const showRecommenderInfo = !isAddConnectionToggledOn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
       (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
-        <div className="transitionReadNext" style={{ marginTop: calculatedTopOffset }}>
-          { superEdges.map((edge, i) =>
+        <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
+          {superEdges.map((edge, i) =>
             <div key={i} className={'recommenderInfo'} >
               <div className={'user'}>
                 <span>Contributor</span>
@@ -200,9 +202,9 @@ class Connections extends Component {
       entityCount > 0 &&
       !isFetching &&
       !isFetchingEdge ?
-      (<div className="recommendationBox" style={{ display: showRecommendationBox }}>
-        <div className="transitionReadNext" style={{ marginTop: calculatedTopOffset }}>
-        {superEdges.map((edge, i) =>
+      (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
+        <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
+        superEdges.map((edge, i) =>
           <div key={i} style={{ width: 480, height: 45, margin: '10px 0px' }}>
             <div className={'readNext'}>
               <span className={'noOverflow'}>
