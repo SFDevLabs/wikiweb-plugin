@@ -376,11 +376,10 @@ and (max-width : 1224px) {
 
 .recommenderInfoBox {
     margin-left: 20px;
-    height: 45px;
     width: 100px;
-    align-items: center;
   .recommenderInfo {
     flex-direction: column;
+    margin: 10px 0px;
     .user {
       margin-top: -3px;
       display: flex;

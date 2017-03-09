@@ -158,20 +158,24 @@ class Connections extends Component {
     const showRecommenderInfo = !isAddConnectionToggledOn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
       (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
-        <div className={'recommenderInfo'}>
-          <div className={'user'}>
-            <span>Contributor</span>
-          </div>
-          <div className={'username'}>
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              onClick={() => { analytics('reccommenderClicked'); }}
-              href={'https://twitter.com/' + superEdges[connectionDisplayIndex].edges[0].user.username}
-            >
-              @{superEdges[connectionDisplayIndex].edges[0].user.username}
-            </a>
-          </div>
+        <div className="transitionReadNext" style={{ marginTop: calculatedTopOffset }}>
+          { superEdges.map((edge, i) =>
+            <div key={i} className={'recommenderInfo'} >
+              <div className={'user'}>
+                <span>Contributor</span>
+              </div>
+              <div className={'username'}>
+                <a
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  onClick={() => { analytics('reccommenderClicked'); }}
+                  href={'https://twitter.com/' + edge.edges[0].user.username}
+                >
+                  @{edge.edges[0].user.username}
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>) : null
 
@@ -189,14 +193,15 @@ class Connections extends Component {
       <div className={'inputBox'}>
         <Add onSave={this.onSave} />
       </div>) : null;
+    
+    const calculatedTopOffset = connectionDisplayIndex * -48;
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
-    const topOffset = connectionDisplayIndex*-48;
     const recommendationBox =
       entityCount > 0 &&
       !isFetching &&
       !isFetchingEdge ?
       (<div className="recommendationBox" style={{ display: showRecommendationBox }}>
-        <div className="transitionReadNext" style={{ marginTop: topOffset }}>
+        <div className="transitionReadNext" style={{ marginTop: calculatedTopOffset }}>
         {superEdges.map((edge, i) =>
           <div key={i} style={{ width: 480, height: 45, margin: '10px 0px' }}>
             <div className={'readNext'}>
