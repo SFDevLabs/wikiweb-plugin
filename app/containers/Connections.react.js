@@ -120,8 +120,6 @@ class Connections extends Component {
       rotateConnectionBox,
     } = this.state;
 
-    console.log(superEdges, 'superEdges')
-
     /* increment/decrement styling */
     let incrementButtonStyle;
     let decrementButtonStyle;
@@ -156,27 +154,35 @@ class Connections extends Component {
       (<div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to make a connection</span>
       </div>)
-    const calculatedTopOffset = connectionDisplayIndex * -48;
+
+    const calculatedTopOffset = connectionDisplayIndex * -45;
+
+
     const showRecommenderInfo = !isAddConnectionToggledOn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
       (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
         <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
           {superEdges.map((edge, i) =>
-            <div key={i} className={'recommenderInfo'} >
-              <div className={'user'}>
-                <span>Contributor</span>
-              </div>
-              <div className={'username'}>
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  onClick={() => { analytics('reccommenderClicked'); }}
-                  href={'https://twitter.com/' + edge.edges[0].user.username}
-                >
-                  @{edge.edges[0].user.username}
-                </a>
+
+            <div className={'recommenderInfo'} key={i} style={{ width: 480, height: 45 }}>
+              <div className="scrollFlexContainer">
+                <div className={'user'}>
+                  <span>Contributor</span>
+                </div>
+                <div className={'username'}>
+                  <a
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={() => { analytics('reccommenderClicked'); }}
+                    href={'https://twitter.com/' + edge.edges[0].user.username}
+                  >
+                    @{edge.edges[0].user.username}
+                  </a>
+                </div>
               </div>
             </div>
+
+
           )}
         </div>
       </div>) : null
@@ -196,6 +202,7 @@ class Connections extends Component {
         <Add onSave={this.onSave} />
       </div>) : null;
 
+
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
     const recommendationBox =
       entityCount > 0 &&
@@ -204,33 +211,36 @@ class Connections extends Component {
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
         <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
         {superEdges.map((edge, i) =>
-          <div key={i} style={{ width: 480, height: 45, margin: '10px 0px' }}>
-            <div className={'readNext'}>
-              <span className={'noOverflow'}>
-                <a
-                  href={edge.entity.canonicalLink}
-                  onClick={() => { analytics('outboundLinkToTheArticle'); }}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Read next
-                </a>
-              </span>
-            </div>
-            <div className={'nextRead'}>
-              <span className={'noOverflow'}>
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  onClick={() => { analytics('outboundLinkToTheArticle'); }}
-                  href={edge.entity.canonicalLink}>
-                  {edge.entity.domain}
-                  <span> - </span>
-                  {edge.entity.title}
-                </a>
-              </span>
+          <div key={i} style={{ width: 480, height: 45 }}>
+            <div className="scrollFlexContainer">
+              <div className={'readNext'}>
+                <span className={'noOverflow'}>
+                  <a
+                    href={edge.entity.canonicalLink}
+                    onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    Read next
+                  </a>
+                </span>
+              </div>
+              <div className={'nextRead'}>
+                <span className={'noOverflow'}>
+                  <a
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                    href={edge.entity.canonicalLink}>
+                    {edge.entity.domain}
+                    <span> - </span>
+                    {edge.entity.title}
+                  </a>
+                </span>
+              </div>
             </div>
           </div>
+
         )}
         </div>
         <div className={'changeRecommendationBox'}>

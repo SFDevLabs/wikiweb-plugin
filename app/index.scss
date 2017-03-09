@@ -80,8 +80,7 @@ a {
 }
 
 .transitionReadNext {
-	flex-direction: column;
-	display: flex;
+	display: block;
 	transition:         margin 350ms ease;
 	-moz-transition:    margin 350ms ease;
 	-ms-transition:     margin 350ms ease;
@@ -200,7 +199,7 @@ a {
 
 .verticalDivider {
   width: 1px;
-  height: 25px;
+  height: 100%;
   background-color: #D3D3D3;
 }
 
@@ -275,7 +274,6 @@ and (max-width : 1224px) {
 }
 #rightCol {
   display: flex;
-  align-items: center;
   height: 45px;
   width: 222px;
   min-width: 222px;
@@ -326,11 +324,16 @@ and (max-width : 1224px) {
   text-overflow: ellipsis;
 }
 
+.scrollFlexContainer{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
 .recommendationBox {
   display: flex;
   width: 480px;
   .readNext {
-    margin-top: -3px;
     display: flex;
     color: purple;
     font-size: 12px;
@@ -378,12 +381,8 @@ and (max-width : 1224px) {
     margin-left: 20px;
     width: 100px;
   .recommenderInfo {
-    flex-direction: column;
-    height: 45px;
-    margin: 10px 0px;
     .user {
       margin-top: -3px;
-      display: flex;
       color: purple;
       font-size: 12px;
       line-height: 1.4em;
@@ -397,7 +396,6 @@ and (max-width : 1224px) {
     },
     .username {
       max-width: 200px;
-      display: flex;
       font-size: 12px;
       line-height: 1.2em;
       font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
@@ -420,6 +418,7 @@ and (max-width : 1224px) {
   letter-spacing: -.02em;
   font-weight: 700;
   font-style: normal;
+	align-items: center;
   color: rgba(128,0,128, 0.9);
   transition:color 350ms ease;
     -moz-transition:color 350ms ease;
