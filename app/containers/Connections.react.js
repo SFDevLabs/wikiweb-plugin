@@ -156,7 +156,7 @@ class Connections extends Component {
       (<div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to make a connection</span>
       </div>)
-
+    const calculatedTopOffset = connectionDisplayIndex * -48;
     const showRecommenderInfo = !isAddConnectionToggledOn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
       (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
@@ -196,7 +196,6 @@ class Connections extends Component {
         <Add onSave={this.onSave} />
       </div>) : null;
 
-    const calculatedTopOffset = connectionDisplayIndex * -48;
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
     const recommendationBox =
       entityCount > 0 &&
