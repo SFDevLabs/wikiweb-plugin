@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchConnectSearch } from '../actions/connectedPage';
+import { fetchConnectSearch, resetConnectSearch } from '../actions/connectedPage';
 import _ from 'lodash';
 import { isWebUri } from 'valid-url';
 
@@ -62,23 +62,24 @@ class Add extends Component {
   // }
   submitWithDelay = () => {
     const { val } = this.state;
-
     const isValidURL = isWebUri(val) || isWebUri(`https://${val}`);
     this.setState({
       isValidURL,
       typeDelay: false,
     });
-    if (isValidURL) {
+    if (isValidURL ) {
       this.onRecieveValidURL(val);
     }
   }
 
   onChange = (e) => {
+    const { dispatch } = this.props;
     const val = e.target.value;
     this.setState({
       val,
       typeDelay: true,
     });
+    dispatch(resetConnectSearch(val));
     this.submitWithDelay();
   }
 
@@ -108,20 +109,18 @@ class Add extends Component {
       this.props.onSave :
       (e) => { e.preventDefault(); };
 
-    const inputURLColor =
-      (isURL && // server tells us input value is valid
-      parseSuccess) ||
-      isFetching || // is not waiting for the server
-      typeDelay // is not pausing for the user to stop typing
+    const inputURLColor = // Box is white when
+      (isURL && parseSuccess) || // server tells us input value is valid
+      isFetching || // is waiting for the server
+      typeDelay || // is pausing for the user to stop typing
+      val.length === 0 // There is no input value
         ? 'rgba(0,0,0,.44)'
-        : 'red'; // @todo make these classes
+        : 'red'; // Otherwise make the color red.
 
     return (
       <form
         className={'urlSubmitForm'}
       >
-
-
         <input
           autoComplete="off"
           type="text"

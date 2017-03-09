@@ -2,6 +2,7 @@ import {
   REQUEST_CONNECTED_SEARCH,
   RECEIVE_CONNECTED_SEARCH,
   RECEIVE_CONNECTED_SEARCH_ERROR,
+  RESET_CONNECTED_SEARCH,
 } from '../actions/connectedPage';
 
 
@@ -18,6 +19,13 @@ const connectEntity = (state = {
       return {
         ...state,
         isFetching: true,
+        messages: [],
+      };
+    }
+    case RESET_CONNECTED_SEARCH: {
+      return {
+        ...state,
+        isFetching: false,
         messages: [],
       };
     }
