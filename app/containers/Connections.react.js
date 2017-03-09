@@ -211,6 +211,8 @@ class Connections extends Component {
                 <a
                   href={edge.entity.canonicalLink}
                   onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                  target="_blank"
+                  rel="noreferrer noopener"
                 >
                   Read next
                 </a>
@@ -219,6 +221,8 @@ class Connections extends Component {
             <div className={'nextRead'}>
               <span className={'noOverflow'}>
                 <a
+                  target="_blank"
+                  rel="noreferrer noopener"
                   onClick={() => { analytics('outboundLinkToTheArticle'); }}
                   href={edge.entity.canonicalLink}>
                   {edge.entity.domain}
