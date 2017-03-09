@@ -68,15 +68,25 @@ a {
 .rotateOut {
   color: rgba(0,0,0,.33);
   transform:             rotate( 0deg );
-    -moz-transform:    rotate( 0deg );
-    -ms-transform:     rotate( 0deg );
-    -o-transform:      rotate( 0deg );
-    -webkit-transform: rotate( 0deg );
-  transition:             transform 350ms ease;
-    -moz-transition:    -moz-transform 350ms ease;
-    -ms-transition:     -ms-transform 350ms ease;
-    -o-transition:      -o-transform 350ms ease;
-    -webkit-transition: -webkit-transform 350ms ease;
+	-moz-transform:    rotate( 0deg );
+	-ms-transform:     rotate( 0deg );
+	-o-transform:      rotate( 0deg );
+	-webkit-transform: rotate( 0deg );
+	transition:             transform 350ms ease;
+	-moz-transition:    -moz-transform 350ms ease;
+	-ms-transition:     -ms-transform 350ms ease;
+	-o-transition:      -o-transform 350ms ease;
+	-webkit-transition: -webkit-transform 350ms ease;
+}
+
+.transitionReadNext {
+	flex-direction: column;
+	display: flex;
+	transition:         margin 350ms ease;
+	-moz-transition:    margin 350ms ease;
+	-ms-transition:     margin 350ms ease;
+	-o-transition:      margin 350ms ease;
+	-webkit-transition: margin 350ms ease;
 }
 
 .heartIcon {
@@ -255,7 +265,7 @@ and (max-width : 1224px) {
 }
 #middleCol {
   display: flex;
-  align-items: center;
+  // align-items: center;
   height: 45px;
   width: 500px;
   min-width: 500px;
@@ -315,8 +325,7 @@ and (max-width : 1224px) {
 
 .recommendationBox {
   display: flex;
-  align-items: center;
-  width: 500px;
+  width: 480px;
   .readNext {
     margin-top: -3px;
     display: flex;
