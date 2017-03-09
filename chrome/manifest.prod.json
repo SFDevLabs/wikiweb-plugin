@@ -1,10 +1,10 @@
 {
-  "version": "0.0.0",
-  "name": "react-chrome-extension-example",
-  "manifest_version": 2,
-  "description": "Wikiweb",
+  "version": "1.0.0",
+  "name": "WikiWeb",
+  "manifest_version": 1,
+  "description": "WikiWeb - crowdsourced recommendations for what to read next on the Internet.",
   "browser_action": {
-    "default_title": "Wikiweb"
+    "default_title": "WikiWeb"
   },
   "icons": {
     "16": "img/icon-16-not-connected.png",
@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": [ "http://*/*", "https://*/*"],
-      "exclude_matches": [ "https://gmail.com/*", "https://google.com/*", "https://facebook.com/*", "file:///*" ],
+      "exclude_matches": [ "https://gmail.com/*", "https://google.com/*", "https://facebook.com/*" ],
       "js": ["scripts/inject.js"],
       "run_at": "document_idle"
     }
