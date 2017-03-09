@@ -3,7 +3,6 @@ const env = process.env.NODE_ENV || 'development';
 const { gaTrackingCode, version } = config;
 
 function logEvent(action, label) {
-  debugger
   const category = 'extentionFooterBar';
   label = label !== undefined ? label : null;
   if (_gaq !== undefined && action !== undefined){

@@ -155,7 +155,7 @@ class Connections extends Component {
         <span>You must be logged in to make a connection</span>
       </div>)
 
-    const showRecommenderInfo = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
+    const showRecommenderInfo = !isAddConnectionToggledOn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
       (<div className={'recommenderInfoBox'} style={{ display: showRecommenderInfo }}>
         <div className={'recommenderInfo'}>
@@ -190,32 +190,38 @@ class Connections extends Component {
         <Add onSave={this.onSave} />
       </div>) : null;
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
+    const topOffset = connectionDisplayIndex*-48;
     const recommendationBox =
       entityCount > 0 &&
       !isFetching &&
       !isFetchingEdge ?
-      (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
-        <div style={{ width: 480 }} >
-          <div className={'readNext'}>
-            <span className={'noOverflow'}>
-              <a
-                href={superEdges[connectionDisplayIndex].entity.canonicalLink}
-                onClick={() => { analytics('outboundLinkToArticle'); }}
-              >
-              Read next</a>
-            </span>
+      (<div className="recommendationBox" style={{ display: showRecommendationBox }}>
+        <div className="transitionReadNext" style={{ marginTop: topOffset }}>
+        {superEdges.map((edge, i) =>
+          <div key={i} style={{ width: 480, height: 45, margin: '10px 0px' }}>
+            <div className={'readNext'}>
+              <span className={'noOverflow'}>
+                <a
+                  href={edge.entity.canonicalLink}
+                  onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                >
+                  Read next
+                </a>
+              </span>
+            </div>
+            <div className={'nextRead'}>
+              <span className={'noOverflow'}>
+                <a
+                  onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                  href={edge.entity.canonicalLink}>
+                  {edge.entity.domain}
+                  <span> - </span>
+                  {edge.entity.title}
+                </a>
+              </span>
+            </div>
           </div>
-          <div className={'nextRead'}>
-            <span className={'noOverflow'}>
-              <a
-                onClick={() => { analytics('outboundLinkToArticle'); }}
-                href={superEdges[connectionDisplayIndex].entity.canonicalLink}>
-                {superEdges[connectionDisplayIndex].entity.domain}
-                <span> - </span>
-                {superEdges[connectionDisplayIndex].entity.title}
-              </a>
-            </span>
-          </div>
+        )}
         </div>
         <div className={'changeRecommendationBox'}>
           <i
@@ -238,8 +244,8 @@ class Connections extends Component {
       !isFetchingEdge ?
       (
         <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
-          <div className={'noRecommendations'} style={{ width: 480 }}>
-            <span style={{ marginLeft: 80 }}>
+          <div className={'noRecommendations'}>
+            <span>
               There are no recommendations for this page
             </span>
           </div>
