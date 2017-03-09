@@ -202,7 +202,7 @@ a {
 	display: flex;
 	* {
 		width: 1px;
-	  height: 70%;
+	  height: 60%;
 	  background-color: #D3D3D3;
 	}
 
@@ -440,20 +440,26 @@ and (max-width : 1224px) {
 }
 
 .inputSuccessErrorMessages {
-  margin-left: 20;
+  margin-left: 15px;
   font-size: 13px;
   line-height: 1.2em;
   font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif !important;
   letter-spacing: -.02em;
   font-weight: 700;
   font-style: normal;
+	display: flex;
   color: rgba(128,0,128, 0.9);
   transition:color 350ms ease;
-    -moz-transition:color 350ms ease;
-    -ms-transition:color 350ms ease;
-    -o-transition:color 350ms ease;
-    -webkit-transition:color 350ms ease;
+  -moz-transition:color 350ms ease;
+  -ms-transition:color 350ms ease;
+  -o-transition:color 350ms ease;
+  -webkit-transition:color 350ms ease;
+	* {
+		align-items: center;
+		display: flex;
+	}
   .errorMessages {
+
 		margin-left: 7px;
     color: red;
     .type, .text {

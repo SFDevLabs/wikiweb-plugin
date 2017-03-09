@@ -3,6 +3,7 @@ import config from '../config';
 const env = process.env.NODE_ENV || 'development';
 const { rootURL } = config[env];
 
+export const RESET_CONNECTED_SEARCH = 'RESET_CONNECTED_SEARCH';
 export const REQUEST_CONNECTED_SEARCH = 'REQUEST_CONNECTED_SEARCH';
 export const RECEIVE_CONNECTED_SEARCH = 'RECEIVE_CONNECTED_SEARCH';
 
@@ -27,6 +28,11 @@ const receiveConnectSearch = (isURL, parseSuccess, id, title) => ({
   parseSuccess,
   id,
   title,
+});
+
+
+export const resetConnectSearch = () => ({
+  type: RESET_CONNECTED_SEARCH,
 });
 
 

@@ -281,7 +281,7 @@ class Connections extends Component {
     const showHeartCount = heartCount > 0 ? 'flex' : 'none';
     const connectionBoxRotationClass = rotateConnectionBox ? 'rotateIn' : 'rotateOut';
 
-    const verticalDivider = <div className={'verticalDivider'} style={{ marginLeft: 20 }} ><div /></div>
+    const verticalDivider = <div className={'verticalDivider'} style={{ margin: '0px 15px' }} ><div /></div>
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >

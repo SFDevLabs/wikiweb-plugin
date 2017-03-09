@@ -5,7 +5,6 @@ import thunk from 'redux-thunk';
 import ReactDOM from 'react-dom';
 import reducer from './reducers';
 import App from './containers/App.react';
-
 // Adding Styles to page
 import styles from './index.scss';
 
@@ -30,3 +29,6 @@ ReactDOM.render(
   <Root />,
   document.querySelector('#wikiwebRoot')
 );
+
+// Version Number
+console.log('WikiWeb version: 1.0.0')
