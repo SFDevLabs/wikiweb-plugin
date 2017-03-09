@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import InputUrl from '../components/InputUrl.react';
 import { fetchConnectSearch } from '../actions/connectedPage';
+import _ from 'lodash';
+import { isWebUri } from 'valid-url';
+
+const TYPING_DELAY = 1110;
 
 const mapStateToProps = (state) => {
   const {
@@ -40,12 +43,43 @@ class Add extends Component {
 
   constructor() {
     super();
-
     this.state = {
       isInput: false,
       description: '',
+      val: '',
       tags: [],
+      typeDelay: false,
     };
+    this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
+  }
+  //
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     val: ''
+  //   };
+  //   this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
+  // }
+  submitWithDelay = () => {
+    const { val } = this.state;
+
+    const isValidURL = isWebUri(val) || isWebUri(`https://${val}`);
+    this.setState({
+      isValidURL,
+      typeDelay: false,
+    });
+    if (isValidURL) {
+      this.onRecieveValidURL(val);
+    }
+  }
+
+  onChange = (e) => {
+    const val = e.target.value;
+    this.setState({
+      val,
+      typeDelay: true,
+    });
+    this.submitWithDelay();
   }
 
   onRecieveValidURL = (val) => {
@@ -67,22 +101,39 @@ class Add extends Component {
   }
 
   render() {
+    const { val, typeDelay } = this.state;
     const { isFetching, isURL, parseSuccess } = this.props;
-    const formInputClass = isURL && parseSuccess ? '' : 'invalidSubmit';
-    const formInputOnClick = isURL && parseSuccess ?
+    const formInputClass = isURL && parseSuccess && !isFetching && !typeDelay ? '' : 'invalidSubmit';
+    const formInputOnClick = isURL && parseSuccess && !isFetching && !typeDelay ?
       this.props.onSave :
       (e) => { e.preventDefault(); };
+
+    const inputURLColor =
+      (isURL && // server tells us input value is valid
+      parseSuccess) ||
+      isFetching || // is not waiting for the server
+      typeDelay // is not pausing for the user to stop typing
+        ? 'rgba(0,0,0,.44)'
+        : 'red'; // @todo make these classes
 
     return (
       <form
         className={'urlSubmitForm'}
       >
-        <InputUrl
-          onValidURL={this.onRecieveValidURL}
-          isValid={isURL && parseSuccess}
-          isFetching={isFetching}
-          style={{ position: 'absolute', bottom: 0 }}
+
+
+        <input
+          autoComplete="off"
+          type="text"
+          name="inputBox goes here"
+          placeholder="What should people read next?"
+          className={'inputUrl'}
+          autoFocus
+          onChange={this.onChange}
+          value={val}
+          style={{ height: 26, color: inputURLColor }}
         />
+
         <input
           type="submit"
           value="Submit"
