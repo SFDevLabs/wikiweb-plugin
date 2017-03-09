@@ -281,6 +281,8 @@ class Connections extends Component {
     const showHeartCount = heartCount > 0 ? 'flex' : 'none';
     const connectionBoxRotationClass = rotateConnectionBox ? 'rotateIn' : 'rotateOut';
 
+    const verticalDivider = <div className={'verticalDivider'} style={{ marginLeft: 20 }} ><div /></div>
+
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'centerBox'}>
@@ -300,8 +302,8 @@ class Connections extends Component {
                   onMouseLeave={leaveConnectionBox.bind(this)}
                 />
               </div>
-              <div className={'verticalDivider'} style={{ marginLeft: 20 }} />
             </div>
+            {verticalDivider}
           </div>
 
           <div id="middleCol">
@@ -312,7 +314,7 @@ class Connections extends Component {
           </div>
 
           <div id="rightCol">
-            <div className={'verticalDivider'} style={{ justifyContent: 'flex-end' }} />
+            {verticalDivider}
             {recommenderInfo}
             {addRecommendationButton}
             {inputSuccessErrorMessages}
