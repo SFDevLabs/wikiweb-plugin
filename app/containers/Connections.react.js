@@ -82,20 +82,22 @@ class Connections extends Component {
   }
 
   incrementConnectionsIndex = () => {
+      analytics('incrementConnectionsIndexAttempted');
     if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
-      analytics('incrementConnectionsIndex');
       this.setState({
         connectionDisplayIndex: this.state.connectionDisplayIndex + 1,
       });
+      analytics('incrementConnectionsIndex');
     }
   }
 
   decrementConnectionsIndex = () => {
+      analytics('decrementConnectionsIndexAttempted');
     if (this.state.connectionDisplayIndex > 0) {
-      analytics('decrementConnectionsIndex');
       this.setState({
         connectionDisplayIndex: this.state.connectionDisplayIndex - 1,
       });
+      analytics('decrementConnectionsIndex');
     }
   }
 
@@ -198,7 +200,7 @@ class Connections extends Component {
             <span className={'noOverflow'}>
               <a
                 href={superEdges[connectionDisplayIndex].entity.canonicalLink}
-                onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                onClick={() => { analytics('outboundLinkToArticle'); }}
               >
               Read next</a>
             </span>
@@ -206,7 +208,7 @@ class Connections extends Component {
           <div className={'nextRead'}>
             <span className={'noOverflow'}>
               <a
-                onClick={() => { analytics('outboundLinkToTheArticle'); }}
+                onClick={() => { analytics('outboundLinkToArticle'); }}
                 href={superEdges[connectionDisplayIndex].entity.canonicalLink}>
                 {superEdges[connectionDisplayIndex].entity.domain}
                 <span> - </span>
