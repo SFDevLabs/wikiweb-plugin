@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": [ "http://*/*", "https://*/*"],
-      "exclude_matches": [ "https://gmail.com/*", "https://google.com/*", "https://facebook.com/*", "file:///*", "https://mail.google.com/*" ],
+      "exclude_matches": [ "https://gmail.com/*", "https://google.com/*", "https://facebook.com/*", "file:///*", "https://mail.google.com/*", "https://trello.com/*" ],
       "js": ["scripts/inject.js"],
       "run_at": "document_idle"
     }
