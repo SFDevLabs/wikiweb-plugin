@@ -15,6 +15,9 @@ function createIframe(){
   iframe.style.border = 'none';
   iframe.style.height = '46px'; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
   iframe.style.zIndex = '2147483647'
+  iframe.style.display = 'block'
+  iframe.style.opacity = '1'
+  iframe.style.visibility = 'visible'
   document.body.append(iframe);
   return iframe;
 }

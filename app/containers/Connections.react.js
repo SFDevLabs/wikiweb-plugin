@@ -9,8 +9,7 @@ import { fetchHeart } from '../actions/heart';
 import analytics from '../analytics';
 
 import config from '../config';
-const env = process.env.NODE_ENV || 'development';
-const { rootURL } = config[env];
+const { rootURL } = config;
 
 const mapStateToProps = (state) => {
   const {
@@ -204,6 +203,22 @@ class Connections extends Component {
 
 
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
+    const changeRecommendationBox = superEdges.length > 1 ?
+      (
+        <div className={'changeRecommendationBox'}>
+          <i
+            onClick={this.incrementConnectionsIndex.bind(this)}
+            style={decrementButtonStyle}
+            className={'fa fa-caret-up recommendationToggleCaret'}
+          />
+          <i
+            onClick={this.decrementConnectionsIndex.bind(this)}
+            style={incrementButtonStyle}
+            className={'fa fa-caret-down recommendationToggleCaret'}
+          />
+        </div>
+      ) :
+      null;
     const recommendationBox =
       entityCount > 0 &&
       !isFetching &&
@@ -243,18 +258,7 @@ class Connections extends Component {
 
         )}
         </div>
-        <div className={'changeRecommendationBox'}>
-          <i
-            onClick={this.incrementConnectionsIndex.bind(this)}
-            style={decrementButtonStyle}
-            className={'fa fa-caret-up recommendationToggleCaret'}
-          />
-          <i
-            onClick={this.decrementConnectionsIndex.bind(this)}
-            style={incrementButtonStyle}
-            className={'fa fa-caret-down recommendationToggleCaret'}
-          />
-        </div>
+        {changeRecommendationBox}
       </div>) : null;
 
     const noRecommendationBox =

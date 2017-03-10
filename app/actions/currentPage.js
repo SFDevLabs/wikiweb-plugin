@@ -3,7 +3,7 @@ import config from '../config';
 import analytics from '../analytics';
 
 const env = process.env.NODE_ENV || 'development';
-const { rootURL } = config[env];
+const { rootURL } = config;
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_CURRENT_PAGE = 'RECEIVE_CURRENT_PAGE';

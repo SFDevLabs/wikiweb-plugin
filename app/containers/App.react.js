@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
 import { connect } from 'react-redux';
-//import ReactGA from 'react-ga';
 import Connections from './Connections.react';
 import { fetchSearch } from '../actions/currentPage';
 import { fetchProfile } from '../actions/user';

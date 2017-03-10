@@ -1,7 +1,7 @@
 import request from 'superagent';
 import config from '../config';
 const env = process.env.NODE_ENV || 'development';
-const { rootURL } = config[env];
+const { rootURL } = config;
 
 export const RESET_CONNECTED_SEARCH = 'RESET_CONNECTED_SEARCH';
 export const REQUEST_CONNECTED_SEARCH = 'REQUEST_CONNECTED_SEARCH';

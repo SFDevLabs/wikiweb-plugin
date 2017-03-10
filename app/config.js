@@ -1,4 +1,7 @@
-module.exports = {
+import { version } from '../chrome/manifest.prod.json';
+
+const env = process.env.NODE_ENV || 'development';
+const config = {
   development: {
     rootURL: 'http://localhost:3000',
     gaTrackingCode: 'UA-90661699-1',
@@ -6,6 +9,10 @@ module.exports = {
   production: {
     rootURL: 'https://wikiweb.org',
     gaTrackingCode: 'UA-90661699-2',
-  },
-  version: '1.0.0',
+  }
+};
+
+module.exports = {
+  ...config[env],
+  version
 };

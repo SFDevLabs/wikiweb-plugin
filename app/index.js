@@ -8,6 +8,10 @@ import App from './containers/App.react';
 // Adding Styles to page
 import styles from './index.scss';
 
+// Version Number
+import { version } from './config';
+console.log(`WikiWeb Version:  ${version}`)
+
 const middleware = [thunk];
 const store = createStore(
   reducer,
@@ -29,6 +33,3 @@ ReactDOM.render(
   <Root />,
   document.querySelector('#wikiwebRoot')
 );
-
-// Version Number
-console.log('WikiWeb version: 1.0.0')

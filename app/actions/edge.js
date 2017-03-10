@@ -4,7 +4,7 @@ import { fetchCurrentPage } from './currentPage';
 import config from '../config';
 
 const env = process.env.NODE_ENV || 'development';
-const { rootURL } = config[env];
+const { rootURL } = config;
 
 export const REQUEST_EDGE = 'REQUEST_EDGE';
 export const RECEIVE_EDGE = 'RECEIVE_EDGE';

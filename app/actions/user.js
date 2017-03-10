@@ -2,7 +2,7 @@ import request from 'superagent';
 import config from '../config';
 
 const env = process.env.NODE_ENV || 'development';
-const { rootURL } = config[env];
+const { rootURL } = config;
 
 export const REQUEST_PROFILE = 'REQUEST_PROFILE';
 export const RECEIVE_PROFILE = 'RECEIVE_PROFILE';

@@ -1,10 +1,11 @@
 {
-  "version": "1.0.0",
-  "name": "react-chrome-extension-example",
+  "version": "1.0.1",
+  "name": "WikiWeb",
+  "short_name": "WikiWeb",
   "manifest_version": 2,
-  "description": "Example for react-chrome-extension-boilerplate",
+  "description": "WikiWeb - crowdsourced recommendations for what to read next on the Internet.",
   "browser_action": {
-    "default_title": "React Chrome Extension Example"
+    "default_title": "WikiWeb"
   },
   "icons": {
     "16": "img/icon-16-not-connected.png",
