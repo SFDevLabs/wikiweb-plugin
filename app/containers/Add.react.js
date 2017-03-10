@@ -52,14 +52,7 @@ class Add extends Component {
     };
     this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
   }
-  //
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     val: ''
-  //   };
-  //   this.submitWithDelay = _.debounce(this.submitWithDelay, TYPING_DELAY);
-  // }
+
   submitWithDelay = () => {
     const { val } = this.state;
     const isValidURL = isWebUri(val) || isWebUri(`https://${val}`);
@@ -67,7 +60,7 @@ class Add extends Component {
       isValidURL,
       typeDelay: false,
     });
-    if (isValidURL ) {
+    if (isValidURL) {
       this.onRecieveValidURL(val);
     }
   }

@@ -77,11 +77,17 @@ class Connections extends Component {
   }
 
   componentDidMount() {
-    //no opp
+    window.onkeyup = (e) => {
+      if (e.keyCode === 27) {
+        this.setState({
+          isAddConnectionToggledOn: false,
+        });
+      }
+    };
   }
 
   incrementConnectionsIndex = () => {
-      analytics('incrementConnectionsIndexAttempted');
+    analytics('incrementConnectionsIndexAttempted');
     if (this.state.connectionDisplayIndex < this.props.entityCount - 1) {
       this.setState({
         connectionDisplayIndex: this.state.connectionDisplayIndex + 1,
@@ -406,11 +412,4 @@ function toggleMiddleSection(e) {
     isAddConnectionToggledOn: !isAddConnectionToggledOn
   });
   e.preventDefault();
-}
-
-window.onkeyup = function(e) {
-  if (e.keyCode == 27) { /* escape key */
-    /* Yo Jeff - I'm too tired to think this one through, but how do I pass state through to a function on keypress? */
-    /* thoughts are to attach this to body and pass state "this" through on all keystrokes, ... seems excessive */
-  }
 }
