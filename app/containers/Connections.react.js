@@ -125,6 +125,7 @@ class Connections extends Component {
       isAddConnectionToggledOn,
       heartClickAttempted,
       rotateConnectionBox,
+      isLoginRedirectToggledOn,
     } = this.state;
 
     /* increment/decrement styling */
@@ -148,7 +149,10 @@ class Connections extends Component {
       <div className={'loginButton'} style={{ display: showLoginInfo }}>
         <span><a
           target="_blank"
-          onClick={() => { analytics('loginClicked'); }}
+          onClick={() => {
+            this.onLoginRedirect()
+            analytics('loginClicked');
+          }}
           href={`${rootURL}/login`}
         >
           Log in</a></span>
@@ -294,6 +298,13 @@ class Connections extends Component {
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
+      {isLoginRedirectToggledOn?
+        <div className="loginRefreshPromp" >
+          <p>
+            Please refresh the page after you log in.
+          </p>
+        </div>
+        :null}
         <div className={'centerBox'}>
           <div id="leftCol">
             <div className={'addMetaBox'}>
@@ -360,6 +371,14 @@ class Connections extends Component {
     analytics('toolbarClosed');
     chrome.storage.local.set({ wikiwebFooterActive: false });
   }
+
+  onLoginRedirect = () => {
+    const { isLoginRedirectToggledOn } = this.state;
+    this.setState({
+      isLoginRedirectToggledOn: !isLoginRedirectToggledOn,
+    });
+  }
+
 
   onHeart = (e) => {
     if (this.props.isLoggedIn) {

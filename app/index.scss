@@ -486,6 +486,18 @@ and (max-width : 1224px) {
   }
 }
 
+.loginRefreshPromp {
+	position: absolute;
+	background-color: black;
+	opacity: .9;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 1em;
+	color: #fff;
+	z-index: 999;
+}
+
 /* This will get thrown out */
 .animationsExperiment {
   margin-left: 300px;

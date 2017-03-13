@@ -1,6 +1,9 @@
 
 let iframe; // Store on the script level
 let spacer; // Store on the script level
+let notification; // Store on the script level
+const TIMEOUT_NOTIFICATION = 3000;
+
 /**
  * createIframe
  * @return {object} iframe DOM Element
@@ -17,6 +20,7 @@ function createIframe(){
   iframe.style.zIndex = '2147483647'
   iframe.style.display = 'block'
   iframe.style.opacity = '1'
+  iframe.style.margin = '0px'
   iframe.style.visibility = 'visible'
   document.body.append(iframe);
   return iframe;
@@ -31,6 +35,36 @@ function createFooterSpacer(){
   paddingFooterDiv.style.height = '45px';
   document.body.append(paddingFooterDiv);
   return paddingFooterDiv;
+}
+
+/**
+ * createNotification
+ * @return {object} div DOM Element
+ */
+function createNotification(text) {
+  const notificationDiv = document.createElement('div');
+  const notificationP = document.createElement('p');
+  notificationP.innerText = text;
+  notificationDiv.append(notificationP);
+  notificationDiv.style.height = '45px';
+  notificationDiv.style.width = '200px';
+  notificationDiv.style.position = 'fixed';
+  notificationDiv.style.right = '10px';
+  notificationDiv.style.top = '10px';
+  notificationDiv.style.backgroundColor = '#fff';
+  notificationDiv.style.border = '1px solid black'
+  notificationDiv.style.zIndex = '2147483647'
+
+  document.body.append(notificationDiv);
+  return notificationDiv;
+}
+
+/**
+ * removeNotification
+ * @return {object} div DOM Element
+ */
+function removeNotification() {
+  if (notification !== undefined) { notification.remove(); };
 }
 
 /**
@@ -53,14 +87,28 @@ function destroyApp() {
 
 
 /**
- * Add lsitener to remove and create the iframe.
+ * Add listener to remove and create the iframe.
  */
 chrome.runtime.onMessage.addListener(
   (sender) => {
     const { wikiwebFooterActive } = sender;
     if (!wikiwebFooterActive) {
       destroyApp();
+      removeNotification();
+      notification = createNotification(
+        'WikiWeb turned OFF'
+      );
+      setTimeout(function() {
+        removeNotification();
+      }, TIMEOUT_NOTIFICATION);
     } else {
+      removeNotification();
+      notification = createNotification(
+        'WikiWeb turned ON'
+      );
+      setTimeout(function() {
+        removeNotification()
+      }, TIMEOUT_NOTIFICATION);
       initApp();
     }
   }
