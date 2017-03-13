@@ -185,7 +185,7 @@ class Connections extends Component {
                     target="_blank"
                     rel="noreferrer noopener"
                     onClick={() => { analytics('reccommenderClicked'); }}
-                    href={'https://twitter.com/' + edge.edges[0].user.username}
+                    href={`${rootURL}/@${edge.edges[0].user.username}`}
                   >
                     @{edge.edges[0].user.username}
                   </a>
