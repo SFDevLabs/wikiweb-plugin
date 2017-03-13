@@ -308,7 +308,7 @@ class Connections extends Component {
         <div className={'centerBox'}>
           <div id="leftCol">
             <div className={'addMetaBox'}>
-              <div className={'heartSubmit'}>
+              <div style={{ visibility:'hidden' }} className={'heartSubmit'}>
                 <i
                   onClick={this.onHeart.bind(this)}
                   className={'fa ' + heartIconType + ' heartIcon'}
