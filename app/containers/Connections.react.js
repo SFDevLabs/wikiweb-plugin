@@ -55,12 +55,6 @@ const mapStateToProps = (state) => {
 };
 
 class Connections extends Component {
-  state = {
-    connectionDisplayIndex: 0,
-    isAddConnectionToggledOn: false,
-    heartClickAttempted: false,
-    rotateConnectionBox: false,
-  };
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -74,6 +68,14 @@ class Connections extends Component {
     messagesConnect: PropTypes.array.isRequired,
     heartCount: PropTypes.number.isRequired,
     connectEntityId: PropTypes.string,
+  }
+
+  state = {
+    connectionDisplayIndex: 0,
+    isAddConnectionToggledOn: false,
+    isLoginRedirectToggledOn: false,
+    heartClickAttempted: false,
+    rotateConnectionBox: false,
   }
 
   componentDidMount() {
@@ -186,8 +188,6 @@ class Connections extends Component {
                 </div>
               </div>
             </div>
-
-
           )}
         </div>
       </div>) : null
@@ -261,7 +261,6 @@ class Connections extends Component {
               </div>
             </div>
           </div>
-
         )}
         </div>
         {changeRecommendationBox}
@@ -382,10 +381,7 @@ class Connections extends Component {
 
 export default connect(mapStateToProps)(Connections);
 
-// Functons and constants
-const styles = {
-  /* currently blank... styles moved to stylesheet */
-}
+
 
 function enterConnectionBox(e) {
   this.setState({
