@@ -46,15 +46,19 @@ function createNotification(text) {
   const notificationDiv = document.createElement('div');
   const notificationP = document.createElement('p');
   notificationP.innerText = text;
+  notificationP.style.fontWeight = '700';
+  notificationP.style.fontSize = '14px';
+  notificationP.style.color = 'white';
   notificationDiv.append(notificationP);
   notificationDiv.style.height = '45px';
   notificationDiv.style.width = '200px';
+  notificationDiv.style.paddingLeft = '20px';
   notificationDiv.style.position = 'fixed';
   notificationDiv.style.right = '10px';
   notificationDiv.style.top = '10px';
-  notificationDiv.style.backgroundColor = '#fff';
-  notificationDiv.style.border = '1px solid black'
-  notificationDiv.style.zIndex = '2147483647'
+  notificationDiv.style.backgroundColor = '#663399';
+  notificationDiv.style.border = '1px solid black';
+  notificationDiv.style.zIndex = '2147483647';
 
   document.body.append(notificationDiv);
   return notificationDiv;
