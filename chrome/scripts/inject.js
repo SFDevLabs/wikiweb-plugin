@@ -10,6 +10,7 @@ const TIMEOUT_NOTIFICATION = 3000;
  */
 function createIframe(){
   let iframe = document.createElement('iframe');
+  iframe.id="wwinject"
   iframe.src='chrome-extension://'+chrome.runtime.id+'/main.html';
   iframe.style.width = '100%';
   iframe.style.position = 'fixed';
