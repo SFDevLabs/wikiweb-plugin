@@ -55,14 +55,15 @@ class Add extends Component {
 
   submitWithDelay = () => {
     const { val } = this.state;
-    const isValidURL = isWebUri(val) || isWebUri(`https://${val}`);
+    //@TODO clean this code up.
+    // const isValidURL = isWebUri(val) || isWebUri(`https://${val}`);
     this.setState({
-      isValidURL,
+      // isValidURL,
       typeDelay: false,
     });
-    if (isValidURL) {
+    // if (isValidURL) {
       this.onRecieveValidURL(val);
-    }
+    // }
   }
 
   onChange = (e) => {
