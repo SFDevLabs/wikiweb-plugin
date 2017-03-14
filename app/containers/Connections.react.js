@@ -298,6 +298,12 @@ class Connections extends Component {
 
     return (
       <div className={'wikiwebFooter'} style={{ height: 45 }} >
+        <div className={'logoBox'}>
+          <a href={`${rootURL}`}>
+            <img src="img/logo.png" style={{ height: 30, width: 30, marginTop: 8 }} />
+          </a>
+        </div>
+
       {isLoginRedirectToggledOn?
         <div className="loginRefreshPromp" >
           <p>
