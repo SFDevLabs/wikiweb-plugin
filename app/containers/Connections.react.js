@@ -24,6 +24,7 @@ const mapStateToProps = (state) => {
       isFetching,
       title,
       superEdges,
+      links,
       queryLink,
       canonicalLink,
       heartCount,
@@ -46,6 +47,7 @@ const mapStateToProps = (state) => {
     title,
     isFetchingEdge,
     superEdges,
+    links,
     queryLink,
     canonicalLink,
     messagesConnect,
@@ -118,6 +120,7 @@ class Connections extends Component {
       messagesConnect,
       heartValue,
       heartCount,
+      links,
     } = this.props;
 
     const {
@@ -270,6 +273,10 @@ class Connections extends Component {
         {changeRecommendationBox}
       </div>) : null;
 
+    const linksJSX = links && links.length > 0 ? links.map((edge, i) => <div>
+      {edge.pageTo.title}
+    </div>) : null;
+
     const noRecommendationBox =
       entityCount === 0 &&
       !heartClickAttempted &&
@@ -333,6 +340,7 @@ class Connections extends Component {
           </div>
 
           <div id="middleCol">
+            {linksJSX}
             {recommendationBox}
             {noRecommendationBox}
             {loginText}
