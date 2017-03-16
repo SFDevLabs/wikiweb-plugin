@@ -31,7 +31,7 @@ function getLocallyStoreActiveFooter (cb) {
     const err = false;
     cb(
       err,
-      activeFooter === undefined ? true : activeFooter
+      activeFooter
     );
   });
 }

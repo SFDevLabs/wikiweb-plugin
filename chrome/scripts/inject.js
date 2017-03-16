@@ -129,7 +129,7 @@ function getLocallyStoreActiveFooter (cb) {
     const err = false;
     cb(
       err,
-      activeFooter === undefined ? true : activeFooter
+      activeFooter
     );
   });
 }
@@ -138,6 +138,15 @@ function getLocallyStoreActiveFooter (cb) {
 getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
   if (wikiwebFooterActive){
     initApp();
+  } else if ( wikiwebFooterActive === undefined ){ // App loadd for first time
+    initApp();
+    chrome.storage.local.set({ wikiwebFooterActive: true });
+    notification = createNotification(
+      'WikiWeb turned ON'
+    );
+    setTimeout(function() {
+      removeNotification()
+    }, TIMEOUT_NOTIFICATION);
   }
 });
 /** Kick Off the App on Page Load **/
