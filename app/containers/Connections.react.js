@@ -356,6 +356,12 @@ class Connections extends Component {
             <a onClick={this.onCloseFooter}>
               <i className={'fa fa-times closeButton'} style={{ position: 'absolute', right: 20, bottom: 15 }} />
             </a>
+            <a onClick={this.onExpandFooter}>
+              <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15 }} />
+            </a>
+            <a onClick={this.onCollapseFooter}>
+              <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 60, bottom: 15, color: 'red' }} />
+            </a>
           </div>
 
         </div>
@@ -383,8 +389,19 @@ class Connections extends Component {
 
   onCloseFooter = () => {
     analytics('toolbarClosed');
+    chrome.storage.local.set({ wikiwebFooterActive: true });
+  }
+
+  onExpandFooter = () => {
+    analytics('toolbarExpanded');
     chrome.storage.local.set({ wikiwebFooterActive: false });
   }
+
+  onCollapseFooter = () => {
+    analytics('toolbarExpanded');
+    chrome.storage.local.set({ wikiwebFooterActive: false });
+  }
+
 
   onLoginRedirect = () => {
     const { isLoginRedirectToggledOn } = this.state;

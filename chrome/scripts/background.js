@@ -26,7 +26,7 @@ function setExtensionButon(active) {
  * @param  {Function} cb
  */
 function getLocallyStoreActiveFooter (cb) {
-  chrome.storage.local.get(['wikiwebFooterActive'], function (res) {
+  chrome.storage.local.get(['wikiWeb'], function (res) {
     var activeFooter = res.wikiwebFooterActive;
     const err = false;
     cb(
