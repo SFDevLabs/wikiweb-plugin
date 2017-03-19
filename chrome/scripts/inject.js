@@ -44,21 +44,9 @@ function createFooterSpacer(){
  */
 function createNotification(text) {
   const notificationDiv = document.createElement('div');
-  const notificationP = document.createElement('p');
-  notificationP.innerText = text;
-  notificationP.style.fontWeight = '700';
-  notificationP.style.fontSize = '14px';
-  notificationP.style.color = 'white';
-  notificationDiv.append(notificationP);
-  notificationDiv.style.height = '45px';
-  notificationDiv.style.width = '200px';
-  notificationDiv.style.paddingLeft = '20px';
-  notificationDiv.style.position = 'fixed';
-  notificationDiv.style.right = '10px';
-  notificationDiv.style.top = '10px';
-  notificationDiv.style.backgroundColor = '#663399';
-  notificationDiv.style.border = '1px solid black';
-  notificationDiv.style.zIndex = '2147483647';
+
+  //don't split into multi-line. will break. @mceoin
+  notificationDiv.innerHTML = "<div style='width: 180px !important; padding: 20px !important; position: fixed !important; background-color: #663399; right: 10px !important; top: 10px !important; z-index: 2147483647; color: white; font-weight: 700 !important; font-size: 14px !important; font-family: Geneva, Arial, sans-serif !important;'>"+text+"</div>"
 
   document.body.append(notificationDiv);
   return notificationDiv;
