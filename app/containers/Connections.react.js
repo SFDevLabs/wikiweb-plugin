@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import TransitionGroup from 'react-addons-transition-group';
-import { TweenMax } from 'gsap';
 import Add from './Add.react';
 import Message from '../components/Message.react';
 import { fetchPostEdge } from '../actions/edge';
@@ -304,7 +302,7 @@ class Connections extends Component {
     const verticalDivider = <div className={'verticalDivider'} style={{ margin: '0px 15px' }} ><div /></div>
 
     return (
-      <div className={'wikiwebFooter'} style={{ height: 45 }} >
+      <div id='wikiwebFooter' className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'logoBox'}>
           <a href={`${rootURL}`}>
             <img src="img/logo.png" style={{ height: 30, width: 30, marginTop: 8 }} />

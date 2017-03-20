@@ -18,11 +18,11 @@ function createIframe(){
   iframe.style.bottom = 0;
   iframe.style.border = 'none';
   iframe.style.height = '46px'; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
-  iframe.style.zIndex = '2147483647'
-  iframe.style.display = 'block'
-  iframe.style.opacity = '1'
-  iframe.style.margin = '0px'
-  iframe.style.visibility = 'visible'
+  iframe.style.zIndex = '2147483647';
+  iframe.style.display = 'block';
+  iframe.style.opacity = '1';
+  iframe.style.margin = '0px';
+  iframe.style.visibility = 'visible';
   iframe.style.backgroundColor = 'red';
   document.body.append(iframe);
   return iframe;
@@ -45,10 +45,8 @@ function createFooterSpacer(){
  */
 function createNotification(text) {
   const notificationDiv = document.createElement('div');
-
-  //don't split into multi-line. will break. @mceoin
+  /* don't split into multi-line. will break. @mceoin */
   notificationDiv.innerHTML = "<div style='width: 180px !important; padding: 20px !important; position: fixed !important; background-color: #663399; right: 10px !important; top: 10px !important; z-index: 2147483647; color: white; font-weight: 700 !important; font-size: 14px !important; font-family: Geneva, Arial, sans-serif !important;'>"+text+"</div>"
-
   document.body.append(notificationDiv);
   return notificationDiv;
 }
@@ -116,9 +114,9 @@ chrome.runtime.onMessage.addListener(
   (sender) => {
     const { wikiwebFooterActive } = sender;
     if (wikiwebFooterActive && iframe !== undefined) {
-      iframe.style.height = '400px'
+      iframe.style.height = '400px';
     } else if ( iframe !== undefined ) {
-      iframe.style.height = '46px'
+      iframe.style.height = '46px';
     }
   }
 );
