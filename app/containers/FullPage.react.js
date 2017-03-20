@@ -160,40 +160,108 @@ class FullPage extends Component {
         </div>
     </div>)
 
-    const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) => 
-      <div key={i} className={'row'}>
+    const gridHeaders = (
+      <div className={'row rowHeader'}>
         <div className={'typeCol'}>
-          <span className={'noOverflow'}>
-            <i className={'fa fa-user'} />
+          <span>Type</span>
+        </div>
+        <div className={'titleCol'}>
+          <span className={'title'}>Title</span>
+          <span className={'noOverflow favicon'} title={'link to page'}>
+            <img src={'/img/hyperlink.png'} style={{ height: 20, width: 20 }}/>
+          </span>
+        </div>
+        <div className={'domainCol'}>
+          <span>Domain</span>
+        </div>
+        <div className={'sourceCol'}>
+          <span>Source</span>
+        </div>
+      </div>)
+
+    const examplePromotedConnection = (
+      <div className={'row promotedRow'}>
+        <div className={'typeCol'}>
+          <span className={'promoted'}>
+            <i className={'fa fa-certificate'} title={`Example promoted link`}/>
           </span>
         </div>
         <div className={'titleCol'}>
-          <span className={'noOverflow'}>{edge.entity.title}</span>
+          <span className={'noOverflow title'}>Wealth, health and fitness. 3 days to success!</span>
+          <span className={'noOverflow favicon'} title={'link to page'}>
+            <img src={'/img/default-favicon.png'} />
+          </span>
         </div>
         <div className={'domainCol'}>
-          <span className={'noOverflow'}>{edge.entity.domain}</span>
+          <span>moneymatters.org</span>
         </div>
         <div className={'sourceCol'}>
-          <span className={'noOverflow'}>@{edge.edges[0].user.username}</span>
+          <span>promoted</span>
+        </div>
+      </div>)
+
+    const examplePageLink = (
+      <div className={'row'}>
+        <div className={'typeCol'}>
+          <span className={'pageLink'}>
+            <i className={'fa fa-code'} title={`Example promoted link`}/>
+          </span>
+        </div>
+        <div className={'titleCol'}>
+          <span className={'noOverflow title'}>Pivotal’s Cloud-Native platform drives software innovation for many of the world’s most admired brands. With millions of developers in communities around the world, Pivotal technology touches billions of users every day. After shaping the software development culture of Silicon Valleys most valuable companies for over a decade, today Pivotal leads a global technology movement transforming how the world builds software.</span>
+          <span className={'noOverflow favicon'} title={'link to page'}>
+            <img src={'/img/default-favicon.png'} />
+          </span>
+        </div>
+        <div className={'domainCol'}>
+          <span>pivotal.io</span>
+        </div>
+        <div className={'sourceCol'}>
+          <span>@jeffj</span>
+        </div>
+      </div>)
+
+    const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) => 
+      <div key={i} className={'row'}>
+        <div className={'typeCol'}>
+          <span className={'userContributed'}>
+            <i className={'fa fa-user'} title={`Connected by: @${edge.edges[0].user.username}`}/>
+          </span>
+        </div>
+        <div className={'titleCol'}>
+          <span className={'noOverflow title'} title={edge.entity.title}>
+            <a href={edge.entity.canonicalLink}>
+              {edge.entity.title ? edge.entity.title : edge.entity.canonicalLink}
+            </a>
+          </span>
+          <span className={'noOverflow favicon'} title={edge.entity.title}>
+            <a href={edge.entity.canonicalLink}>
+              <img style={{ marginTop: 3 }} src={edge.entity.faviconCDN ? edge.entity.faviconCDN : '/img/default-favicon.png'} />
+            </a>
+          </span>
+        </div>
+        <div className={'domainCol'}>
+          <span className={'noOverflow'} title={edge.entity.domain}>{edge.entity.domain}</span>
+        </div>
+        <div className={'sourceCol'}>
+          <span className={'noOverflow'}>
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              onClick={() => { analytics('reccommenderClicked'); }}
+              href={`${rootURL}/@${edge.edges[0].user.username}`}
+            >
+              @{edge.edges[0].user.username}
+            </a>
+          </span>
         </div>
       </div>) : null;
 
     const resultsGrid = (
       <div className={'resultsGrid'}>
-        <div className={'row rowHeader'}>
-          <div className={'typeCol'}>
-            <span>Type</span>
-          </div>
-          <div className={'titleCol'}>
-            <span>Title</span>
-          </div>
-          <div className={'domainCol'}>
-            <span>Domain</span>
-          </div>
-          <div className={'sourceCol'}>
-            <span>Source</span>
-          </div>
-        </div>
+        {gridHeaders}
+        {examplePromotedConnection}
+        {examplePageLink}
         {superEdgeRows} 
       </div>)
 

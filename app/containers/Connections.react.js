@@ -25,7 +25,6 @@ const mapStateToProps = (state) => {
       isFetching,
       title,
       superEdges,
-      links,
       queryLink,
       canonicalLink,
       heartCount,
@@ -47,7 +46,6 @@ const mapStateToProps = (state) => {
     title,
     isFetchingEdge,
     superEdges,
-    links,
     queryLink,
     canonicalLink,
     messagesConnect,
@@ -122,7 +120,6 @@ class Connections extends Component {
       messagesConnect,
       heartValue,
       heartCount,
-      links,
       expanded,
     } = this.props;
 
@@ -276,10 +273,6 @@ class Connections extends Component {
         {changeRecommendationBox}
       </div>) : null;
 
-    const linksJSX = links && links.length > 0 ? links.map((link, i) => <div>
-      {link.href}
-    </div>) : null;
-
     const noRecommendationBox =
       entityCount === 0 &&
       !heartClickAttempted &&
@@ -313,6 +306,11 @@ class Connections extends Component {
             <img src="img/logo.png" style={{ height: 30, width: 30, marginTop: 8 }} />
           </a>
         </div>
+        <div className={'expandFooterBox'}>
+          <a onClick={this.onExpandFooter}>
+            <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
+          </a>
+        </div>
 
       {isLoginRedirectToggledOn?
         <div className="loginRefreshPromp" >
@@ -343,7 +341,6 @@ class Connections extends Component {
           </div>
 
           <div id="middleFooterCol">
-            {linksJSX}
             {recommendationBox}
             {noRecommendationBox}
             {loginText}
@@ -358,9 +355,6 @@ class Connections extends Component {
             {loginButton}
             <a onClick={this.onCloseFooter}>
               <i className={'fa fa-times closeButton'} style={{ position: 'absolute', right: 20, bottom: 15 }} />
-            </a>
-            <a onClick={this.onExpandFooter}>
-              <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
             </a>
           </div>
 
