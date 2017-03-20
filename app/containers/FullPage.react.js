@@ -118,11 +118,18 @@ class FullPage extends Component {
     return (
       <div id='fullPage' >
         Yo, Im the full page!
+        <a onClick={this.onCollapseFooter}>
+          <i className={'fa fa-forward'} />
+        </a>
       </div>
     )
-      
+
+  }
+
+  onCollapseFooter = () => {
+    analytics('toolbarExpanded');
+    chrome.storage.local.set({ wikiwebExpanded: false });
   }
 }
 
 export default connect(mapStateToProps)(FullPage);
-

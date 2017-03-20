@@ -32,7 +32,6 @@ const mapStateToProps = (state) => {
       heartValue,
     },
   } = state;
-
   const connectEntityId = connectEntity.id;
   const isFetchingEdge = edge.isFetching;
   const messagesEdge = edge.messages;
@@ -360,9 +359,6 @@ class Connections extends Component {
             <a onClick={this.onExpandFooter}>
               <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15 }} />
             </a>
-            <a onClick={this.onCollapseFooter}>
-              <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 60, bottom: 15, color: 'red' }} />
-            </a>
           </div>
 
         </div>
@@ -395,14 +391,8 @@ class Connections extends Component {
 
   onExpandFooter = () => {
     analytics('toolbarExpanded');
-    chrome.storage.local.set({ wikiwebFooterActive: false });
+    chrome.storage.local.set({ wikiwebExpanded: true });
   }
-
-  onCollapseFooter = () => {
-    analytics('toolbarExpanded');
-    chrome.storage.local.set({ wikiwebFooterActive: false });
-  }
-
 
   onLoginRedirect = () => {
     const { isLoginRedirectToggledOn } = this.state;
@@ -431,8 +421,6 @@ class Connections extends Component {
 }
 
 export default connect(mapStateToProps)(Connections);
-
-
 
 function enterConnectionBox(e) {
   this.setState({

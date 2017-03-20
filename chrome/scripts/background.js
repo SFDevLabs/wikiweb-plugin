@@ -26,7 +26,7 @@ function setExtensionButon(active) {
  * @param  {Function} cb
  */
 function getLocallyStoreActiveFooter (cb) {
-  chrome.storage.local.get(['wikiWeb'], function (res) {
+  chrome.storage.local.get(['wikiwebFooterActive'], function (res) {
     var activeFooter = res.wikiwebFooterActive;
     const err = false;
     cb(
@@ -42,18 +42,35 @@ getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
 });
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  const wikiwebFooterActive = changes.wikiwebFooterActive.newValue
-  setExtensionButon(wikiwebFooterActive);
-  // Send the message to the inject script to create of destroy the footer
-  chrome.tabs.query({}, function (tabs) {
-    tabs.map(function (tab) {
-      chrome.tabs.sendMessage(
+  const wikiwebFooterActive = changes.wikiwebFooterActive.newValue;
+  if (wikiwebFooterActive !== undefined) {
+    setExtensionButon(wikiwebFooterActive);
+    chrome.tabs.query({}, function (tabs) {
+      tabs.map(function (tab) {
+        chrome.tabs.sendMessage(
           tab.id,
           { wikiwebFooterActive }
-      );
+        );
+      });
     });
-  });
+  }
 });
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  const wikiwebFooterActive = changes.wikiwebFooterActive.newValue;
+  if (wikiwebFooterActive !== undefined) {
+    setExtensionButon(wikiwebFooterActive);
+    chrome.tabs.query({}, function (tabs) {
+      tabs.map(function (tab) {
+        chrome.tabs.sendMessage(
+          tab.id,
+          { wikiwebFooterActive }
+        );
+      });
+    });
+  }
+});
+
 
 /** Add a listener for the extensions on click event **/
 chrome.browserAction.onClicked.addListener(function () {
