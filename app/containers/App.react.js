@@ -52,7 +52,7 @@ class App extends Component {
           <FullPage fullPageToggle={this.fullPageToggle} /> :
           null
         }
-        <Connections fullPageToggle={this.fullPageToggle} />
+        <Connections expanded={wikiwebExpanded} fullPageToggle={this.fullPageToggle} />
       </div>
     );
   }

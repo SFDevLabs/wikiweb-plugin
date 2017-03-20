@@ -71,6 +71,7 @@ class Connections extends Component {
     messagesConnect: PropTypes.array.isRequired,
     heartCount: PropTypes.number.isRequired,
     connectEntityId: PropTypes.string,
+    expanded: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -122,6 +123,7 @@ class Connections extends Component {
       heartValue,
       heartCount,
       links,
+      expanded,
     } = this.props;
 
     const {
@@ -358,7 +360,7 @@ class Connections extends Component {
               <i className={'fa fa-times closeButton'} style={{ position: 'absolute', right: 20, bottom: 15 }} />
             </a>
             <a onClick={this.onExpandFooter}>
-              <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15 }} />
+              <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
             </a>
           </div>
 
@@ -387,7 +389,7 @@ class Connections extends Component {
 
   onCloseFooter = () => {
     analytics('toolbarClosed');
-    chrome.storage.local.set({ wikiwebFooterActive: true });
+    chrome.storage.local.set({ wikiwebFooterActive: false });
   }
 
   onExpandFooter = () => {
