@@ -25,7 +25,7 @@ class App extends Component {
 
 
     chrome.storage.local.get(['wikiwebExpanded'], function (res) {
-      const { wikiwebExpanded } = res;
+      const wikiwebExpanded = res !==null ? res.wikiwebExpanded : false;
       that.setState({
         wikiwebExpanded
       })
