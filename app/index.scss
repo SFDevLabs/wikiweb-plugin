@@ -93,33 +93,42 @@ body {
         display: flex;
         flex-direction: row;
         height: 55px;
-        .typeCol, .titleCol, .canonicalCol, .sourceCol {
+        border-top: 1px solid #e7e7e7;
+        .typeCol, .titleCol, .domainCol, .sourceCol {
           display: flex;
           align-items: center;
+          margin-left: 2px;
+          margin-right: 2px;
         }
-        .typeCol, .canonicalCol, .sourceCol {
+        .typeCol, .domainCol, .sourceCol {
           justify-content: center;
         }
-
         .typeCol {
           width: 10%;
-          background-color: blue;
+          i {
+            font-size: 17px;
+            color: purple;
+          }
         }
         .titleCol {
           width: 54%;
+          border-left: 1px solid #e7e7e7;
+          border-right: 1px solid #e7e7e7;
           span {
             margin-left: 10px;
           }
-          background-color: green;
         }
-        .canonicalCol {
+        .domainCol {
+          border-right: 1px solid #e7e7e7;
           width: 18%;
-          background-color: pink;
         }
         .sourceCol {
           width: 18%;
-          background-color: aquamarine;
         }
+      }
+      .rowHeader {
+        background-color: rgba(0,0,0,0.05);
+        border-top: none;
       }
     }
   }

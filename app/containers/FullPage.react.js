@@ -163,30 +163,46 @@ class FullPage extends Component {
         </div>
     </div>)
 
+    const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) => 
+      <div key={i} className={'row'}>
+        <div className={'typeCol'}>
+          <span className={'noOverflow'}>
+            <i className={'fa fa-user'} />
+          </span>
+        </div>
+        <div className={'titleCol'}>
+          <span className={'noOverflow'}>{edge.entity.title}</span>
+        </div>
+        <div className={'domainCol'}>
+          <span className={'noOverflow'}>{edge.entity.domain}</span>
+        </div>
+        <div className={'sourceCol'}>
+          <span className={'noOverflow'}>@{edge.edges[0].user.username}</span>
+        </div>
+      </div>) : null;
+
     const resultsGrid = (
       <div className={'resultsGrid'}>
-        <div className={'row'}>
+        <div className={'row rowHeader'}>
           <div className={'typeCol'}>
-            <span>typeCol</span>
+            <span>Type</span>
           </div>
           <div className={'titleCol'}>
-            <span>titleCol</span>
+            <span>Title</span>
           </div>
-          <div className={'canonicalCol'}>
-            <span>canonicalCol</span>
+          <div className={'domainCol'}>
+            <span>Domain</span>
           </div>
           <div className={'sourceCol'}>
-            <span>sourceCol</span>
+            <span>Source</span>
           </div>
         </div>
+        {superEdgeRows} 
       </div>)
 
     return (
       <div id='fullPage'>
         {headerJSX}
-        <a onClick={this.onCollapseFooter}>
-          <i className={'fa fa-forward'} />
-        </a>
         <div className={'pageContents'}>
           {pageTitleSection}
           {resultsGrid}
