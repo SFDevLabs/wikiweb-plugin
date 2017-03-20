@@ -13,14 +13,13 @@ export const requestProfile = url => ({
   url,
 });
 
-export const receiveProfile = user => ({
+export const receiveProfile = profile => ({
   type: RECEIVE_PROFILE,
-  user,
+  profile,
 });
 
-export const receiveNotAuth = user => ({
+export const receiveNotAuth = () => ({
   type: RECEIVE_NOT_AUTH,
-  user,
 });
 
 export const fetchProfile = () => (dispatch) => {

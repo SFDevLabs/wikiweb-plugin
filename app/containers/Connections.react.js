@@ -14,6 +14,9 @@ const mapStateToProps = (state) => {
     user: {
       isLoggedIn,
     },
+    user: {
+      profile,
+    },
     edge,
     connectEntity,
     currentPage: {
