@@ -17,13 +17,13 @@ function createIframe(){
   iframe.style.left = 0;
   iframe.style.bottom = 0;
   iframe.style.border = 'none';
-  iframe.style.height = '46px'; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
+  iframe.style.height = '100%'; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
   iframe.style.zIndex = '2147483647';
   iframe.style.display = 'block';
   iframe.style.opacity = '1';
   iframe.style.margin = '0px';
   iframe.style.visibility = 'visible';
-  iframe.style.backgroundColor = 'red';
+  iframe.style.backgroundColor = 'beige';
   document.body.append(iframe);
   return iframe;
 }
@@ -114,7 +114,7 @@ chrome.runtime.onMessage.addListener(
   (sender) => {
     const { wikiwebFooterActive } = sender;
     if (wikiwebFooterActive && iframe !== undefined) {
-      iframe.style.height = '400px';
+      iframe.style.height = '100%';
     } else if ( iframe !== undefined ) {
       iframe.style.height = '46px';
     }

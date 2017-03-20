@@ -29,7 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div id='wikiwebApp' style={{ height: '100%' }}>
         <FullPage />
         <Connections />
       </div>

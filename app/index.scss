@@ -1,25 +1,48 @@
 @import './scss/font-awesome';
 
-#wikiwebRoot {
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: 0;
-	padding: 0;
-	height: 45px;
-	width: 100%;
-  background-color: rgba(255, 255, 255, 1);
-	box-shadow: 0 0 1px rgba(0, 0, 0, .44);
-  z-index: 2147483647; /* max z-index */
+html, body, #wikiwebRoot, #wikiwebApp {
+  height: 100%;
+  width: 100%;
 }
 
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for entire application */
+
+#wikiwebRoot { /* blank */ }
+
+#wikiwebApp { /* blank */ }
+
+
+
+/**************************/
+/** WIKIWEB FULL PAGE  ***/
+/************************/
+
+
+/*****************************/
+/** END WIKIWEB FULL PAGE  **/
+/***************************/
+
+#fullPage {
+  height: calc(100% - 45px);
+  background-color: green;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 
 /********************/
 /** WIKIWEB FOOTER **/
 /********************/
 
 .wikiwebFooter {
+  position: fixed; 
+  bottom: 0;
 	z-index: 2147483647; /* max z-index */
   height: 45px;
   width: 100%;
