@@ -21,7 +21,7 @@ export const requestSearch = (url, tabId) => ({
   tabId,
 });
 
-const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL) => ({
+const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL, links) => ({
   type: RECEIVE_CURRENT_PAGE,
   id,
   entityCount,
@@ -32,6 +32,7 @@ const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canon
   heartValue,
   heartCount,
   isURL,
+  links,
 });
 
 /* This demands a more efficent API.
@@ -50,7 +51,7 @@ export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
           text: 'Error in Response'
         }]));
       } else {
-        const { entityCount, title, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
+        const { entityCount, title, links, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
         const isURL = true;
         analytics('pageConnectionDisplayed', String(entityCount));
         dispatch(receiveCurrentPage(
@@ -62,7 +63,8 @@ export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
           canonicalLink,
           value,
           count,
-          isURL
+          isURL,
+          links,
         ));
         if (cb) { cb() }; // Hack for ending edge when we refresh the page
       }

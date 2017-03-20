@@ -20,6 +20,7 @@ const currentPage = (state = {
   tabId: 0,
   heartCount: 0,
   heartValue: false,
+  links: [],
 }, action) => {
   switch (action.type) {
     case REQUEST_SEARCH: {
@@ -42,6 +43,7 @@ const currentPage = (state = {
         canonicalLink,
         heartCount,
         heartValue,
+        links,
       } = action;
       return {
         ...state,
@@ -53,6 +55,7 @@ const currentPage = (state = {
         canonicalLink,
         heartCount,
         heartValue,
+        links,
         isFetching: false,
       };
     }

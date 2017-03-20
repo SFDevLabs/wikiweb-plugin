@@ -274,8 +274,8 @@ class Connections extends Component {
         {changeRecommendationBox}
       </div>) : null;
 
-    const linksJSX = links && links.length > 0 ? links.map((edge, i) => <div>
-      {edge.pageTo.title}
+    const linksJSX = links && links.length > 0 ? links.map((link, i) => <div>
+      {link.href}
     </div>) : null;
 
     const noRecommendationBox =
