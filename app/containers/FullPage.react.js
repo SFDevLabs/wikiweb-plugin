@@ -5,7 +5,6 @@ import Message from '../components/Message.react';
 import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
 import analytics from '../analytics';
-
 import config from '../config';
 const { rootURL } = config;
 
@@ -13,6 +12,7 @@ const mapStateToProps = (state) => {
   const {
     user: {
       isLoggedIn,
+      profile,
     },
     edge,
     connectEntity,
@@ -38,6 +38,7 @@ const mapStateToProps = (state) => {
   return {
     isFetching,
     isLoggedIn,
+    profile,
     edge,
     id,
     connectEntityId,
@@ -64,6 +65,7 @@ class FullPage extends Component {
     id: PropTypes.string,
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    profile: PropTypes.object,
     isFetchingEdge: PropTypes.bool.isRequired,
     heartValue: PropTypes.bool.isRequired,
     messagesConnect: PropTypes.array.isRequired,
@@ -95,6 +97,7 @@ class FullPage extends Component {
     const {
       isFetching,
       isLoggedIn,
+      profile,
       superEdges,
       entityCount,
       isFetchingEdge,
@@ -102,6 +105,8 @@ class FullPage extends Component {
       heartValue,
       heartCount,
       links,
+      title,
+      queryLink,
     } = this.props;
 
     const {
@@ -112,14 +117,85 @@ class FullPage extends Component {
       isLoginRedirectToggledOn,
     } = this.state;
 
-    console.log(this.props, 'props from FullPage')
-    console.log(this.state, 'state from FullPage')
+    console.log(this.props, 'props from fullpage')
 
-    return (
-      <div id='fullPage' >
-        Yo, Im the full page!
+    const profileBox = (<a 
+        type="button" 
+        href={`${rootURL}/@${profile.username}`}
+        onClick={() => { analytics('profileImgClick'); }}
+      >
+        <img src={profile.profile_image} style={{ marginTop: 8, height: '32px', borderRadius: '3px' }} />
+      </a>)
+
+    const loginButton = (
+      <div className={'btn btn-default navbar-btn'}>
+        <span><a
+          target="_blank"
+          onClick={() => {
+            this.onLoginRedirect()
+            analytics('loginClicked');
+          }}
+          href={`${rootURL}/login`}
+        >
+          Log in</a></span>
+      </div>)
+
+    const headerJSX = (
+      <div className={'header'}>
+        <div className={'fontLogo'}>
+          <a href="https://wikiweb.org">WikiWeb</a>
+        </div>
+        <div className={'loginProfileBox'}>
+          {isLoggedIn && profile ? profileBox : loginButton}
+        </div>
       </div>
     )
+
+    const pageTitleSection = (
+      <div className={'pageTitleSection'}>
+        <div className={'titleImgBox'}>
+          <img src={'img/document.ico'} style={{ height: 50 }} />
+        </div>
+        <div className={'content'}>
+          <div className={'pageTitle noOverflow'}>{title}</div>
+          <div className={'queryLink noOverflow'}>{queryLink}</div>
+        </div>
+    </div>)
+
+    const resultsGrid = (
+      <div className={'resultsGrid'}>
+        <div className={'row'}>
+          <div className={'typeCol'}>
+            <span>typeCol</span>
+          </div>
+          <div className={'titleCol'}>
+            <span>titleCol</span>
+          </div>
+          <div className={'canonicalCol'}>
+            <span>canonicalCol</span>
+          </div>
+          <div className={'sourceCol'}>
+            <span>sourceCol</span>
+          </div>
+        </div>
+      </div>)
+
+    return (
+      <div id='fullPage'>
+        {headerJSX}
+        <div className={'pageContents'}>
+          {pageTitleSection}
+          {resultsGrid}
+        </div>
+      </div>
+    )
+
+    onLoginRedirect = () => {
+      const { isLoginRedirectToggledOn } = this.state;
+      this.setState({
+        isLoginRedirectToggledOn: !isLoginRedirectToggledOn,
+      });
+    }
       
   }
 }

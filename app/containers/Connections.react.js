@@ -320,7 +320,7 @@ class Connections extends Component {
         </div>
         :null}
         <div className={'centerBox'}>
-          <div id="leftCol">
+          <div id="leftFooterCol">
             <div className={'addMetaBox'}>
               <div style={{ visibility:'hidden' }} className={'heartSubmit'}>
                 <i
@@ -340,7 +340,7 @@ class Connections extends Component {
             {verticalDivider}
           </div>
 
-          <div id="middleCol">
+          <div id="middleFooterCol">
             {linksJSX}
             {recommendationBox}
             {noRecommendationBox}
@@ -348,7 +348,7 @@ class Connections extends Component {
             {inputBox}
           </div>
 
-          <div id="rightCol">
+          <div id="rightFooterCol">
             {verticalDivider}
             {recommenderInfo}
             {addRecommendationButton}
