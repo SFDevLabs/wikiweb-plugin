@@ -60,6 +60,7 @@ class FullPage extends Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    fullPageToggle: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
     entityCount: PropTypes.number.isRequired,
     id: PropTypes.string,
@@ -183,6 +184,9 @@ class FullPage extends Component {
     return (
       <div id='fullPage'>
         {headerJSX}
+        <a onClick={this.onCollapseFooter}>
+          <i className={'fa fa-forward'} />
+        </a>
         <div className={'pageContents'}>
           {pageTitleSection}
           {resultsGrid}
@@ -190,15 +194,12 @@ class FullPage extends Component {
       </div>
     )
 
-    onLoginRedirect = () => {
-      const { isLoginRedirectToggledOn } = this.state;
-      this.setState({
-        isLoginRedirectToggledOn: !isLoginRedirectToggledOn,
-      });
-    }
-      
+  } /* end of render */
+
+  onCollapseFooter = () => {
+    this.props.fullPageToggle()
+    analytics('toolbarExpanded');
   }
 }
 
 export default connect(mapStateToProps)(FullPage);
-
