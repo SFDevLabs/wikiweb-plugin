@@ -146,16 +146,13 @@ class FullPage extends Component {
         <div className={'fontLogo'}>
           <a href="https://wikiweb.org">WikiWeb</a>
         </div>
-        <div className={'loginProfileBox'}>
-          {isLoggedIn && profile ? profileBox : loginButton}
-        </div>
       </div>
     )
 
     const pageTitleSection = (
       <div className={'pageTitleSection'}>
         <div className={'titleImgBox'}>
-          <img src={'img/document.ico'} style={{ height: 50 }} />
+          <img src={'img/document.ico'} />
         </div>
         <div className={'content'}>
           <div className={'pageTitle noOverflow'}>{title}</div>

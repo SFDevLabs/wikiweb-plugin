@@ -45,11 +45,6 @@ body {
         color: rgba(128, 0, 128, 1) !important;
       }
     }
-    .loginProfileBox {
-      justify-content: flex-end;
-      width: 100px;
-      background-color: red;
-    }
   }
   .pageContents {
     margin: auto;
@@ -61,6 +56,9 @@ body {
       flex-direction: row;
       .titleImgBox {
         padding-top: 2px;
+        img {
+          height: 50px;
+        }
       }
       .content {
         margin-left: 10px;
@@ -115,7 +113,7 @@ body {
           border-left: 1px solid #e7e7e7;
           border-right: 1px solid #e7e7e7;
           span {
-            margin-left: 10px;
+            margin-left: 12px;
           }
         }
         .domainCol {
@@ -129,6 +127,7 @@ body {
       .rowHeader {
         background-color: rgba(0,0,0,0.05);
         border-top: none;
+        font-weight: 700;
       }
     }
   }
