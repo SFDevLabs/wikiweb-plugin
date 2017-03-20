@@ -60,6 +60,7 @@ class Connections extends Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    fullPageToggle: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
     entityCount: PropTypes.number.isRequired,
     id: PropTypes.string,
@@ -391,7 +392,7 @@ class Connections extends Component {
 
   onExpandFooter = () => {
     analytics('toolbarExpanded');
-    chrome.storage.local.set({ wikiwebExpanded: true });
+    this.props.fullPageToggle();
   }
 
   onLoginRedirect = () => {

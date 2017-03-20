@@ -19,7 +19,7 @@ function createIframe(wikiwebExpanded){
   iframe.style.left = 0;
   iframe.style.bottom = 0;
   iframe.style.border = 'none';
-  iframe.style.height = wikiwebExpanded? expandedHeight : defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
+  iframe.style.height = wikiwebExpanded ? expandedHeight : defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
   iframe.style.zIndex = '2147483647';
   iframe.style.display = 'block';
   iframe.style.opacity = '1';

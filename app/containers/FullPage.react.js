@@ -59,6 +59,7 @@ class FullPage extends Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    fullPageToggle: PropTypes.func.isRequired,
     superEdges: PropTypes.array.isRequired,
     entityCount: PropTypes.number.isRequired,
     id: PropTypes.string,
@@ -122,13 +123,12 @@ class FullPage extends Component {
           <i className={'fa fa-forward'} />
         </a>
       </div>
-    )
-
+    );
   }
 
   onCollapseFooter = () => {
+    this.props.fullPageToggle()
     analytics('toolbarExpanded');
-    chrome.storage.local.set({ wikiwebExpanded: false });
   }
 }
 

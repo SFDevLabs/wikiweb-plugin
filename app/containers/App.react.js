@@ -8,12 +8,29 @@ import { fetchProfile } from '../actions/user';
 
 class App extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      wikiwebExpanded: true
+    };
+  }
+
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
+    const that = this;
     const { dispatch } = this.props;
+
+
+    chrome.storage.local.get(['wikiwebExpanded'], function (res) {
+      const { wikiwebExpanded } = res;
+      that.setState({
+        wikiwebExpanded
+      })
+    });
+
 
     chrome.tabs.query(
       { active: true, currentWindow: true },
@@ -28,12 +45,24 @@ class App extends Component {
   }
 
   render() {
+    const { wikiwebExpanded } = this.state;
     return (
       <div id='wikiwebApp' >
-        <FullPage />
-        <Connections />
+        {wikiwebExpanded ?
+          <FullPage fullPageToggle={this.fullPageToggle} /> :
+          null
+        }
+        <Connections fullPageToggle={this.fullPageToggle} />
       </div>
     );
+  }
+
+  fullPageToggle = () => {
+    const { wikiwebExpanded } = this.state;
+    chrome.storage.local.set({ wikiwebExpanded: !wikiwebExpanded });
+    this.setState({
+      wikiwebExpanded: !wikiwebExpanded,
+    });
   }
 }
 
