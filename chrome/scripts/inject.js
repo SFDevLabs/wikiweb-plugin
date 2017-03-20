@@ -83,26 +83,26 @@ function destroyApp() {
  */
 chrome.runtime.onMessage.addListener(
   (sender) => {
-    // const { wikiwebFooterActive } = sender;
-    // if (!wikiwebFooterActive) {
-    //   destroyApp();
-    //   removeNotification();
-    //   notification = createNotification(
-    //     'WikiWeb turned OFF'
-    //   );
-    //   setTimeout(function() {
-    //     removeNotification();
-    //   }, TIMEOUT_NOTIFICATION);
-    // } else {
-    //   removeNotification();
-    //   notification = createNotification(
-    //     'WikiWeb turned ON'
-    //   );
-    //   setTimeout(function() {
-    //     removeNotification()
-    //   }, TIMEOUT_NOTIFICATION);
-    //   initApp();
-    // }
+    const { wikiwebFooterActive } = sender;
+    if (!wikiwebFooterActive) {
+      destroyApp();
+      removeNotification();
+      notification = createNotification(
+        'WikiWeb turned OFF'
+      );
+      setTimeout(function() {
+        removeNotification();
+      }, TIMEOUT_NOTIFICATION);
+    } else {
+      removeNotification();
+      notification = createNotification(
+        'WikiWeb turned ON'
+      );
+      setTimeout(function() {
+        removeNotification()
+      }, TIMEOUT_NOTIFICATION);
+      initApp();
+    }
   }
 );
 
@@ -110,16 +110,16 @@ chrome.runtime.onMessage.addListener(
 /**
  * Add listener to remove and create the iframe.
  */
-chrome.runtime.onMessage.addListener(
-  (sender) => {
-    const { wikiwebFooterActive } = sender;
-    if (wikiwebFooterActive && iframe !== undefined) {
-      iframe.style.height = '100%';
-    } else if ( iframe !== undefined ) {
-      iframe.style.height = '46px';
-    }
-  }
-);
+// chrome.runtime.onMessage.addListener(
+//   (sender) => {
+//     const { wikiwebFooterActive } = sender;
+//     if (wikiwebFooterActive && iframe !== undefined) {
+//       iframe.style.height = '100%';
+//     } else if ( iframe !== undefined ) {
+//       iframe.style.height = '46px';
+//     }
+//   }
+// );
 
 /**
  * getLocallyStoreActiveFooter State
@@ -137,19 +137,18 @@ function getLocallyStoreActiveFooter (cb) {
 }
 
 /** Set the inital extension button state **/
-// getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
-//   if (wikiwebFooterActive){
-//     initApp();
-//   } else if ( wikiwebFooterActive === undefined ){ // App loadd for first time
-//     initApp();
-//     chrome.storage.local.set({ wikiwebFooterActive: true });
-//     notification = createNotification(
-//       'WikiWeb turned ON'
-//     );
-//     setTimeout(function() {
-//       removeNotification()
-//     }, TIMEOUT_NOTIFICATION);
-//   }
-// });
+getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
+  if (wikiwebFooterActive){
+    initApp();
+  } else if ( wikiwebFooterActive === undefined ){ // App loadd for first time
+    initApp();
+    chrome.storage.local.set({ wikiwebFooterActive: true });
+    notification = createNotification(
+      'WikiWeb turned ON'
+    );
+    setTimeout(function() {
+      removeNotification()
+    }, TIMEOUT_NOTIFICATION);
+  }
+});
 /** Kick Off the App on Page Load **/
-initApp();
