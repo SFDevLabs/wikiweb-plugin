@@ -2,6 +2,8 @@
 let iframe; // Store on the script level
 let spacer; // Store on the script level
 let notification; // Store on the script level
+const expandedHeight = '100%';
+const defaultHeight = '46px';
 const TIMEOUT_NOTIFICATION = 3000;
 
 /**
@@ -17,7 +19,7 @@ function createIframe(wikiwebExpanded){
   iframe.style.left = 0;
   iframe.style.bottom = 0;
   iframe.style.border = 'none';
-  iframe.style.height = wikiwebExpanded? '100%' : '46px'; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
+  iframe.style.height = wikiwebExpanded? expandedHeight : defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
   iframe.style.zIndex = '2147483647';
   iframe.style.display = 'block';
   iframe.style.opacity = '1';
@@ -34,7 +36,7 @@ function createIframe(wikiwebExpanded){
  */
 function createFooterSpacer(){
   let paddingFooterDiv = document.createElement('div');
-  paddingFooterDiv.style.height = '45px';
+  paddingFooterDiv.style.height = defaultHeight;
   document.body.append(paddingFooterDiv);
   return paddingFooterDiv;
 }
@@ -114,9 +116,9 @@ function destroyApp() {
   (sender) => {
    const { wikiwebExpanded } = sender;
    if (iframe && wikiwebExpanded && wikiwebExpanded.newValue){
-     iframe.style.height = '100%';
+     iframe.style.height = expandedHeight;
   } else if (iframe && wikiwebExpanded) {
-    iframe.style.height = '46px';
+    iframe.style.height = defaultHeight;
   }
  });
 
