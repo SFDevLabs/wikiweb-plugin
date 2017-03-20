@@ -48,7 +48,6 @@ body {
   }
   .pageContents {
     margin: auto;
-    height: 100%;
     width: 780px;
     .pageTitleSection {
       margin-top: 40px;
@@ -71,7 +70,7 @@ body {
         font-size: 1.6rem;
         line-height: 1.3;
         font-weight: 500;
-      } 
+      }
       .queryLink {
         width: 100%;
         color: #7c7c7c;
@@ -184,7 +183,7 @@ body {
 /********************/
 
 .wikiwebFooter {
-  position: fixed; 
+  position: fixed;
   bottom: 0;
 	z-index: 2147483647; /* max z-index */
   height: 45px;

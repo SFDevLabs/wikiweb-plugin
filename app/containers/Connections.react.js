@@ -357,7 +357,6 @@ class Connections extends Component {
               <i className={'fa fa-times closeButton'} style={{ position: 'absolute', right: 20, bottom: 15 }} />
             </a>
           </div>
-
         </div>
       </div>
     );
@@ -393,6 +392,8 @@ class Connections extends Component {
 
   onLoginRedirect = () => {
     const { isLoginRedirectToggledOn } = this.state;
+    const { fullPageToggle } = this.props;
+    fullPageToggle();
     this.setState({
       isLoginRedirectToggledOn: !isLoginRedirectToggledOn,
     });
