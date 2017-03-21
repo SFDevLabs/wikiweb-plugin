@@ -6,6 +6,9 @@ import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
 import analytics from '../analytics';
 import config from '../config';
+import { fetchCurrentPage } from '../actions/currentPage';
+import ReactSpinner from 'react-spinjs';
+
 const { rootURL } = config;
 
 const mapStateToProps = (state) => {
@@ -82,7 +85,10 @@ class FullPage extends Component {
     rotateConnectionBox: false,
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { id, dispatch} = this.props;
+    dispatch(fetchCurrentPage(id));
+
     window.onkeyup = (e) => {
       if (e.keyCode === 27) {
         this.setState({
@@ -301,8 +307,14 @@ class FullPage extends Component {
       <div id='fullPage'>
         {headerJSX}
         <div className={'pageContents'}>
-          {pageTitleSection}
-          {resultsGrid}
+          {isFetching ?
+            <ReactSpinner color="black"/>:
+            <div>
+              {pageTitleSection}
+              {resultsGrid}
+            </div>
+          }
+
         </div>
       </div>
     )

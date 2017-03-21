@@ -2,14 +2,14 @@ import {
   REQUEST_SEARCH,
   RECEIVE_CURRENT_PAGE,
   RECEIVE_SEARCH_ERROR,
+  REQUEST_CURRENT_PAGE,
 } from '../actions/currentPage';
 
 import {
   RECEIVE_HEART,
 } from '../actions/heart';
 
-
-const currentPage = (state = {
+const defaultVals = {
   id: '',
   isFetching: true, // Initaly set to true to prevent inital app flicker
   entityCount: 0,
@@ -21,16 +21,20 @@ const currentPage = (state = {
   heartCount: 0,
   heartValue: false,
   links: [],
-}, action) => {
+};
+
+const currentPage = (state = defaultVals, action) => {
   switch (action.type) {
     case REQUEST_SEARCH: {
-      const {
-        tabId,
-      } = action;
       return {
         ...state,
+        isFetching: true
+      };
+    }
+    case REQUEST_CURRENT_PAGE: {
+      return {
+        ...defaultVals,
         isFetching: true,
-        tabId,
       };
     }
     case RECEIVE_CURRENT_PAGE: {
