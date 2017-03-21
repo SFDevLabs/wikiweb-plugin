@@ -8,6 +8,7 @@ html, body, #wikiwebRoot, #wikiwebApp {
 body {
   margin: 0;
   padding: 0;
+  background-color: white; /* included because we're getting some funky height issues. This should be removed once those are fixed. */
 }
 
 /* Container for entire application */
@@ -30,7 +31,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #e7e7e7;
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
     background-color: rgb(245, 248, 250);
     .fontLogo {
       justify-content: flex-start;
@@ -76,13 +77,13 @@ body {
         width: 100%;
         color: #7c7c7c;
         font-size: 1.1rem;
-        line-height: 1;
+        line-height: 1.2;
         font-weight: 300;
       }
     }
     .resultsGrid {
       width: 100%;
-      border: 1px solid #e7e7e7;
+      box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
       min-height: 50px;
       margin-top: 40px;
       display: flex;
@@ -189,7 +190,7 @@ body {
 	z-index: 2147483647; /* max z-index */
   height: 45px;
   width: 100%;
-  border-top: 1px solid #e7e7e7;
+  box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: row;
   list-style: none;

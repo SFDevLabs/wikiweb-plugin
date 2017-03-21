@@ -196,7 +196,7 @@ class FullPage extends Component {
           <span>moneymatters.org</span>
         </div>
         <div className={'sourceCol'}>
-          <span>promoted</span>
+          <span>Ad</span>
         </div>
       </div>)
 
