@@ -7,6 +7,7 @@ const { rootURL } = config;
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_CURRENT_PAGE = 'RECEIVE_CURRENT_PAGE';
+export const REQUEST_CURRENT_PAGE = 'REQUEST_CURRENT_PAGE';
 
 export const RECEIVE_SEARCH_ERROR = 'RECEIVE_SEARCH_ERROR';
 
@@ -15,11 +16,14 @@ const receiveSearchError = messages => ({
   messages,
 });
 
-export const requestSearch = (url, tabId) => ({
+export const requestSearch = (url) => ({
   type: REQUEST_SEARCH,
-  url,
-  tabId,
+  url
 });
+export const requestCurrentPage = () => ({
+  type: REQUEST_CURRENT_PAGE
+});
+
 
 const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL, links) => ({
   type: RECEIVE_CURRENT_PAGE,
@@ -40,7 +44,8 @@ const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canon
    @TODO Consolidate functions around a single efficent API Call @jeffj
 */
 
-export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
+export const fetchCurrentPage = (id) => dispatch => {
+  dispatch(requestCurrentPage());
   request
     .get(`${rootURL}/api/node/${id}`)
     .set('Accept', 'application/json')
@@ -66,9 +71,10 @@ export const fetchCurrentPage = (id, tabId, cb) => dispatch =>
           isURL,
           links,
         ));
-        if (cb) { cb() }; // Hack for ending edge when we refresh the page
       }
     });
+}
+
 
 export const fetchSearch = (url, tabId) => (dispatch) => {
   dispatch(requestSearch(url, tabId));
@@ -86,7 +92,7 @@ export const fetchSearch = (url, tabId) => (dispatch) => {
         dispatch(receiveSearchError(messages));
       } else {
         const { _id } = node;
-        dispatch(fetchCurrentPage(_id, tabId));
+        dispatch(fetchCurrentPage(_id));
       }
     });
 };

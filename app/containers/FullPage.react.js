@@ -6,6 +6,9 @@ import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
 import analytics from '../analytics';
 import config from '../config';
+import { fetchCurrentPage } from '../actions/currentPage';
+import ReactSpinner from 'react-spinjs';
+
 const { rootURL } = config;
 
 const mapStateToProps = (state) => {
@@ -82,7 +85,10 @@ class FullPage extends Component {
     rotateConnectionBox: false,
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { id, dispatch} = this.props;
+    dispatch(fetchCurrentPage(id));
+
     window.onkeyup = (e) => {
       if (e.keyCode === 27) {
         this.setState({
@@ -261,12 +267,12 @@ class FullPage extends Component {
         </div>
         <div className={'titleCol'}>
           <span className={'noOverflow title'} title={edge.entity.title}>
-            <a href={edge.entity.canonicalLink}>
+            <a target="_blank" href={edge.entity.canonicalLink}>
               {edge.entity.title ? edge.entity.title : edge.entity.canonicalLink}
             </a>
           </span>
           <span className={'noOverflow favicon'} title={edge.entity.title}>
-            <a href={edge.entity.canonicalLink}>
+            <a target="_blank" href={edge.entity.canonicalLink}>
               <img style={{ marginTop: 3 }} src={edge.entity.faviconCDN ? edge.entity.faviconCDN : '/img/default-favicon.png'} />
             </a>
           </span>
@@ -300,8 +306,14 @@ class FullPage extends Component {
       <div id='fullPage'>
         {headerJSX}
         <div className={'pageContents'}>
-          {pageTitleSection}
-          {resultsGrid}
+          {isFetching ?
+            <ReactSpinner color="black"/>:
+            <div>
+              {pageTitleSection}
+              {resultsGrid}
+            </div>
+          }
+
         </div>
       </div>
     )
