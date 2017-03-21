@@ -262,12 +262,12 @@ class FullPage extends Component {
         </div>
         <div className={'titleCol'}>
           <span className={'noOverflow title'} title={edge.entity.title}>
-            <a href={edge.entity.canonicalLink}>
+            <a target="_blank" href={edge.entity.canonicalLink}>
               {edge.entity.title ? edge.entity.title : edge.entity.canonicalLink}
             </a>
           </span>
           <span className={'noOverflow favicon'} title={edge.entity.title}>
-            <a href={edge.entity.canonicalLink}>
+            <a target="_blank" href={edge.entity.canonicalLink}>
               <img style={{ marginTop: 3 }} src={edge.entity.faviconCDN ? edge.entity.faviconCDN : '/img/default-favicon.png'} />
             </a>
           </span>
