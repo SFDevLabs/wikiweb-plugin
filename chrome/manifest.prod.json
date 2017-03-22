@@ -27,5 +27,5 @@
     }
   ],
   "permissions": [ "contextMenus", "management", "tabs", "storage",  "https://wikiweb.org/*", "http://*/*", "https://*/*" ],
-  "content_security_policy": "default-src data 'self'; object-src 'self' blob: filesystem:; script-src 'self' blob: filesystem: chrome-extension-resource: https://www.google-analytics.com 'unsafe-eval'; connect-src 'self' http://www.google-analytics.com https://wikiweb.org/; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://ssl.google-analytics.com http://galacticapp.s3.amazonaws.com https://galacticapp.s3.amazonaws.com data:"
+  "content_security_policy": "default-src data 'self'; object-src 'self' blob: filesystem:; script-src 'self' blob: filesystem: chrome-extension-resource: https://www.google-analytics.com 'unsafe-eval'; connect-src 'self' http://www.google-analytics.com https://wikiweb.org/; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' https://ssl.google-analytics.com http://wikiweb1.s3.amazonaws.com https://wikiweb1.s3.amazonaws.com data:"
 }
