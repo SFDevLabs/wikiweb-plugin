@@ -3,7 +3,7 @@ import { version } from '../chrome/manifest.prod.json';
 const env = process.env.NODE_ENV || 'development';
 const config = {
   development: {
-    rootURL: 'http://localhost:3000',
+    rootURL: 'https://localhost',
     gaTrackingCode: 'UA-90661699-1',
   },
   production: {
