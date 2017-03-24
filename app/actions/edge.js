@@ -27,7 +27,7 @@ const recievePostEdge = () => ({
 
 
 // This demands a more efficent API.  For for cimplicty we are usign what we have.
-export const fetchPostEdge = (fromId, toId, description, tags, tabId) => (dispatch) => {
+export const fetchPostEdge = (fromId, toId, description, tags) => (dispatch) => {
   dispatch(requestPostEdge());
   return request
     .post(`${rootURL}/api/connect`)
@@ -41,7 +41,6 @@ export const fetchPostEdge = (fromId, toId, description, tags, tabId) => (dispat
 
       dispatch(fetchCurrentPage(
         fromId,
-        tabId,
         () => { dispatch(recievePostEdge()); }));  // Re request edges for the page
     });
 };
