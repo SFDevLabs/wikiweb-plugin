@@ -272,7 +272,7 @@ class Connections extends Component {
         <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div className={'noRecommendations'}>
             <span>
-              There are no recommendations for this page
+              There are no user recommendations for this page
             </span>
           </div>
         </div>
