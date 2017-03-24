@@ -25,6 +25,8 @@ function createIframe(wikiwebExpanded){
   iframe.style.opacity = '1';
   iframe.style.margin = '0px';
   iframe.style.visibility = 'visible';
+  iframe.style.top = 'initial';
+  iframe.style.right = 'initial';
   document.body.append(iframe);
   return iframe;
 }
