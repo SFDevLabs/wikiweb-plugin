@@ -265,7 +265,6 @@ class Connections extends Component {
 
     const noRecommendationBox =
       entityCount === 0 &&
-      !heartClickAttempted &&
       !isFetching &&
       !isFetchingEdge ?
       (
