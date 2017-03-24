@@ -146,7 +146,9 @@ chrome.runtime.onMessage.addListener(
     const wikiwebExpanded = request.wikiwebExpanded;
     if (iframe && wikiwebExpanded){
       iframe.style.height = expandedHeight;
+      document.body.style.overflow = 'hidden';
    } else if (iframe && !wikiwebExpanded) {
      iframe.style.height = defaultHeight;
+     document.body.style.overflow = '';
    }
 });
