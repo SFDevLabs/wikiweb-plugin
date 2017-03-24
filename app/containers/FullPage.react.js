@@ -185,49 +185,6 @@ class FullPage extends Component {
         </div>
       </div>)
 
-    // const examplePromotedConnection = (
-    //   <div className={'row promotedRow'}>
-    //     <div className={'typeCol'}>
-    //       <span className={'promoted'}>
-    //         <i className={'fa fa-certificate'} title={`Example promoted link`}/>
-    //       </span>
-    //     </div>
-    //     <div className={'titleCol'}>
-    //       <span className={'noOverflow title'}>Wealth, health and fitness. 3 days to success!</span>
-    //       <span className={'noOverflow favicon'} title={'link to page'}>
-    //         <img src={'/img/default-favicon.png'} />
-    //       </span>
-    //     </div>
-    //     <div className={'domainCol'}>
-    //       <span>moneymatters.org</span>
-    //     </div>
-    //     <div className={'sourceCol'}>
-    //       <span>promoted</span>
-    //     </div>
-    //   </div>)
-
-    // const examplePageLink = (
-    //   <div className={'row'}>
-    //     <div className={'typeCol'}>
-    //       <span className={'pageLink'}>
-    //         <i className={'fa fa-code'} title={`Example promoted link`}/>
-    //       </span>
-    //     </div>
-    //     <div className={'titleCol'}>
-    //       <span className={'noOverflow title'}>Pivotal’s Cloud-Native platform drives software innovation for many of the world’s most admired brands. With millions of developers in communities around the world, Pivotal technology touches billions of users every day. After shaping the software development culture of Silicon Valleys most valuable companies for over a decade, today Pivotal leads a global technology movement transforming how the world builds software.</span>
-    //       <span className={'noOverflow favicon'} title={'link to page'}>
-    //         <img src={'/img/default-favicon.png'} />
-    //       </span>
-    //     </div>
-    //     <div className={'domainCol'}>
-    //       <span>pivotal.io</span>
-    //     </div>
-    //     <div className={'sourceCol'}>
-    //       <span>@jeffj</span>
-    //     </div>
-    //   </div>)
-
-
     let pageLinksJSX = links && links.length > 0 ?
       links.map((link, i) => {
         const pageTo = link.pageTo;
@@ -242,14 +199,16 @@ class FullPage extends Component {
           <div className={'titleCol'}>
             <a target="_blank" href={canonicalLink} className={'noOverflow title'}>{title}</a>
             <span className={'noOverflow favicon'} title={'link to page'}>
-              <img src={faviconCDN} />
+              <a target="_blank" href={canonicalLink}>
+                <img src={faviconCDN} />
+              </a>
             </span>
           </div>
           <div className={'domainCol'}>
             <span>{domain}</span>
           </div>
           <div className={'sourceCol'}>
-            <span>Link</span>
+            <span>Page</span>
           </div>
         </div>
       }
@@ -300,7 +259,6 @@ class FullPage extends Component {
     const resultsGrid = (
       <div className={'resultsGrid'}>
         {gridHeaders}
-        {/*examplePromotedConnection*/}
         {superEdgeRows}
         {pageLinksJSX}
       </div>)

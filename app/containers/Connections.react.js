@@ -289,8 +289,6 @@ class Connections extends Component {
 
     const verticalDivider = <div className={'verticalDivider'} style={{ margin: '0px 15px' }} ><div /></div>
 
-    console.log(this.props, 'props')
-
     const expandIconClass = superEdges && superEdges.length > 1 ? 
       'fa fa-forward expandButtonMultipleUserConnections' : 
       'fa fa-forward expandButtonNoUserConnections';
