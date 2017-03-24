@@ -10,7 +10,7 @@ const TIMEOUT_NOTIFICATION = 3000;
  * createIframe
  * @return {object} iframe DOM Element
  */
-function createIframe(wikiwebExpanded){
+function createIframe(){
   let iframe = document.createElement('iframe');
   iframe.id="wwinject"
   iframe.src='chrome-extension://'+chrome.runtime.id+'/main.html';
@@ -19,7 +19,7 @@ function createIframe(wikiwebExpanded){
   iframe.style.left = 0;
   iframe.style.bottom = 0;
   iframe.style.border = 'none';
-  iframe.style.height = wikiwebExpanded ? expandedHeight : defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
+  iframe.style.height = defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
   iframe.style.zIndex = '2147483647';
   iframe.style.display = 'block';
   iframe.style.opacity = '1';
@@ -63,8 +63,8 @@ function removeNotification() {
 /**
  * initApp
  */
-function initApp(wikiwebExpanded) {
-  iframe = createIframe(wikiwebExpanded);
+function initApp() {
+  iframe = createIframe();
   spacer = createFooterSpacer();
 }
 
@@ -124,9 +124,9 @@ function getLocalStore (cb) {
 }
 
 /** Set the inital extension button state **/
-getLocalStore(function(err, wikiwebFooterActive, wikiwebExpanded) {
+getLocalStore(function(err, wikiwebFooterActive) {
   if (wikiwebFooterActive){
-    initApp(wikiwebExpanded);
+    initApp();
   } else if ( wikiwebFooterActive === undefined ){ // App loadd for first time
     initApp();
     chrome.storage.local.set({ wikiwebFooterActive: true });
