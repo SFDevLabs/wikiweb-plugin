@@ -271,7 +271,7 @@ class Connections extends Component {
         <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div className={'noRecommendations'}>
             <span>
-              There are no recommendations for this page
+              There are no user recommendations for this page
             </span>
           </div>
         </div>
@@ -288,6 +288,18 @@ class Connections extends Component {
 
     const verticalDivider = <div className={'verticalDivider'} style={{ margin: '0px 15px' }} ><div /></div>
 
+    console.log(this.props, 'props')
+
+    const expandIconClass = superEdges && superEdges.length > 1 ? 
+      'fa fa-forward expandButtonMultipleUserConnections' : 
+      'fa fa-forward expandButtonNoUserConnections';
+    const expandBox = (
+      <div className={'expandFooterBox'}>
+        <a onClick={this.onExpandFooter}>
+          <i className={expandIconClass} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
+        </a>
+      </div>)
+
     return (
       <div id='wikiwebFooter' className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'logoBox'}>
@@ -295,11 +307,7 @@ class Connections extends Component {
             <img src="img/logo.png" style={{ height: 30, width: 30, marginTop: 8 }} />
           </a>
         </div>
-        <div className={'expandFooterBox'}>
-          <a onClick={this.onExpandFooter}>
-            <i className={'fa fa-forward closeButton'} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
-          </a>
-        </div>
+        {expandBox}
 
       {isLoginRedirectToggledOn?
         <div className="loginRefreshPromp" >
