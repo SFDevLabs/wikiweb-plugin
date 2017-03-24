@@ -42,7 +42,7 @@ getLocallyStoreActiveFooter(function(err, wikiwebFooterActive) {
 });
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  const wikiwebFooterActive = changes.wikiwebFooterActive.newValue;
+  const wikiwebFooterActive = changes.wikiwebFooterActive? changes.wikiwebFooterActive.newValue : undefined;
   if (wikiwebFooterActive !== undefined) {
     setExtensionButon(wikiwebFooterActive);
     chrome.tabs.query({}, function (tabs) {
@@ -56,20 +56,18 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
   }
 });
 
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-  const wikiwebFooterActive = changes.wikiwebFooterActive.newValue;
-  if (wikiwebFooterActive !== undefined) {
-    setExtensionButon(wikiwebFooterActive);
-    chrome.tabs.query({}, function (tabs) {
-      tabs.map(function (tab) {
-        chrome.tabs.sendMessage(
-          tab.id,
-          { wikiwebFooterActive }
-        );
-      });
-    });
-  }
-});
+// chrome.storage.onChanged.addListener(function(changes, namespace) {
+//   const wikiwebExpanded = changes.wikiwebExpanded? changes.wikiwebExpanded.newValue : undefined;
+//   if (wikiwebExpanded !== undefined) {
+//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//       const tab = tabs[0]
+//       if (tab) {
+//         chrome.tabs.sendMessage(tab.id, {wikiwebExpanded: wikiwebExpanded});
+//       }
+//     });
+//   }
+// });
+
 
 
 /** Add a listener for the extensions on click event **/

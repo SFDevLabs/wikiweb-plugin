@@ -11,7 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      wikiwebExpanded: true
+      wikiwebExpanded: false
     };
   }
 
@@ -22,15 +22,6 @@ class App extends Component {
   componentDidMount() {
     const that = this;
     const { dispatch } = this.props;
-
-
-    chrome.storage.local.get(['wikiwebExpanded'], function (res) {
-      const wikiwebExpanded = res !==null ? res.wikiwebExpanded : false;
-      that.setState({
-        wikiwebExpanded
-      })
-    });
-
 
     chrome.tabs.query(
       { active: true, currentWindow: true },
@@ -59,7 +50,12 @@ class App extends Component {
 
   fullPageToggle = () => {
     const { wikiwebExpanded } = this.state;
-    chrome.storage.local.set({ wikiwebExpanded: !wikiwebExpanded });
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      const tab = tabs[0];
+      if (tab) {
+        chrome.tabs.sendMessage(tab.id, {wikiwebExpanded: !wikiwebExpanded});
+      }
+    });
     this.setState({
       wikiwebExpanded: !wikiwebExpanded,
     });

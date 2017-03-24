@@ -107,20 +107,6 @@ function destroyApp() {
   }
 );
 
-
-/**
- * Add listener to remove and create the iframe.
- */
- chrome.storage.onChanged.addListener(
-  (sender) => {
-   const { wikiwebExpanded } = sender;
-   if (iframe && wikiwebExpanded && wikiwebExpanded.newValue){
-     iframe.style.height = expandedHeight;
-  } else if (iframe && wikiwebExpanded) {
-    iframe.style.height = defaultHeight;
-  }
- });
-
 /**
  * getLocalStore State
  * @param  {Function} cb
@@ -153,3 +139,14 @@ getLocalStore(function(err, wikiwebFooterActive, wikiwebExpanded) {
   }
 });
 /** Kick Off the App on Page Load **/
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender) {
+    console.log(request, sender);
+    const wikiwebExpanded = request.wikiwebExpanded;
+    if (iframe && wikiwebExpanded){
+      iframe.style.height = expandedHeight;
+   } else if (iframe && !wikiwebExpanded) {
+     iframe.style.height = defaultHeight;
+   }
+});
