@@ -124,7 +124,7 @@ class FullPage extends Component {
       isLoginRedirectToggledOn,
     } = this.state;
 
-    // console.log(this.props, 'props from fullpage')
+    console.log(this.props, 'props from fullpage')
 
     const profileBox = (<a
         type="button"
@@ -227,6 +227,7 @@ class FullPage extends Component {
     //     </div>
     //   </div>)
 
+
     let pageLinksJSX = links && links.length > 0 ?
       links.map((link, i) => {
         const pageTo = link.pageTo;
@@ -254,7 +255,9 @@ class FullPage extends Component {
       }
 
     ) :
-    [];
+    [<div>
+      <p>There are no connection on this page.</p>
+    </div>];
 
     pageLinksJSX = pageLinksJSX.slice(0, 10);
 
