@@ -9,6 +9,9 @@ export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_CURRENT_PAGE = 'RECEIVE_CURRENT_PAGE';
 export const REQUEST_CURRENT_PAGE = 'REQUEST_CURRENT_PAGE';
 
+export const REQUEST_CURRENT_PAGE_LINKS = 'REQUEST_CURRENT_PAGE_LINKS';
+export const RECEIVE_CURRENT_PAGE_LINKS = 'RECEIVE_CURRENT_PAGE_LINKS';
+
 export const RECEIVE_SEARCH_ERROR = 'RECEIVE_SEARCH_ERROR';
 
 const receiveSearchError = messages => ({
@@ -20,12 +23,24 @@ export const requestSearch = (url) => ({
   type: REQUEST_SEARCH,
   url
 });
+
 export const requestCurrentPage = () => ({
   type: REQUEST_CURRENT_PAGE
 });
 
+export const requestCurrentPageLinks = () => ({
+  type: REQUEST_CURRENT_PAGE_LINKS
+});
 
-const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL, links) => ({
+export const receiveCurrentPageLinks = (links, isParsed) => ({
+  type: RECEIVE_CURRENT_PAGE_LINKS,
+  links,
+  isParsed
+});
+
+
+
+const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL, links, isParsed) => ({
   type: RECEIVE_CURRENT_PAGE,
   id,
   entityCount,
@@ -37,6 +52,7 @@ const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canon
   heartCount,
   isURL,
   links,
+  isParsed
 });
 
 /* This demands a more efficent API.
@@ -56,7 +72,7 @@ export const fetchCurrentPage = (id) => dispatch => {
           text: 'Error in Response'
         }]));
       } else {
-        const { entityCount, title, links, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
+        const { isParsed, entityCount, title, links, superEdges, queryLink, canonicalLink, _id, heart:{ value, count} } = res.body;
         const isURL = true;
         analytics('pageConnectionDisplayed', String(entityCount));
         dispatch(receiveCurrentPage(
@@ -70,7 +86,37 @@ export const fetchCurrentPage = (id) => dispatch => {
           count,
           isURL,
           links,
+          isParsed,
         ));
+
+      }
+    });
+}
+
+
+export const fetchCurrentPageLinks = (id) => dispatch => {
+  dispatch(requestCurrentPageLinks());
+  request
+    .get(`${rootURL}/api/node/${id}`)
+    .set('Accept', 'application/json')
+    .end((err, res) => {
+      if (err) {
+        dispatch(receiveSearchError([{
+          type: 'error',
+          text: 'Error in Response'
+        }]));
+      } else {
+        const { isParsed, links } = res.body;
+        dispatch(receiveCurrentPageLinks(
+          links,
+          isParsed,
+        ));
+        // Refetch if all the links are not parsed
+        if (isParsed === false) {
+          setTimeout(()=>{
+            dispatch(fetchCurrentPageLinks(id));
+          }, 4000)
+        }
       }
     });
 }

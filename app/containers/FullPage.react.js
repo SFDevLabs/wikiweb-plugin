@@ -6,7 +6,7 @@ import { fetchPostEdge } from '../actions/edge';
 import { fetchHeart } from '../actions/heart';
 import analytics from '../analytics';
 import config from '../config';
-import { fetchCurrentPage } from '../actions/currentPage';
+import { fetchCurrentPageLinks } from '../actions/currentPage';
 import ReactSpinner from 'react-spinjs';
 
 const { rootURL } = config;
@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
       canonicalLink,
       heartCount,
       heartValue,
+      isParsed,
     },
   } = state;
 
@@ -55,6 +56,7 @@ const mapStateToProps = (state) => {
     messagesConnect,
     heartCount,
     heartValue,
+    isParsed,
   };
 };
 
@@ -70,7 +72,6 @@ class FullPage extends Component {
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     profile: PropTypes.object,
-    isFetchingEdge: PropTypes.bool.isRequired,
     heartValue: PropTypes.bool.isRequired,
     messagesConnect: PropTypes.array.isRequired,
     heartCount: PropTypes.number.isRequired,
@@ -87,7 +88,7 @@ class FullPage extends Component {
 
   componentWillMount() {
     const { id, dispatch} = this.props;
-    dispatch(fetchCurrentPage(id));
+    dispatch(fetchCurrentPageLinks(id));
 
     window.onkeyup = (e) => {
       if (e.keyCode === 27) {
@@ -107,13 +108,13 @@ class FullPage extends Component {
       profile,
       superEdges,
       entityCount,
-      isFetchingEdge,
       messagesConnect,
       heartValue,
       heartCount,
       links,
       title,
       queryLink,
+      isParsed,
     } = this.props;
 
     const {
@@ -124,7 +125,6 @@ class FullPage extends Component {
       isLoginRedirectToggledOn,
     } = this.state;
 
-    console.log(this.props, 'props from fullpage')
 
     const profileBox = (<a
         type="button"
@@ -304,13 +304,12 @@ class FullPage extends Component {
         {superEdgeRows}
         {pageLinksJSX}
       </div>)
-
     return (
       <div id='fullPage'>
         {headerJSX}
         <div className={'pageContents'}>
-          {isFetching ?
-            <ReactSpinner color="black"/>:
+          {isFetching || isParsed === false ?
+            <ReactSpinner color="black"/> :
             <div>
               {pageTitleSection}
               {resultsGrid}

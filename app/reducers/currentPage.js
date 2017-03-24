@@ -3,6 +3,8 @@ import {
   RECEIVE_CURRENT_PAGE,
   RECEIVE_SEARCH_ERROR,
   REQUEST_CURRENT_PAGE,
+  REQUEST_CURRENT_PAGE_LINKS,
+  RECEIVE_CURRENT_PAGE_LINKS,
 } from '../actions/currentPage';
 
 import {
@@ -12,6 +14,7 @@ import {
 const defaultVals = {
   id: '',
   isFetching: true, // Initaly set to true to prevent inital app flicker
+  isParsed: false,
   entityCount: 0,
   title: '',
   superEdges: [],
@@ -33,10 +36,29 @@ const currentPage = (state = defaultVals, action) => {
     }
     case REQUEST_CURRENT_PAGE: {
       return {
-        ...defaultVals,
+        ...state,
         isFetching: true,
       };
     }
+
+    case REQUEST_CURRENT_PAGE_LINKS: {
+      return {
+        ...state,
+      };
+    }
+
+    case RECEIVE_CURRENT_PAGE_LINKS: {
+      const {
+        links,
+        isParsed,
+      } = action;
+      return {
+        ...state,
+        links,
+        isParsed
+      };
+    }
+
     case RECEIVE_CURRENT_PAGE: {
       const {
         id,
@@ -48,6 +70,7 @@ const currentPage = (state = defaultVals, action) => {
         heartCount,
         heartValue,
         links,
+        isParsed,
       } = action;
       return {
         ...state,
@@ -61,6 +84,7 @@ const currentPage = (state = defaultVals, action) => {
         heartValue,
         links,
         isFetching: false,
+        isParsed,
       };
     }
     case RECEIVE_HEART: {
