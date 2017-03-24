@@ -199,16 +199,6 @@ class Connections extends Component {
         </div>
       </div>) : null
 
-    const showAddRecommendationButton = !isAddConnectionToggledOn && isLoggedIn ? 'flex' : 'none';
-    const addRecommendationButton = entityCount === 0 ?
-      (<div
-        className={'addRecommendationButton'}
-        onClick={toggleMiddleSection.bind(this)}
-        style={{ display: showAddRecommendationButton }} >
-        <span>Add Recommendation</span>
-      </div>) : null;
-
-
     const inputBox = isLoggedIn && isAddConnectionToggledOn ? (
       <div className={'inputBox'}>
         <Add onSave={this.onSave} />
@@ -350,7 +340,6 @@ class Connections extends Component {
           <div id="rightFooterCol">
             {verticalDivider}
             {recommenderInfo}
-            {addRecommendationButton}
             {inputSuccessErrorMessages}
             {loginButton}
             <a onClick={this.onCloseFooter}>
