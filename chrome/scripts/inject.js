@@ -3,7 +3,7 @@ let iframe; // Store on the script level
 let spacer; // Store on the script level
 let notification; // Store on the script level
 const expandedHeight = '100%';
-const defaultHeight = '46px';
+const defaultHeight = '47px';
 const TIMEOUT_NOTIFICATION = 3000;
 
 /**

@@ -85,6 +85,7 @@ class Connections extends Component {
       if (e.keyCode === 27) {
         this.setState({
           isAddConnectionToggledOn: false,
+          rotateConnectionBox: false,
         });
       }
     };
@@ -271,7 +272,10 @@ class Connections extends Component {
         <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div className={'noRecommendations'}>
             <span>
-              There are no user recommendations for this page
+              There are no user recommendations for this page.
+            </span>
+            <span>
+              <a onClick={this.toggleMiddleSection}>Add one</a>
             </span>
           </div>
         </div>
@@ -288,8 +292,8 @@ class Connections extends Component {
 
     const verticalDivider = <div className={'verticalDivider'} style={{ margin: '0px 15px' }} ><div /></div>
 
-    const expandIconClass = superEdges && superEdges.length > 1 ? 
-      'fa fa-forward expandButtonMultipleUserConnections' : 
+    const expandIconClass = superEdges && superEdges.length > 1 ?
+      'fa fa-forward expandButtonMultipleUserConnections' :
       'fa fa-forward expandButtonNoUserConnections';
     const expandBox = (
       <div className={'expandFooterBox'}>
@@ -324,7 +328,7 @@ class Connections extends Component {
                 />
                 <span className={'heartCount'} style={{ display: showHeartCount }}>{heartCount}</span>
               </div>
-              <div className={'addConnectionBox'} onClick={toggleMiddleSection.bind(this)}>
+              <div className={'addConnectionBox'} onClick={this.toggleMiddleSection}>
                 <i
                   className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass}
                   onMouseEnter={enterConnectionBox.bind(this)}
@@ -410,6 +414,18 @@ class Connections extends Component {
 
     e.preventDefault();
   }
+  toggleMiddleSection = (e) => {
+    const { isAddConnectionToggledOn } = this.state;
+    if (isAddConnectionToggledOn) { analytics('addConnectionToggled'); }
+
+    this.setState({
+      heartClickAttempted: false,
+      isAddConnectionToggledOn: !isAddConnectionToggledOn,
+      rotateConnectionBox: true,
+    });
+    e.preventDefault();
+  }
+
 }
 
 export default connect(mapStateToProps)(Connections);
@@ -427,16 +443,5 @@ function leaveConnectionBox(e) {
       rotateConnectionBox: false,
     });
   }
-  e.preventDefault();
-}
-
-function toggleMiddleSection(e) {
-  const { isAddConnectionToggledOn } = this.state;
-  if (isAddConnectionToggledOn) { analytics('addConnectionToggled'); }
-
-  this.setState({
-    heartClickAttempted: false,
-    isAddConnectionToggledOn: !isAddConnectionToggledOn
-  });
   e.preventDefault();
 }

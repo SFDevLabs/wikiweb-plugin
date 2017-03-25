@@ -6,7 +6,6 @@ html, body, #wikiwebRoot, #wikiwebApp {
 }
 
 body {
-  border-top: 3px solid purple;
   margin: 0;
   padding: 0;
   background-color: white; /* included because we're getting some funky height issues. This should be removed once those are fixed. */
@@ -187,6 +186,7 @@ body {
 /********************/
 
 .wikiwebFooter {
+  border-top: 2px solid purple;
   position: fixed;
   bottom: 0;
 	z-index: 2147483647; /* max z-index */
@@ -551,7 +551,7 @@ and (max-width : 1224px) {
     padding-top: 15px;
     align-items: center;
     span {
-      margin-left: 80px;
+      margin-left: 20px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -561,6 +561,12 @@ and (max-width : 1224px) {
       letter-spacing: -.02em;
       font-weight: 700;
       font-style: normal;
+    }
+    span:first-of-type {
+      margin-left: 50px;
+    }
+    span:nth-of-type(2) {
+      color: purple;
     }
   }
 }

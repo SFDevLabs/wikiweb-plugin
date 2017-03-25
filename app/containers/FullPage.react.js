@@ -188,7 +188,7 @@ class FullPage extends Component {
     let pageLinksJSX = links && links.length > 0 ?
       links.map((link, i) => {
         const pageTo = link.pageTo;
-        if (!pageTo) return null;
+        if (!pageTo ) return <div key={i} />;
         const { title, faviconCDN, canonicalLink, domain } = pageTo;
         return <div key={i} className={'row'}>
           <div className={'typeCol'}>
@@ -197,7 +197,9 @@ class FullPage extends Component {
             </span>
           </div>
           <div className={'titleCol'}>
-            <a target="_blank" href={canonicalLink} className={'noOverflow title'}>{title}</a>
+            <a target="_blank" href={canonicalLink} className={'noOverflow title'}>
+              {title.length>0 ? title : canonicalLink}
+            </a>
             <span className={'noOverflow favicon'} title={'link to page'}>
               <a target="_blank" href={canonicalLink}>
                 <img src={faviconCDN} />
@@ -215,10 +217,9 @@ class FullPage extends Component {
 
     ) :
     [<div>
-      <p>There are no connection on this page.</p>
+      <p>There are no connection on this page. Add One</p>
     </div>];
 
-    pageLinksJSX = pageLinksJSX.slice(0, 10);
 
     const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) =>
       <div key={i} className={'row'}>
