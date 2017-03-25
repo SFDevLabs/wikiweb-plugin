@@ -27,6 +27,7 @@ function createIframe(){
   iframe.style.visibility = 'visible';
   iframe.style.top = 'initial';
   iframe.style.right = 'initial';
+  iframe.style.transition = 'all 250ms ease-in-out'
   document.body.append(iframe);
   return iframe;
 }

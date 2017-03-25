@@ -39,11 +39,11 @@ class App extends Component {
     const { wikiwebExpanded } = this.state;
     return (
       <div id='wikiwebApp' >
+        <Connections expanded={wikiwebExpanded} fullPageToggle={this.fullPageToggle} />
         {wikiwebExpanded ?
           <FullPage fullPageToggle={this.fullPageToggle} /> :
           null
         }
-        <Connections expanded={wikiwebExpanded} fullPageToggle={this.fullPageToggle} />
       </div>
     );
   }

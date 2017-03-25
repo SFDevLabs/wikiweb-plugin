@@ -20,7 +20,6 @@ body {
 /************************/
 
 #fullPage {
-  height: calc(100% - 45px); /* minus height of footer */
   width: 100%;
   margin: 0;
   padding: 0;
@@ -33,7 +32,7 @@ body {
     flex-direction: row;
     box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
     background-color: rgb(245, 248, 250);
-    border-top: 3px solid purple;
+    border-top: 2px solid purple;
     .fontLogo {
       justify-content: flex-start;
       width: 100px;
@@ -187,8 +186,7 @@ body {
 
 .wikiwebFooter {
   border-top: 2px solid purple;
-  position: fixed;
-  bottom: 0;
+  border-bottom: 2px solid purple;
 	z-index: 2147483647; /* max z-index */
   height: 45px;
   width: 100%;
@@ -659,6 +657,10 @@ and (max-width : 1224px) {
   }
 }
 
+.closeContainer{
+  margin-left: 140px;
+  margin-top: 11px;
+}
 .closeButton {
   color: rgba(0, 0, 0, 0.15);
   transition:color 250ms ease;

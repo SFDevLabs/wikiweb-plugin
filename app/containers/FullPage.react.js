@@ -147,13 +147,13 @@ class FullPage extends Component {
           Log in</a></span>
       </div>)
 
-    const headerJSX = (
-      <div className={'header'}>
-        <div className={'fontLogo'}>
-          <a href="https://wikiweb.org">WikiWeb</a>
-        </div>
-      </div>
-    )
+    // const headerJSX = (
+    //   <div className={'header'}>
+    //     <div className={'fontLogo'}>
+    //       <a href="https://wikiweb.org">WikiWeb</a>
+    //     </div>
+    //   </div>
+    // )
 
     const pageTitleSection = (
       <div className={'pageTitleSection'}>
@@ -198,7 +198,7 @@ class FullPage extends Component {
           </div>
           <div className={'titleCol'}>
             <a target="_blank" href={canonicalLink} className={'noOverflow title'}>
-              {title.length>0 ? title : canonicalLink}
+              {title.length > 0 ? title : canonicalLink}
             </a>
             <span className={'noOverflow favicon'} title={'link to page'}>
               <a target="_blank" href={canonicalLink}>
@@ -216,7 +216,7 @@ class FullPage extends Component {
       }
 
     ) :
-    [<div>
+    [<div key={1}>
       <p>There are no connection on this page. Add One</p>
     </div>];
 
@@ -265,7 +265,6 @@ class FullPage extends Component {
       </div>)
     return (
       <div id='fullPage'>
-        {headerJSX}
         <div className={'pageContents'}>
           {isFetching || isParsed === false ?
             <ReactSpinner color="black"/> :
