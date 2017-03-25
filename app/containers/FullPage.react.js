@@ -214,8 +214,8 @@ class FullPage extends Component {
       }
 
     ) :
-    [<div>
-      <p>There are no connection on this page.</p>
+    [<div style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20 }}>
+      <span style={{ fontWeigth: 700, fontSize: 14 }}>There are no connections on this page - be the first to add one.</span>
     </div>];
 
     pageLinksJSX = pageLinksJSX.slice(0, 10);
