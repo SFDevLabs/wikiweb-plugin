@@ -658,8 +658,8 @@ and (max-width : 1224px) {
 }
 
 .closeContainer{
-  margin-left: 140px;
-  margin-top: 11px;
+  position: absolute;
+  right: 17px;
 }
 .closeButton {
   color: rgba(0, 0, 0, 0.15);
