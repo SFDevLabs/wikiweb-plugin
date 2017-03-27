@@ -20,19 +20,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const that = this;
     const { dispatch } = this.props;
-
-    chrome.tabs.query(
-      { active: true, currentWindow: true },
-      (tabs) => {
-        const tab = tabs[0];
-        if (tab) {
-          const { url } = tab;
-          dispatch(fetchSearch(url));
-          dispatch(fetchProfile());
-        }
-      });
+    const url = unescape(this.getParamValue('href'));
+    dispatch(fetchSearch(url));
+    dispatch(fetchProfile());
   }
 
   render() {
@@ -50,7 +41,7 @@ class App extends Component {
 
   fullPageToggle = () => {
     const { wikiwebExpanded } = this.state;
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
       const tab = tabs[0];
       if (tab) {
         chrome.tabs.sendMessage(tab.id, {wikiwebExpanded: !wikiwebExpanded});
@@ -59,6 +50,17 @@ class App extends Component {
     this.setState({
       wikiwebExpanded: !wikiwebExpanded,
     });
+  }
+
+  getParamValue = (paramName) => {
+    const url = window.location.search.substring(1); //get rid of "?" in querystring
+    const qArray = url.split('&'); //get key-value pairs
+    for (let i = 0; i < qArray.length; i + 1) {
+      const pArr = qArray[i].split('='); //split key and value
+      if (pArr[0] === paramName) {
+        return pArr[1]; //return value
+      }
+    }
   }
 }
 

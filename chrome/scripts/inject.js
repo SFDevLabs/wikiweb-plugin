@@ -13,7 +13,7 @@ const TIMEOUT_NOTIFICATION = 3000;
 function createIframe(){
   let iframe = document.createElement('iframe');
   iframe.id="wwinject"
-  iframe.src='chrome-extension://'+chrome.runtime.id+'/main.html';
+  iframe.src='chrome-extension://'+chrome.runtime.id+'/main.html?href='+escape(window.location.href);
   iframe.style.width = '100%';
   iframe.style.position = 'fixed';
   iframe.style.left = 0;
@@ -145,7 +145,6 @@ getLocalStore(function(err, wikiwebFooterActive) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender) {
-    console.log(request, sender);
     const wikiwebExpanded = request.wikiwebExpanded;
     if (iframe && wikiwebExpanded){
       iframe.style.height = expandedHeight;
