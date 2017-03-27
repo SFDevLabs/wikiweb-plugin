@@ -225,7 +225,6 @@ class Connections extends Component {
       null;
     const recommendationBox =
       entityCount > 0 &&
-      !isFetching &&
       !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
         <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
@@ -301,7 +300,7 @@ class Connections extends Component {
           <i className={expandIconClass} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
         </a>
       </div>)
-
+    const fetchingHidden = isFetching ? 'hidden' : '';
     return (
       <div id='wikiwebFooter' className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'logoBox'}>
@@ -319,9 +318,9 @@ class Connections extends Component {
         </div>
         :null}
         <div className={'centerBox'}>
-          <div id="leftFooterCol">
-            <div className={'addMetaBox'}>
-              <div style={{ visibility:'hidden' }} className={'heartSubmit'}>
+          <div id="leftFooterCol" style={{ visibility: fetchingHidden }} >
+            <div className={'addMetaBox'} >
+              <div style={{ display:'none' }} className={'heartSubmit'}>
                 <i
                   onClick={this.onHeart.bind(this)}
                   className={'fa ' + heartIconType + ' heartIcon'}
@@ -339,19 +338,18 @@ class Connections extends Component {
             {verticalDivider}
           </div>
 
-          <div id="middleFooterCol">
+          <div id="middleFooterCol" style={{ visibility: fetchingHidden }} >
             {recommendationBox}
             {noRecommendationBox}
             {loginText}
             {inputBox}
           </div>
 
-          <div id="rightFooterCol">
+          <div id="rightFooterCol" style={{ visibility: fetchingHidden }} >
             {verticalDivider}
             {recommenderInfo}
             {inputSuccessErrorMessages}
             {loginButton}
-
           </div>
           <a className="closeContainer" onClick={this.onCloseFooter}>
             <i className={'fa fa-times closeButton'} />
