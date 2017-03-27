@@ -11,9 +11,9 @@ function setExtensionButon(active) {
     128: '../img/icon-128-connected.png',
   }:
   {
-    16: '../img/icon-16-not-connected.png',
-    48: '../img/icon-48-not-connected.png',
-    128: '../img/icon-128-not-connected.png',
+    16: '../img/sub-icon-16-not-connected.png',
+    48: '../img/sub-icon-48-not-connected.png',
+    128: '../img/sub-icon-128-not-connected.png',
   };
   // Set the path for the icon
   chrome.browserAction.setIcon({
