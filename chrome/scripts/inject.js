@@ -145,7 +145,6 @@ getLocalStore(function(err, wikiwebFooterActive) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender) {
-    console.log(request, sender);
     const wikiwebExpanded = request.wikiwebExpanded;
     if (iframe && wikiwebExpanded){
       iframe.style.height = expandedHeight;
