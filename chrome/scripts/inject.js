@@ -2,8 +2,8 @@
 let iframe; // Store on the script level
 let spacer; // Store on the script level
 let notification; // Store on the script level
-const expandedHeight = '100%';
-const defaultHeight = '47px';
+const expandedHeight = '0';//'100%';
+const defaultHeight = 'calc(-100% + 47px)'//'47px';
 const TIMEOUT_NOTIFICATION = 3000;
 const originalDocumentOverflow = document.body.style.overflow
 const originalHTMLOverflow = document.documentElement.style.overflow;
@@ -20,11 +20,12 @@ function createIframe(){
   iframe.style.left = 0;
   iframe.style.bottom = 0;
   iframe.style.border = 'none';
-  iframe.style.height = defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
+  iframe.style.height = '100%'//defaultHeight; /* 45px height corresponds with plugin height in stylesheet. We're using 46 here to account for the borderTop/boxShadowTop */
   iframe.style.zIndex = '2147483647';
   iframe.style.display = 'block';
   iframe.style.opacity = '1';
   iframe.style.margin = '0px';
+  iframe.style.bottom = defaultHeight;
   iframe.style.visibility = 'visible';
   iframe.style.top = 'initial';
   iframe.style.right = 'initial';
@@ -148,11 +149,11 @@ chrome.runtime.onMessage.addListener(
   function(request, sender) {
     const wikiwebExpanded = request.wikiwebExpanded;
     if (iframe && wikiwebExpanded){
-      iframe.style.height = expandedHeight;
+      iframe.style.bottom = expandedHeight;
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
    } else if (iframe && !wikiwebExpanded) {
-     iframe.style.height = defaultHeight;
+     iframe.style.bottom = defaultHeight;
      document.body.style.overflow = originalDocumentOverflow;
      document.documentElement.style.overflow = originalHTMLOverflow;
    }
