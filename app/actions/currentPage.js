@@ -94,7 +94,7 @@ export const fetchCurrentPage = (id, cb) => dispatch => {
 }
 
 
-export const fetchCurrentPageLinks = (id) => dispatch => {
+export const fetchCurrentPageLinks = (id) => (dispatch, attempts) => {
   dispatch(requestCurrentPageLinks());
   request
     .get(`${rootURL}/api/node/${id}`)
@@ -112,10 +112,15 @@ export const fetchCurrentPageLinks = (id) => dispatch => {
           isParsed,
         ));
         // Refetch if all the links are not parsed
-        if (isParsed === false) {
-          setTimeout(()=>{
-            dispatch(fetchCurrentPageLinks(id));
+        if (isParsed === false && attempts > 4) {
+          setTimeout(() => {
+            dispatch(fetchCurrentPageLinks(id, attempts ? attempts + 1 : 0));
           }, 4000)
+        } else {
+          dispatch(receiveCurrentPageLinks(
+            links,
+            true,
+          ));
         }
       }
     });
