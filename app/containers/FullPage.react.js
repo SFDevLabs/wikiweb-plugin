@@ -88,7 +88,9 @@ class FullPage extends Component {
 
   componentWillMount() {
     const { id, dispatch} = this.props;
-    dispatch(fetchCurrentPageLinks(id));
+    if (id.length > 0){
+      dispatch(fetchCurrentPageLinks(id));
+    }
 
     window.onkeyup = (e) => {
       if (e.keyCode === 27) {

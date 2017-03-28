@@ -29,13 +29,14 @@ const mapStateToProps = (state) => {
       canonicalLink,
       heartCount,
       heartValue,
+      messages
     },
   } = state;
   const connectEntityId = connectEntity.id;
   const isFetchingEdge = edge.isFetching;
   const messagesEdge = edge.messages;
   const messagesConnect = connectEntity.messages;
-
+  debugger
   return {
     isFetching,
     isLoggedIn,
@@ -49,6 +50,8 @@ const mapStateToProps = (state) => {
     queryLink,
     canonicalLink,
     messagesConnect,
+    messagesEdge,
+    messages,
     heartCount,
     heartValue,
   };
@@ -67,6 +70,8 @@ class Connections extends Component {
     isFetchingEdge: PropTypes.bool.isRequired,
     heartValue: PropTypes.bool.isRequired,
     messagesConnect: PropTypes.array.isRequired,
+    messages: PropTypes.array.isRequired,
+    messagesEdge: PropTypes.array.isRequired,
     heartCount: PropTypes.number.isRequired,
     connectEntityId: PropTypes.string,
     expanded: PropTypes.bool.isRequired,
@@ -119,6 +124,8 @@ class Connections extends Component {
       entityCount,
       isFetchingEdge,
       messagesConnect,
+      messagesEdge,
+      messages,
       heartValue,
       heartCount,
       expanded,
@@ -265,8 +272,7 @@ class Connections extends Component {
 
     const noRecommendationBox =
       entityCount === 0 &&
-      !isFetching &&
-      !isFetchingEdge ?
+      messages.length === 0 ?
       (
         <div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
           <div className={'noRecommendations'}>
@@ -278,10 +284,18 @@ class Connections extends Component {
             </span>
           </div>
         </div>
-      ) : null;
+      ) :
+      null;
+
+      const pageErrorMessages =
+        messages.length > 0 && !isFetching?
+        (<div className={'inputSuccessErrorMessages noOverflow'}>
+          <Message messages={messages} />
+        </div>):
+        null;
+
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
-        <span>{isFetchingEdge ? 'isFetchingEdge' : ''} </span>
         <Message messages={messagesConnect} />
       </div>) : null;
 
@@ -294,13 +308,11 @@ class Connections extends Component {
     const expandIconClass = superEdges && superEdges.length > 1 ?
       'fa fa-forward expandButtonMultipleUserConnections' :
       'fa fa-forward expandButtonNoUserConnections';
-    const expandBox = (
-      <div className={'expandFooterBox'}>
-        <a onClick={this.onExpandFooter}>
-          <i className={expandIconClass} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
-        </a>
-      </div>)
+
     const fetchingHidden = isFetching ? 'hidden' : '';
+
+
+
     return (
       <div id='wikiwebFooter' className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'logoBox'}>
@@ -308,7 +320,15 @@ class Connections extends Component {
             <img src="img/logo.png" style={{ height: 30, width: 30, marginTop: 8 }} />
           </a>
         </div>
-        {expandBox}
+        {
+          messages.length === 0 && !isFetching?
+          (<div className={'expandFooterBox'}>
+              <a onClick={this.onExpandFooter}>
+                <i className={expandIconClass} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
+              </a>
+            </div>):
+          null
+        }
 
       {isLoginRedirectToggledOn?
         <div className="loginRefreshPromp" >
@@ -327,13 +347,17 @@ class Connections extends Component {
                 />
                 <span className={'heartCount'} style={{ display: showHeartCount }}>{heartCount}</span>
               </div>
-              <div className={'addConnectionBox'} onClick={this.toggleMiddleSection}>
-                <i
-                  className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass}
-                  onMouseEnter={enterConnectionBox.bind(this)}
-                  onMouseLeave={leaveConnectionBox.bind(this)}
-                />
-              </div>
+              {
+                messages.length === 0 ?
+                (<div className={'addConnectionBox'} onClick={this.toggleMiddleSection}>
+                  <i
+                    className={'addConnectionIcon fa fa-plus-square-o ' + connectionBoxRotationClass}
+                    onMouseEnter={enterConnectionBox.bind(this)}
+                    onMouseLeave={leaveConnectionBox.bind(this)}
+                  />
+                </div>):
+                null
+              }
             </div>
             {verticalDivider}
           </div>
@@ -341,6 +365,7 @@ class Connections extends Component {
           <div id="middleFooterCol" style={{ visibility: fetchingHidden }} >
             {recommendationBox}
             {noRecommendationBox}
+            {pageErrorMessages}
             {loginText}
             {inputBox}
           </div>

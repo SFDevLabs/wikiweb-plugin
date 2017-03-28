@@ -24,6 +24,7 @@ const defaultVals = {
   heartCount: 0,
   heartValue: false,
   links: [],
+  messages: [],
 };
 
 const currentPage = (state = defaultVals, action) => {
@@ -37,12 +38,15 @@ const currentPage = (state = defaultVals, action) => {
     case REQUEST_CURRENT_PAGE: {
       return {
         ...state,
+        messages: [],
         isFetching: true,
       };
     }
 
     case REQUEST_CURRENT_PAGE_LINKS: {
       return {
+        messages: [],
+        isFetching: true,
         ...state,
       };
     }

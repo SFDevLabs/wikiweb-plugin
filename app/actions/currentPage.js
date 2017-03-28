@@ -136,6 +136,7 @@ export const fetchSearch = (url, tabId) => (dispatch) => {
       if (err) {
         return dispatch(receiveSearchError([{
           type: 'error',
+          message: 'There was an error, Please try again'
         }]));
       } // Stop here on err
       const { body: { isURL, node, parseSuccess, messages } } = res;
