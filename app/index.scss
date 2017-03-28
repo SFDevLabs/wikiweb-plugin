@@ -260,6 +260,7 @@ a {
 }
 
 .transitionReadNext {
+  overflow-y: hidden;
 	display: block;
 	transition:         margin 350ms ease;
 	-moz-transition:    margin 350ms ease;

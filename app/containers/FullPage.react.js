@@ -134,18 +134,18 @@ class FullPage extends Component {
         <img src={profile.profile_image} style={{ marginTop: 8, height: '32px', borderRadius: '3px' }} />
       </a>)
 
-    const loginButton = (
-      <div className={'btn btn-default navbar-btn'}>
-        <span><a
-          target="_blank"
-          onClick={() => {
-            this.onLoginRedirect()
-            analytics('loginClicked');
-          }}
-          href={`${rootURL}/login`}
-        >
-          Log in</a></span>
-      </div>)
+    // const loginButton = (
+    //   <div className={'btn btn-default navbar-btn'}>
+    //     <span><a
+    //       target="_blank"
+    //       onClick={() => {
+    //         this.onLoginRedirect()
+    //         analytics('loginClicked');
+    //       }}
+    //       href={`${rootURL}/login`}
+    //     >
+    //       Log in</a></span>
+    //   </div>)
 
     // const headerJSX = (
     //   <div className={'header'}>
