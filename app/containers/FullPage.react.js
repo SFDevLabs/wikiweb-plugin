@@ -216,7 +216,7 @@ class FullPage extends Component {
       }
 
     ) :
-    [<div style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20 }}>
+    [<div key={0} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20 }}>
       <span style={{ fontWeigth: 700, fontSize: 14 }}>There are no connections on this page - be the first to add one.</span>
     </div>];
 
