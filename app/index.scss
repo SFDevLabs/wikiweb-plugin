@@ -25,6 +25,7 @@ body {
   padding: 0;
   background-color: white;
   display: block;
+  margin-top: 85px;
   .header {
     height: 50px;
     width: 100%;
@@ -197,6 +198,8 @@ body {
 /********************/
 
 .wikiwebFooter {
+  position: fixed;
+  top:0;
   border-top: 2px solid purple;
   border-bottom: 2px solid purple;
 	z-index: 2147483647; /* max z-index */

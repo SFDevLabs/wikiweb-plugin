@@ -5,7 +5,8 @@ let notification; // Store on the script level
 const expandedHeight = '100%';
 const defaultHeight = '47px';
 const TIMEOUT_NOTIFICATION = 3000;
-
+const originalDocumentOverflow = document.body.style.overflow
+const originalHTMLOverflow = document.documentElement.style.overflow;
 /**
  * createIframe
  * @return {object} iframe DOM Element
@@ -149,8 +150,10 @@ chrome.runtime.onMessage.addListener(
     if (iframe && wikiwebExpanded){
       iframe.style.height = expandedHeight;
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
    } else if (iframe && !wikiwebExpanded) {
      iframe.style.height = defaultHeight;
-     document.body.style.overflow = '';
+     document.body.style.overflow = originalDocumentOverflow;
+     document.documentElement.style.overflow = originalHTMLOverflow;
    }
 });
