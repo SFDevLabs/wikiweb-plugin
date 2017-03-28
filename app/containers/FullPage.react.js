@@ -184,9 +184,9 @@ class FullPage extends Component {
           <span>Source</span>
         </div>
       </div>)
-
-    let pageLinksJSX = links && links.length > 0 ?
-      links.map((link, i) => {
+    const filteredLink = links.filter(link => link.pageTo && link.pageTo !== null);
+    let pageLinksJSX =  filteredLink.length > 0 ?
+      filteredLink.map((link, i) => {
         const pageTo = link.pageTo;
         if (!pageTo ) return <div key={i} />;
         const { title, faviconCDN, canonicalLink, domain } = pageTo;
