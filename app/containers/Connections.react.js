@@ -36,7 +36,6 @@ const mapStateToProps = (state) => {
   const isFetchingEdge = edge.isFetching;
   const messagesEdge = edge.messages;
   const messagesConnect = connectEntity.messages;
-  debugger
   return {
     isFetching,
     isLoggedIn,
