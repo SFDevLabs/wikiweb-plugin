@@ -267,11 +267,17 @@ class FullPage extends Component {
       <div id='fullPage'>
         <div className={'pageContents'}>
           {isFetching || isParsed === false ?
-            <ReactSpinner color="black"/> :
-            <div>
+            ( <div>
+                <ReactSpinner color="black"/>
+                <div className={'parsingPage'}>
+                  <span>Parsing Page...</span>
+                </div>
+              </div>
+              ) :
+            (<div>
               {pageTitleSection}
               {resultsGrid}
-            </div>
+            </div>)
           }
 
         </div>
