@@ -130,6 +130,7 @@ function getLocalStore (cb) {
 
 /** Set the inital extension button state **/
 getLocalStore(function(err, wikiwebFooterActive) {
+  
   if (wikiwebFooterActive){
     initApp();
   } else if ( wikiwebFooterActive === undefined ){ // App loadd for first time
