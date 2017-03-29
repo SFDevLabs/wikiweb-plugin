@@ -316,7 +316,7 @@ class Connections extends Component {
       <div id='wikiwebFooter' className={'wikiwebFooter'} style={{ height: 45 }} >
         <div className={'logoBox'}>
           <a onClick={this.onExpandFooter}>
-            <img src="img/logo.png" style={{ height: 30, width: 30, marginTop: 8 }} />
+            <img src="img/icon-48-connected.png" style={{ height: 30, width: 30, marginTop: 8 }} />
           </a>
         </div>
         {
