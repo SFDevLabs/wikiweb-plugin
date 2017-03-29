@@ -32,12 +32,12 @@ export const requestCurrentPageLinks = () => ({
   type: REQUEST_CURRENT_PAGE_LINKS
 });
 
-export const receiveCurrentPageLinks = (links, isParsed) => ({
+export const receiveCurrentPageLinks = (links, isParsed, timedOut) => ({
   type: RECEIVE_CURRENT_PAGE_LINKS,
   links,
-  isParsed
+  isParsed,
+  timedOut,
 });
-
 
 
 const receiveCurrentPage = (id, entityCount, title, superEdges, queryLink, canonicalLink, heartValue, heartCount, isURL, links, isParsed) => ({
@@ -94,7 +94,7 @@ export const fetchCurrentPage = (id, cb) => dispatch => {
 }
 
 
-export const fetchCurrentPageLinks = (id) => (dispatch, attempts) => {
+export const fetchCurrentPageLinks = (id, attempts) => (dispatch) => {
   dispatch(requestCurrentPageLinks());
   request
     .get(`${rootURL}/api/node/${id}`)
@@ -111,15 +111,18 @@ export const fetchCurrentPageLinks = (id) => (dispatch, attempts) => {
           links,
           isParsed,
         ));
+
         // Refetch if all the links are not parsed
-        if (isParsed === false && attempts > 4) {
+        if (isParsed === false && attempts < 3) {
           setTimeout(() => {
-            dispatch(fetchCurrentPageLinks(id, attempts ? attempts + 1 : 0));
-          }, 4000)
+            dispatch(fetchCurrentPageLinks(id, attempts + 1 ));
+          }, 2000)
         } else {
+          const timedOut = true;
           dispatch(receiveCurrentPageLinks(
             links,
             true,
+            timedOut
           ));
         }
       }

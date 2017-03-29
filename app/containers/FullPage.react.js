@@ -31,6 +31,7 @@ const mapStateToProps = (state) => {
       heartCount,
       heartValue,
       isParsed,
+      timedOut,
     },
   } = state;
 
@@ -57,6 +58,7 @@ const mapStateToProps = (state) => {
     heartCount,
     heartValue,
     isParsed,
+    timedOut,
   };
 };
 
@@ -89,7 +91,7 @@ class FullPage extends Component {
   componentWillMount() {
     const { id, dispatch} = this.props;
     if (id.length > 0){
-      dispatch(fetchCurrentPageLinks(id));
+      dispatch(fetchCurrentPageLinks(id, 0));
     }
 
     window.onkeyup = (e) => {
@@ -117,6 +119,7 @@ class FullPage extends Component {
       title,
       queryLink,
       isParsed,
+      timedOut,
     } = this.props;
 
     const {
@@ -256,6 +259,7 @@ class FullPage extends Component {
         {pageLinksJSX}
         {superEdgeJSX}
         {noConnectionsRow}
+        {timedOut ? '' : ''}
       </div>)
     return (
       <div id='fullPage'>
