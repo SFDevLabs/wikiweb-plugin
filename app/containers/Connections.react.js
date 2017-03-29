@@ -418,7 +418,6 @@ class Connections extends Component {
   onLoginRedirect = () => {
     const { isLoginRedirectToggledOn } = this.state;
     const { fullPageToggle } = this.props;
-    fullPageToggle();
     this.setState({
       isLoginRedirectToggledOn: !isLoginRedirectToggledOn,
     });
