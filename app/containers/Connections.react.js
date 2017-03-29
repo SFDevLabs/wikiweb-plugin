@@ -286,13 +286,6 @@ class Connections extends Component {
       ) :
       null;
 
-      const pageErrorMessages =
-        messages.length > 0 && !isFetching?
-        (<div className={'inputSuccessErrorMessages noOverflow'}>
-          <Message messages={messages} />
-        </div>):
-        null;
-
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
         <Message messages={messagesConnect} />
@@ -309,8 +302,6 @@ class Connections extends Component {
       'fa fa-forward expandButtonNoUserConnections';
 
     const fetchingHidden = isFetching ? 'hidden' : '';
-
-
 
     return (
       <div id='wikiwebFooter' className={'wikiwebFooter'} style={{ height: 45 }} >
@@ -329,13 +320,13 @@ class Connections extends Component {
           null
         }
 
-      {isLoginRedirectToggledOn?
-        <div className="loginRefreshPromp" >
+      { isLoginRedirectToggledOn ? 
+        (<div className="loginRefreshPromp" >
           <p>
             Please refresh the page after you log in.
           </p>
-        </div>
-        :null}
+        </div>) : null 
+      }
         <div className={'centerBox'}>
           <div id="leftFooterCol" style={{ visibility: fetchingHidden }} >
             <div className={'addMetaBox'} >
@@ -364,7 +355,6 @@ class Connections extends Component {
           <div id="middleFooterCol" style={{ visibility: fetchingHidden }} >
             {recommendationBox}
             {noRecommendationBox}
-            {pageErrorMessages}
             {loginText}
             {inputBox}
           </div>
