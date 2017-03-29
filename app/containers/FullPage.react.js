@@ -131,6 +131,7 @@ class FullPage extends Component {
     const profileBox = (<a
         type="button"
         href={`${rootURL}/@${profile.username}`}
+        rel="noreferrer noopener"
         onClick={() => { analytics('profileImgClick'); }}
       >
         <img src={profile.profile_image} style={{ marginTop: 8, height: '32px', borderRadius: '3px' }} />
@@ -174,7 +175,7 @@ class FullPage extends Component {
       </div>) : null;
 
     const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) =>
-      <div key={i} className={'row'}>
+      <div key={i} className={'row'} style={{ borderTop: '1px solid #e7e7e7' }}>
         <div className={'typeCol'}>
           <span className={'userContributed'}>
             <i className={'fa fa-user'} title={`Connected by: @${edge.edges[0].user.username}`}/>
@@ -182,12 +183,12 @@ class FullPage extends Component {
         </div>
         <div className={'titleCol'}>
           <span className={'noOverflow title'} title={edge.entity.title}>
-            <a target="_blank" href={edge.entity.canonicalLink}>
+            <a target="_blank" href={edge.entity.canonicalLink} rel="noreferrer noopener">
               {edge.entity.title ? edge.entity.title : edge.entity.canonicalLink}
             </a>
           </span>
           <span className={'noOverflow favicon'} title={edge.entity.title}>
-            <a target="_blank" href={edge.entity.canonicalLink}>
+            <a target="_blank" href={edge.entity.canonicalLink} rel="noreferrer noopener">
               <img style={{ marginTop: 3 }} src={edge.entity.faviconCDN ? edge.entity.faviconCDN : '/img/default-favicon.png'} />
             </a>
           </span>
@@ -221,11 +222,11 @@ class FullPage extends Component {
             </span>
           </div>
           <div className={'titleCol'}>
-            <a target="_blank" href={canonicalLink} className={'noOverflow title'}>
+            <a target="_blank" href={canonicalLink} className={'noOverflow title'} rel="noreferrer noopener">
               {title.length > 0 ? title : canonicalLink}
             </a>
             <span className={'noOverflow favicon'} title={'link to page'}>
-              <a target="_blank" href={canonicalLink}>
+              <a target="_blank" href={canonicalLink} rel="noreferrer noopener">
                 <img src={ faviconCDN && faviconCDN.length ? faviconCDN : 'img/document.ico' } />
               </a>
             </span>
