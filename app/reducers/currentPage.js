@@ -55,11 +55,13 @@ const currentPage = (state = defaultVals, action) => {
       const {
         links,
         isParsed,
+        timedOut,
       } = action;
       return {
         ...state,
         links,
-        isParsed
+        isParsed,
+        timedOut,
       };
     }
 
