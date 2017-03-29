@@ -10,11 +10,9 @@ export const RECEIVE_CONNECTED_SEARCH = 'RECEIVE_CONNECTED_SEARCH';
 export const RECEIVE_CONNECTED_SEARCH_ERROR = 'RECEIVE_CONNECTED_SEARCH_ERROR';
 
 
-const receiveError = (isURL, parseSuccess, messages) => ({
+const receiveError = (messages) => ({
   type: RECEIVE_CONNECTED_SEARCH_ERROR,
   messages,
-  isURL,
-  parseSuccess,
 });
 
 const requestConnectSearch = url => ({
@@ -55,7 +53,7 @@ export const fetchConnectSearch = url => (dispatch) => {
         const { _id, title } = node;
         dispatch(receiveConnectSearch(isURL, parseSuccess, _id, title));
       } else {
-        dispatch(receiveError(isURL, parseSuccess, messages));
+        dispatch(receiveError(messages));
       }
     });
 };

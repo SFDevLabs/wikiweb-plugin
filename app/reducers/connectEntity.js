@@ -25,6 +25,8 @@ const connectEntity = (state = {
     case RESET_CONNECTED_SEARCH: {
       return {
         ...state,
+        isURL: false,
+        parseSuccess: false,
         isFetching: false,
         messages: [],
       };
@@ -48,14 +50,12 @@ const connectEntity = (state = {
     case RECEIVE_CONNECTED_SEARCH_ERROR: {
       const {
         messages,
-        isURL,
-        parseSuccess,
       } = action;
       return {
         ...state,
         messages,
-        isURL,
-        parseSuccess,
+        isURL: false,
+        parseSuccess: false,
         isFetching: false,
       };
     }

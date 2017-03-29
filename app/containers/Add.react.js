@@ -73,7 +73,7 @@ class Add extends Component {
       val,
       typeDelay: true,
     });
-    dispatch(resetConnectSearch(val));
+    dispatch(resetConnectSearch());
     this.submitWithDelay();
   }
 
@@ -100,8 +100,13 @@ class Add extends Component {
     const { isFetching, isURL, parseSuccess } = this.props;
     const formInputClass = isURL && parseSuccess && !isFetching && !typeDelay ? '' : 'invalidSubmit';
     const formInputOnClick = isURL && parseSuccess && !isFetching && !typeDelay ?
-      this.props.onSave :
+      (e) => {
+        const { dispatch } = this.props;
+        dispatch(resetConnectSearch());
+        this.props.onSave(e);
+      } :
       (e) => { e.preventDefault(); };
+
 
     const inputURLColor = // Box is white when
       (isURL && parseSuccess) || // server tells us input value is valid
