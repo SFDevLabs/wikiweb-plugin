@@ -286,6 +286,19 @@ class Connections extends Component {
       ) :
       null;
 
+    const pageErrorMessages =
+      (messages.length > 0) && !isFetching?
+      (<div className={'inputSuccessErrorMessages noOverflow'}>
+        <Message messages={messages} />
+      </div>):
+      null;
+    const edgeErrorMessages =
+      ( messagesEdge.length > 0) && !isFetching?
+      (<div className={'inputSuccessErrorMessages noOverflow'}>
+        <Message messages={messagesEdge} />
+      </div>):
+      null;
+
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
         <Message messages={messagesConnect} />
@@ -320,12 +333,12 @@ class Connections extends Component {
           null
         }
 
-      { isLoginRedirectToggledOn ? 
+      { isLoginRedirectToggledOn ?
         (<div className="loginRefreshPromp" >
           <p>
             Please refresh the page after you log in.
           </p>
-        </div>) : null 
+        </div>) : null
       }
         <div className={'centerBox'}>
           <div id="leftFooterCol" style={{ visibility: fetchingHidden }} >
@@ -363,6 +376,7 @@ class Connections extends Component {
             {verticalDivider}
             {recommenderInfo}
             {inputSuccessErrorMessages}
+            {edgeErrorMessages}
             {loginButton}
           </div>
           <a className="closeContainer" onClick={this.onCloseFooter}>
