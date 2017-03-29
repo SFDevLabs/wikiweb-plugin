@@ -167,14 +167,7 @@ class FullPage extends Component {
         </div>
       </div>)
 
-    const filteredLink = links.filter(link => link.pageTo && link.pageTo !== null);
-
-    const noConnectionsRow = superEdges.length === 0 ? (
-      <div style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, borderTop: '1px solid #e7e7e7', backgroundColor: 'rgba(102, 51, 153, 0.3)' }}>
-        <span style={{ fontWeigth: 700, fontSize: 14 }}>There are no user recommendations for this page - be the first to add one.</span>
-      </div>) : null;
-
-    const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) =>
+    const superEdgeJSX = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) =>
       <div key={i} className={'row'} style={{ borderTop: '1px solid #e7e7e7' }}>
         <div className={'typeCol'}>
           <span className={'userContributed'}>
@@ -208,7 +201,13 @@ class FullPage extends Component {
             </a>
           </span>
         </div>
-      </div>) : null;
+      </div>) : [];
+
+    const filteredLink = links.filter((link, pos) =>
+      link.pageTo &&
+      link.pageTo !== null && // Filtering out dead links
+      links.map((link) => link.href).indexOf(link.href) === pos // Removing duplate URLs
+    );
 
     const pageLinksJSX = filteredLink.length > 0 ?
       filteredLink.map((link, i) => {
@@ -239,13 +238,22 @@ class FullPage extends Component {
           </div>
         </div>
       }
-    ) : null
+    ) : [];
+
+    const noConnectionsRow =
+      superEdges.length === 0 &&
+      pageLinksJSX.length === 0 ?
+      (<div style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, borderTop: '1px solid #e7e7e7', backgroundColor: 'rgba(102, 51, 153, 0.3)' }}>
+        <span style={{ fontWeigth: 700, fontSize: 14 }}>
+        There are no user recommendations for this page - be the first to add one.</span>
+      </div>) : null;
+
 
     const resultsGrid = (
       <div className={'resultsGrid'}>
         {gridHeaders}
-        {superEdgeRows}
         {pageLinksJSX}
+        {superEdgeJSX}
         {noConnectionsRow}
       </div>)
     return (

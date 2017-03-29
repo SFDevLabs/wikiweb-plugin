@@ -102,8 +102,17 @@ body {
           line-height: 1.5;
           font-size: 13px;
         }
-        .typeCol, .domainCol, .sourceCol {
+        .typeCol, .sourceCol {
           justify-content: center;
+        }
+        .domainCol{
+          * {
+              justify-content: left;
+              padding-left: 5px;
+              overflow-x: hidden;
+              text-overflow: ellipsis;
+              display: block;
+          }
         }
         .typeCol {
           width: 10%;
