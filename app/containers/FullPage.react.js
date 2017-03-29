@@ -256,8 +256,8 @@ class FullPage extends Component {
     const resultsGrid = (
       <div className={'resultsGrid'}>
         {gridHeaders}
-        {pageLinksJSX}
         {superEdgeJSX}
+        {pageLinksJSX}
         {noConnectionsRow}
         {timedOut ? '' : ''}
       </div>)
