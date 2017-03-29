@@ -96,7 +96,6 @@ body {
         display: flex;
         flex-direction: row;
         height: 55px;
-        border-top: 1px solid #e7e7e7;
         .typeCol, .titleCol, .domainCol, .sourceCol {
           display: flex;
           align-items: center;
@@ -565,7 +564,6 @@ and (max-width : 1224px) {
     width: 480px;
     padding-top: 15px;
     align-items: center;
-    border-top: 1px solid #e7e7e7;
     span {
       margin-left: 20px;
       white-space: nowrap;

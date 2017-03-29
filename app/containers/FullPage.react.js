@@ -136,27 +136,6 @@ class FullPage extends Component {
         <img src={profile.profile_image} style={{ marginTop: 8, height: '32px', borderRadius: '3px' }} />
       </a>)
 
-    // const loginButton = (
-    //   <div className={'btn btn-default navbar-btn'}>
-    //     <span><a
-    //       target="_blank"
-    //       onClick={() => {
-    //         this.onLoginRedirect()
-    //         analytics('loginClicked');
-    //       }}
-    //       href={`${rootURL}/login`}
-    //     >
-    //       Log in</a></span>
-    //   </div>)
-
-    // const headerJSX = (
-    //   <div className={'header'}>
-    //     <div className={'fontLogo'}>
-    //       <a href="https://wikiweb.org">WikiWeb</a>
-    //     </div>
-    //   </div>
-    // )
-
     const pageTitleSection = (
       <div className={'pageTitleSection'}>
         <div className={'titleImgBox'}>
@@ -186,42 +165,13 @@ class FullPage extends Component {
           <span>Source</span>
         </div>
       </div>)
+
     const filteredLink = links.filter(link => link.pageTo && link.pageTo !== null);
-    let pageLinksJSX =  filteredLink.length > 0 ?
-      filteredLink.map((link, i) => {
-        const pageTo = link.pageTo;
-        if (!pageTo ) return <div key={i} />;
-        const { title, faviconCDN, canonicalLink, domain } = pageTo;
-        return <div key={i} className={'row'}>
-          <div className={'typeCol'}>
-            <span className={'pageLink'}>
-              <i className={'fa fa-code'} title={`Example promoted link`}/>
-            </span>
-          </div>
-          <div className={'titleCol'}>
-            <a target="_blank" href={canonicalLink} className={'noOverflow title'}>
-              {title.length > 0 ? title : canonicalLink}
-            </a>
-            <span className={'noOverflow favicon'} title={'link to page'}>
-              <a target="_blank" href={canonicalLink}>
-                <img src={faviconCDN} />
-              </a>
-            </span>
-          </div>
-          <div className={'domainCol'}>
-            <span>{domain}</span>
-          </div>
-          <div className={'sourceCol'}>
-            <span>Page</span>
-          </div>
-        </div>
-      }
 
-    ) :
-    [<div key={0} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20 }}>
-      <span style={{ fontWeigth: 700, fontSize: 14 }}>There are no connections on this page - be the first to add one.</span>
-    </div>];
-
+    const noConnectionsRow = superEdges.length === 0 ? (
+      <div style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, borderTop: '1px solid #e7e7e7', backgroundColor: 'rgba(102, 51, 153, 0.3)' }}>
+        <span style={{ fontWeigth: 700, fontSize: 14 }}>There are no user recommendations for this page - be the first to add one.</span>
+      </div>) : null;
 
     const superEdgeRows = superEdges && superEdges.length > 0 ? superEdges.map((edge, i) =>
       <div key={i} className={'row'}>
@@ -259,11 +209,43 @@ class FullPage extends Component {
         </div>
       </div>) : null;
 
+    const pageLinksJSX = filteredLink.length > 0 ?
+      filteredLink.map((link, i) => {
+        const pageTo = link.pageTo;
+        if (!pageTo ) return <div key={i} />;
+        const { title, faviconCDN, canonicalLink, domain } = pageTo;
+        return <div key={i} className={'row'} style={{ borderTop: '1px solid #e7e7e7' }}>
+          <div className={'typeCol'}>
+            <span className={'pageLink'}>
+              <i className={'fa fa-code'} title={`Example promoted link`}/>
+            </span>
+          </div>
+          <div className={'titleCol'}>
+            <a target="_blank" href={canonicalLink} className={'noOverflow title'}>
+              {title.length > 0 ? title : canonicalLink}
+            </a>
+            <span className={'noOverflow favicon'} title={'link to page'}>
+              <a target="_blank" href={canonicalLink}>
+                <img src={ faviconCDN && faviconCDN.length ? faviconCDN : 'img/document.ico' } />
+              </a>
+            </span>
+          </div>
+          <div className={'domainCol'}>
+            <span>{domain}</span>
+          </div>
+          <div className={'sourceCol'}>
+            <span>Page</span>
+          </div>
+        </div>
+      }
+    ) : null
+
     const resultsGrid = (
       <div className={'resultsGrid'}>
         {gridHeaders}
         {superEdgeRows}
         {pageLinksJSX}
+        {noConnectionsRow}
       </div>)
     return (
       <div id='fullPage'>
