@@ -71,6 +71,7 @@ function removeNotification() {
 function initApp() {
   iframe = createIframe();
   spacer = createFooterSpacer();
+  bindLinkListener();
 }
 
 /**
@@ -130,7 +131,6 @@ function getLocalStore (cb) {
 
 /** Set the inital extension button state **/
 getLocalStore(function(err, wikiwebFooterActive) {
-  
   if (wikiwebFooterActive){
     initApp();
   } else if ( wikiwebFooterActive === undefined ){ // App loadd for first time
@@ -159,3 +159,19 @@ chrome.runtime.onMessage.addListener(
      document.documentElement.style.overflow = originalHTMLOverflow;
    }
 });
+
+
+function bindLinkListener(){
+  var elements = document.getElementsByTagName('a');
+  for(var i = 0, len = elements.length; i < len; i++) {
+      elements[i].onclick = clickEvent;
+  }
+}
+
+ function clickEvent(e) {
+   destroyApp();
+   setTimeout(function() {
+     initApp();
+     bindLinkListener();
+   }, 500);
+}
