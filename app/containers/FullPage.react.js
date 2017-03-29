@@ -244,9 +244,8 @@ class FullPage extends Component {
       }
     ) : [];
 
-    const noConnectionsRow =
-      superEdges.length === 0 &&
-      pageLinksJSX.length === 0 ?
+    const noSuperEdgesRow =
+      superEdges.length === 0 ?
       (<div style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, borderTop: '1px solid #e7e7e7', backgroundColor: 'rgba(102, 51, 153, 0.3)' }}>
         <span style={{ fontWeigth: 700, fontSize: 14 }}>
         There are no user recommendations for this page - be the first to add one.</span>
@@ -257,8 +256,8 @@ class FullPage extends Component {
       <div className={'resultsGrid'}>
         {gridHeaders}
         {superEdgeJSX}
+        {noSuperEdgesRow}
         {pageLinksJSX}
-        {noConnectionsRow}
         {timedOut ? '' : ''}
       </div>)
     return (
