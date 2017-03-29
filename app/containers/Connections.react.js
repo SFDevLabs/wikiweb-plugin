@@ -455,8 +455,6 @@ class Connections extends Component {
 
 }
 
-export default connect(mapStateToProps)(Connections);
-
 function enterConnectionBox(e) {
   this.setState({
     rotateConnectionBox: true,
@@ -472,3 +470,6 @@ function leaveConnectionBox(e) {
   }
   e.preventDefault();
 }
+
+export default connect(mapStateToProps)(Connections);
+

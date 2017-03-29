@@ -119,7 +119,7 @@ class Add extends Component {
           autoComplete="off"
           type="text"
           name="inputBox goes here"
-          placeholder="What should people read next?"
+          placeholder="Paste a URL to make a connection"
           className={'inputUrl'}
           autoFocus
           onChange={this.onChange}

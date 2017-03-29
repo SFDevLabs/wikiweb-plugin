@@ -128,7 +128,8 @@ class FullPage extends Component {
     } = this.state;
 
 
-    const profileBox = (<a
+    const profileBox = (
+      <a
         type="button"
         href={`${rootURL}/@${profile.username}`}
         rel="noreferrer noopener"
@@ -146,7 +147,7 @@ class FullPage extends Component {
           <div className={'pageTitle noOverflow'}>{title}</div>
           <div className={'queryLink noOverflow'}>{queryLink}</div>
         </div>
-    </div>)
+      </div>)
 
     const gridHeaders = (
       <div className={'row rowHeader'}>
