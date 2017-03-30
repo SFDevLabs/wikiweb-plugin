@@ -156,17 +156,18 @@ class Connections extends Component {
 
     const showLoginInfo = (isAddConnectionToggledOn && !isLoggedIn) || (heartClickAttempted && !isLoggedIn) ? 'flex' : 'none';
     const loginButton = (
-      <div className={'loginButton'} style={{ display: showLoginInfo }}>
-        <span><a
-          target="_blank"
-          onClick={() => {
-            this.onLoginRedirect()
-            analytics('loginClicked');
-          }}
-          href={`${rootURL}/login`}
-        >
-          Log in</a></span>
-      </div>)
+      <span className={'loginButton'} style={{ display: showLoginInfo }}>
+        <span>
+          <a
+            target="_blank"
+            onClick={() => {
+              this.onLoginRedirect()
+              analytics('loginClicked');
+            }}
+            href={`${rootURL}/login`}
+          >Log in</a>
+        </span>
+      </span>)
 
     const loginText = heartClickAttempted ?
       (<div className={'loginText'} style={{ display: showLoginInfo }}>
@@ -174,10 +175,10 @@ class Connections extends Component {
       </div>) :
       (<div className={'loginText'} style={{ display: showLoginInfo }}>
         <span>You must be logged in to make a connection</span>
+        <span style={{ marginLeft: 20 }}>{loginButton}</span>
       </div>)
 
     const calculatedTopOffset = connectionDisplayIndex * -45;
-
 
     const showRecommenderInfo = !isAddConnectionToggledOn ? 'flex' : 'none';
     const recommenderInfo =  entityCount > 0 ?
@@ -211,11 +212,9 @@ class Connections extends Component {
         <Add onSave={this.onSave} />
       </div>) : null;
 
-
     const showRecommendationBox = heartClickAttempted || isAddConnectionToggledOn ? 'none' : 'flex';
     const changeRecommendationBox = superEdges.length > 1 ?
-      (
-        <div className={'changeRecommendationBox'}>
+      (<div className={'changeRecommendationBox'}>
           <i
             onClick={this.incrementConnectionsIndex.bind(this)}
             style={decrementButtonStyle}
@@ -226,12 +225,9 @@ class Connections extends Component {
             style={incrementButtonStyle}
             className={'fa fa-caret-down recommendationToggleCaret'}
           />
-        </div>
-      ) :
-      null;
-    const recommendationBox =
-      entityCount > 0 &&
-      !isFetchingEdge ?
+        </div>) : null;
+
+    const recommendationBox = entityCount > 0 && !isFetchingEdge ?
       (<div className={'recommendationBox'} style={{ display: showRecommendationBox }}>
         <div className={'transitionReadNext'} style={{ marginTop: calculatedTopOffset }}>
         {superEdges.map((edge, i) =>
@@ -286,18 +282,15 @@ class Connections extends Component {
       ) :
       null;
 
-    const pageErrorMessages =
-      (messages.length > 0) && !isFetching?
+    const pageErrorMessages = (messages.length > 0) && !isFetching ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
         <Message messages={messages} />
-      </div>):
-      null;
-    const edgeErrorMessages =
-      ( messagesEdge.length > 0) && !isFetching?
+      </div>) : null;
+
+    const edgeErrorMessages = (messagesEdge.length > 0) && !isFetching ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
         <Message messages={messagesEdge} />
-      </div>):
-      null;
+      </div>) : null;
 
     const inputSuccessErrorMessages = isAddConnectionToggledOn ?
       (<div className={'inputSuccessErrorMessages noOverflow'}>
@@ -323,23 +316,21 @@ class Connections extends Component {
             <img src="img/icon-48-connected.png" style={{ height: 30, width: 30, marginTop: 8 }} />
           </a>
         </div>
-        {
-          messages.length === 0 && !isFetching?
+        { messages.length === 0 && !isFetching ?
           (<div className={'expandFooterBox'}>
-              <a onClick={this.onExpandFooter}>
-                <i className={expandIconClass} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)': 'rotate(270deg)'  }} />
-              </a>
-            </div>):
-          null
+            <a onClick={this.onExpandFooter}>
+              <i className={expandIconClass} style={{ position: 'absolute', right: 40, bottom: 15, transform: expanded ? 'rotate(90deg)' : 'rotate(270deg)'  }} />
+            </a>
+          </div>) : null
         }
 
-      { isLoginRedirectToggledOn ?
-        (<div className="loginRefreshPromp" >
-          <p>
-            Please refresh the page after you log in.
-          </p>
-        </div>) : null
-      }
+        { isLoginRedirectToggledOn ?
+          (<div className="loginRefreshPromp" >
+            <p>
+              Please refresh the page after you log in.
+            </p>
+          </div>) : null
+        }
         <div className={'centerBox'}>
           <div id="leftFooterCol" style={{ visibility: fetchingHidden }} >
             <div className={'addMetaBox'} >
@@ -358,8 +349,7 @@ class Connections extends Component {
                     onMouseEnter={enterConnectionBox.bind(this)}
                     onMouseLeave={leaveConnectionBox.bind(this)}
                   />
-                </div>):
-                null
+                </div>) : null
               }
             </div>
             {verticalDivider}
@@ -376,8 +366,6 @@ class Connections extends Component {
             {verticalDivider}
             {recommenderInfo}
             {inputSuccessErrorMessages}
-            {edgeErrorMessages}
-            {loginButton}
           </div>
           <a className="closeContainer" onClick={this.onCloseFooter}>
             <i className={'fa fa-times closeButton'} />
