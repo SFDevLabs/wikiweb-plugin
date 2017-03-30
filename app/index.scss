@@ -106,11 +106,16 @@ body {
         }
         .domainCol{
           * {
-              justify-content: left;
-              padding-left: 5px;
+              text-align: center;
               overflow-x: hidden;
               text-overflow: ellipsis;
               display: block;
+          }
+          span {
+            text-align: center;
+            width: 100%;
+            padding-left: 3px;
+            padding-right: 3px;
           }
         }
         .typeCol {
