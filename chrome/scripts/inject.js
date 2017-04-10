@@ -144,8 +144,8 @@ getLocalStore(function(err, wikiwebFooterActive) {
     }, TIMEOUT_NOTIFICATION);
   }
 });
-/** Kick Off the App on Page Load **/
 
+/** Expand the application**/
 chrome.runtime.onMessage.addListener(
   function(request, sender) {
     const wikiwebExpanded = request.wikiwebExpanded;
