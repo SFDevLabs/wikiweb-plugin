@@ -2,6 +2,9 @@
 let iframe; // Store on the script level
 let spacer; // Store on the script level
 let notification; // Store on the script level
+let notificationApp; // Store on the script level
+
+
 const expandedHeight = '0';//'100%';
 const defaultHeight = 'calc(-100% + 47px)'//'47px';
 const TIMEOUT_NOTIFICATION = 3000;
@@ -161,6 +164,25 @@ chrome.runtime.onMessage.addListener(
 });
 
 
+/** Make an application notification **/
+chrome.runtime.onMessage.addListener(
+  function(request, sender) {
+    const wikiwebNotification = request.wikiwebNotification;
+    if (wikiwebNotification){
+      const {text, type} = wikiwebNotification;
+      notificationApp = createAppNotification(
+        text,
+        type
+      );
+      setTimeout(function() {
+        removeAppNotification();
+      }, TIMEOUT_NOTIFICATION);
+   } else {
+     // No opp
+   }
+});
+
+
 function bindLinkListener(){
   var elements = document.getElementsByTagName('a');
   for(var i = 0, len = elements.length; i < len; i++) {
@@ -174,4 +196,42 @@ function bindLinkListener(){
      initApp();
      bindLinkListener();
    }, 500);
+}
+
+
+/**
+ * createNotification
+ * @return {object} div DOM Element
+ */
+function createAppNotification(text, type) {
+  var color;
+  switch (type) {
+    case 'warning':
+      color = 'yellow';
+      break;
+    case 'error':
+      color = 'red';
+      break;
+    case 'info':
+      color = 'blue';
+      break;
+    case 'success':
+      color = 'green';
+      break;
+    default:
+      color = 'green';
+};
+  const notificationDiv = document.createElement('div');
+  /* don't split into multi-line. will break. @mceoin */
+  notificationDiv.innerHTML = '<div style="width: 100% !important;padding: 20px !important;position: fixed !important;background-color: '+color+'; bottom: 45px;z-index: 2147483647;color: white;font-weight: 700 !important;font-size: 14px !important;font-family: Geneva, Arial, sans-serif !important;">'+text+'</div>'
+  document.body.append(notificationDiv);
+  return notificationDiv;
+}
+
+/**
+ * removeNotification
+ * @return {object} div DOM Element
+ */
+function removeAppNotification() {
+  if (notificationApp !== undefined) { notificationApp.remove(); };
 }

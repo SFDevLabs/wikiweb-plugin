@@ -24,6 +24,15 @@ const edge = (state = {
       };
     }
     case RECEIVE_EDGE: {
+      chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        const tab = tabs[0];
+        if (tab) {
+          chrome.tabs.sendMessage(tab.id, { wikiwebNotification: {
+            text: 'SUCCESS! You made a connection',
+            type: 'success',
+          } });
+        }
+      });
       return {
         ...state,
         isFetching: false,
