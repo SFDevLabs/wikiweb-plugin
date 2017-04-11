@@ -223,8 +223,23 @@ function createAppNotification(text, type) {
 };
   const notificationDiv = document.createElement('div');
   /* don't split into multi-line. will break. @mceoin */
-  notificationDiv.innerHTML = '<div style="width: 100% !important;padding: 20px !important;position: fixed !important;background-color: '+color+'; bottom: 45px;z-index: 2147483647;color: white;font-weight: 700 !important;font-size: 14px !important;font-family: Geneva, Arial, sans-serif !important;">'+text+'</div>'
   document.body.append(notificationDiv);
+  notificationDiv.innerText = text;
+  notificationDiv.style.transition = 'all 250ms ease-in-out';
+  notificationDiv.style.textAlign = 'center';
+  notificationDiv.style.width = '100%';
+  notificationDiv.style.padding = '10px';
+  notificationDiv.style.position = 'fixed';
+  notificationDiv.style.backgroundColor = color;
+  notificationDiv.style.bottom = 0;
+  notificationDiv.style.zIndex = 2147483646;
+  notificationDiv.style.color = 'white';
+  notificationDiv.style.fontWeight = 700;
+  notificationDiv.style.fontSize= '14px'
+  notificationDiv.style.fontFamily = 'Geneva';
+  setTimeout(function(){
+    notificationDiv.style.marginBottom = '45px';
+  },10);
   return notificationDiv;
 }
 
@@ -233,5 +248,9 @@ function createAppNotification(text, type) {
  * @return {object} div DOM Element
  */
 function removeAppNotification() {
-  if (notificationApp !== undefined) { notificationApp.remove(); };
+  notificationApp.style.marginBottom = '0px';
+  setTimeout(function(){
+  //  if (notificationApp !== undefined) { notificationApp.remove(); };
+  },500);
+
 }
