@@ -43,7 +43,7 @@ function createIframe(){
  */
 function createFooterSpacer(){
   let paddingFooterDiv = document.createElement('div');
-  paddingFooterDiv.style.height = defaultHeight;
+  paddingFooterDiv.style.height = '47px';
   document.body.append(paddingFooterDiv);
   return paddingFooterDiv;
 }
